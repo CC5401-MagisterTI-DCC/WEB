@@ -1,0 +1,13 @@
+@media ( max-width : 767px) {
+	.navbar {
+		margin-left: 0px;
+		margin-right: 0px;
+	}
+}
+
+.navbar .brand {
+	max-height: 40px;
+	overflow: visible;
+	padding-top: 0;
+	padding-bottom: 0;
+}

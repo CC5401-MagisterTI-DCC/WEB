@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		 xmlns="http://java.sun.com/xml/ns/javaee" 
+		 xmlns:web="http://java.sun.com/xml/ns/javaee" 
+		 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" 
+		 id="WebApp_ID" 
+		 version="3.0">
+  <display-name>MagisterWeb</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  <context-param>
+    <param-name>archivos.dir</param-name>
+    <param-value>/home/inscripcion_mti</param-value>
+  </context-param>
+  <context-param>
+    <param-name>usernameMail</param-name>
+    <param-value>postulaciones-mti</param-value>
+  </context-param>
+  <context-param>
+    <param-name>passwordMail</param-name>
+    <param-value>cc5401g1g1</param-value>
+  </context-param>
+  <context-param>
+    <param-name>hostMail</param-name>
+    <param-value>dichato</param-value>
+  </context-param>
+  <context-param>
+    <param-name>portMail</param-name>
+    <param-value>25</param-value>
+  </context-param>
+  <context-param>
+    <param-name>paginaTrack</param-name>
+    <param-value>inscripcion-mti.dcc.uchile.cl:8080/mti/app/track</param-value>
+  </context-param>
+  <context-param>
+    <param-name>paginaRechazo</param-name>
+    <param-value>inscripcion-mti.dcc.uchile.cl:8080/mti/app/reenvio?track</param-value>
+  </context-param>
+  <context-param>
+    <param-name>successSubject</param-name>
+    <param-value>Postulación Magister T.I. Enviada.</param-value>
+  </context-param>
+  <context-param>
+    <param-name>successBody</param-name>
+    <param-value>Estimado (a) @nombre :
+
+Junto con saludarte, informamos que hemos recibido 
+satisfactoriamente su postulación al Programa de 
+Magíster en Tecnologías de la Información, que imparte 
+el Departamento de Ciencias de la Computación de la 
+Universidad de Chile.
+
+El código de seguimiento de su postulación es @track 
+Si desea consultar por el estado de ésta, 
+ingrese este código en el siguiente enlace:
+		
+@paginaTrack
+
+Desde ya agradecemos su postulación y nos comunicaremos
+con usted luego de los resultados del proceso de selección.
+
+Atte.,
+
+Programa de Educación Continua
+		</param-value>
+  </context-param>
+  <context-param>
+    <param-name>rechazoSubject</param-name>
+    <param-value>Postulación Magister - Documentos Rechazados.</param-value>
+  </context-param>
+  <context-param>
+    <param-name>rechazoBody</param-name>
+    <param-value>Estimado (a) @nombre :
+		
+Existe(n) documento(s) en su postulación que han sido rechazados por el comité validador. 
+
+La razón del rechazo de estos fue la siguiente:
+
+@razon
+		
+Por favor ingrese al siguiente enlace para enviar los archivos correctos y así corregir esta situación:  
+		
+@paginaRechazo=@track
+				
+Desde ya agradecemos su postulación y nos comunicaremos
+con usted luego de los resultados del proceso de selección.
+
+Atte.,
+
+Programa de Educación Continua
+		</param-value>
+  </context-param>
+  <listener>
+    <listener-class>org.quartz.ee.servlet.QuartzInitializerListener</listener-class>
+  </listener>
+  <error-page>
+    <error-code>500</error-code>
+    <location>/error.jsp?type=500</location>
+  </error-page>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/error.jsp?type=404</location>
+  </error-page>
+  <error-page>
+    <exception-type>java.lang.Throwable</exception-type>
+    <location>/error.jsp</location>
+  </error-page>
+</web-app>

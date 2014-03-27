@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<job-scheduling-data
+	xmlns="http://www.quartz-scheduler.org/xml/JobSchedulingData"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.quartz-scheduler.org/xml/JobSchedulingData http://www.quartz-scheduler.org/xml/job_scheduling_data_2_0.xsd"
+	version="1.8">
+
+	<schedule>
+		<job>
+			<name>MailScheduler</name>
+			<job-class>cl.uchile.dcc.cc5401.scheduling.MailScheduler</job-class>
+			<job-data-map>
+				<entry>
+					<key>usernameMail</key>
+					<value>postulaciones-mti</value>
+				</entry>
+				<entry>
+					<key>passwordMail</key>
+					<value>cc5401g1g1</value>
+				</entry>
+				<entry>
+					<key>hostMail</key>
+					<value>dichato</value>
+				</entry>
+				<entry>
+					<key>portMail</key>
+					<value>25</value>
+				</entry>
+				<entry>
+					<key>SubjectMensaje</key>
+					<value>Postulaciones Pendientes - Magister T.I.</value>
+				</entry>
+				<entry>
+					<key>BodyMensaje</key>
+					<value>Estimado @usuario:
+
+Ud. tiene @numero_postulacion tarea(s) pendiente(s) en el sistema. Por favor revise su bandeja de entrada.
+
+Saludos cordiales,
+
+Magister T.I. 
+					</value>
+				</entry>
+				<!-- De esta manera se maneja los que quieren que les llegue mail y los 
+					que no -->
+				<entry>
+					<key>comision</key>
+					<value>cecilia,sochoa,jpino,jfabry</value>
+				</entry>
+				<entry>
+					<key>coordinador</key>
+					<value>jpino</value>
+				</entry>
+				<entry>
+					<key>jefe_pec</key>
+					<value>cbrideva</value>
+				</entry>
+				<entry>
+					<key>asistente</key>
+					<value>yordy,teresa</value>
+				</entry>
+			</job-data-map>
+
+		</job>
+		<trigger>
+			<cron>
+				<name>MailScheduler</name>
+				<job-name>MailScheduler</job-name>
+				<cron-expression>0 0 8 ? * MON,THU *</cron-expression>
+			</cron>
+		</trigger>
+	</schedule>
+
+</job-scheduling-data>
