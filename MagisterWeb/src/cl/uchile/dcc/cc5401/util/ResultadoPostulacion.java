@@ -1,7 +1,7 @@
 package cl.uchile.dcc.cc5401.util;
 
 
-//TODO: Agregar m√°s
+//TODO: Agregar m·s
 public enum ResultadoPostulacion {
 	ACEPTADO(1),RECHAZADO(2), ACEPTADO_CONDICIONAL(3);
 	

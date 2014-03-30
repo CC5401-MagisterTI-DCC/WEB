@@ -33,7 +33,7 @@ public class MailScheduler implements Job {
 	private String[] coordinador;
 	private String[] asistente;
 
-	//FunciÃ³n auxiliar encargada de inicializar las variables.
+	//Función auxiliar encargada de inicializar las variables.
 	private void initDAOs(JobDataMap jdm){
 		postulacionDAO = PostulacionDAOFactory.getPostulacionDAO();
 		userDAO = UserDAOFactory.getUserDAO();
@@ -51,7 +51,7 @@ public class MailScheduler implements Job {
 		asistente = jdm.getString("asistente").split(",");
 	} 
 	
-	//FunciÃ³n auxiliar encargada de enviar emails.
+	//Función auxiliar encargada de enviar emails.
 	private void sendMail(UserDTO usuario, String nPostulaciones){
 		String msjBody = body.replaceAll("@usuario", usuario.getUsername());
 		msjBody = msjBody.replaceAll("@numero_postulacion", nPostulaciones);
@@ -116,7 +116,7 @@ public class MailScheduler implements Job {
 		int nComision = 0;
 		int nJefePEC = 0;
 		
-		//Revisamos si las listas contienen algo, si es asÃ­ aumentamos el contador de postulaciones pendientes para las entidades
+		//Revisamos si las listas contienen algo, si es así aumentamos el contador de postulaciones pendientes para las entidades
 		if(revision.size()>0){
 			nAsistente +=revision.size();
 		}
@@ -172,7 +172,7 @@ public class MailScheduler implements Job {
 			}
 		}
 		if(nComision>0){
-			//Le enviamos un mail a cada miembro de la comision (excepto al coordinador que ya le enviamos)
+			//Le enviamos un mail a cada miembro de la comisión (excepto al coordinador que ya le enviamos)
 			for(String u : comision){
 				UserDTO usuario = userDAO.getUser(u);
 				int nPendientes = nComision;

@@ -44,7 +44,7 @@ public class LoginController extends HttpServlet {
         HttpServletResponse response = (HttpServletResponse) res;
         HttpSession session = request.getSession(true);
         
-        //Obtenemos los datos y aplicamos MD5 a la contraseÃ±a
+        //Obtenemos los datos y aplicamos MD5 a la contraseña
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		password = HashHelper.toHash(password,Algoritmo.MD5);
@@ -58,7 +58,7 @@ public class LoginController extends HttpServlet {
 			view.forward(request, response);
 		}
 		else{
-			//Si la contraseÃ±a coincide, puede entrar
+			//Si la contraseña coincide, puede entrar
 			if(usuario.getPassword().equalsIgnoreCase(password)){
 				session.setAttribute("user", usuario);
 				response.sendRedirect(request.getContextPath() + POSTULACIONES_PAGE);

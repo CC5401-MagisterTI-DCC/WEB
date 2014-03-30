@@ -27,7 +27,7 @@ public class Validacion {
 	}
 
 	public static boolean validateName(String name) {
-		return !name.matches(".*\\d+.*") && name.matches("[\\wÃ¡Ã©Ã­Ã³ÃºÃÃ‰ÃÃ“ÃšÃ±Ã‘]+[\\s[\\wwÃ¡Ã©Ã­Ã³ÃºÃÃ‰ÃÃ“ÃšÃ±Ã‘]+]*"); 
+		return !name.matches(".*\\d+.*") && name.matches("[\\wáéíóúÁÉÍÓÚñÑ]+[\\s[\\wwáéíóúÁÉÍÓÚñÑ]+]*");  
 		
 	}
 

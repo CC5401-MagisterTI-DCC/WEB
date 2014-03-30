@@ -33,7 +33,7 @@ public class SkipFilter implements Filter {
          HttpServletResponse response = (HttpServletResponse) res;
          HttpSession session = request.getSession(true);
          
-         //Si no se encuentra logeado, que siga al login, si no, se redirige autom√°ticamente a la bandeja del usuario (P√°gina de postulaciones)
+         //Si no se encuentra logeado, que siga al login, si no, se redirige autom·ticamente a la bandeja del usuario (P·gina de postulaciones)
          if(session.getAttribute("user")==null){
         	 chain.doFilter(request, response);
          }

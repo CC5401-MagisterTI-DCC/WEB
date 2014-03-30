@@ -357,7 +357,7 @@ public class EditController extends HttpServlet {
 			}
 				
 			postulacionDAO.actualizar(postulacion);
-			historialDAO.agregar(new HistorialDTO(0,postulacion.getId(),"<strong>"+user.getUsername()+":<strong> <i class='icon-edit'></i> Se editÃ³ la postulaciÃ³n",new Date(),""));
+			historialDAO.agregar(new HistorialDTO(0,postulacion.getId(),"<strong>"+user.getUsername()+":<strong> <i class='icon-edit'></i> Se editó la postulación",new Date(),""));
 			request.setAttribute("email",postulante.getEmail());
 
 			response.sendRedirect(request.getContextPath() + SUCCESS +"?exito=true");

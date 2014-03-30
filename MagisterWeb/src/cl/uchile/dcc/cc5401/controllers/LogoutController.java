@@ -22,7 +22,7 @@ public class LogoutController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//Invalidamos la sesiÃ³n y redirigimos al index
+		//Invalidamos la sesión y redirigimos al index
 		HttpSession session = request.getSession();
 		session.invalidate();
 		response.sendRedirect(request.getContextPath() + "/index.jsp");

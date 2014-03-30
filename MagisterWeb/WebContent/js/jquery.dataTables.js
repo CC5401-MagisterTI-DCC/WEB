@@ -9203,7 +9203,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sLast": "Ãšltimo",
+				"sLast": "último",
 			
 			
 				/**
@@ -9224,7 +9224,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sNext": "PrÃ³ximo",
+				"sNext": "Próximo",
 			
 			
 				/**
@@ -9245,7 +9245,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sPrevious": "AtrÃ¡s"
+				"sPrevious": "Atrás"
 			},
 		
 			/**

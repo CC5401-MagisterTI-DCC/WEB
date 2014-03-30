@@ -1,12 +1,12 @@
 $(document).ready(function() {
 
 	$.validator.addMethod("validName", function(value, element) { 
-		var exp1 = new RegExp("[\\w√°√©√≠√≥√∫√Å√â√ç√ì√ö√ë√±]+[\\s[\\w√°√©√≠√≥√∫√Å√â√ç√ì√ö√ë√±]+]*");
+		var exp1 = new RegExp("[\\w·ÈÌÛ˙¡…Õ”⁄—Ò]+[\\s[\\w·ÈÌÛ˙¡…Õ”⁄—Ò]+]*");
 		var exec1 = exp1.exec(value);
 		var exp2 = new RegExp("[\\D]+");
 		var exec2 = exp2.exec(value);
 		return exec1 != null && exec2 != null && exec1[0] == exec2[0] && exec1[0] == value;
-	}, "Ingrese un nombre v√°lido");
+	}, "Ingrese un nombre v·lido");
 
 	$.validator.addMethod("validFile", function(value, element) { 
 		var extension = (value.substring(value.lastIndexOf("."))).toLowerCase(); 
@@ -20,7 +20,7 @@ $(document).ready(function() {
 		var exec2 = exp2.exec(value);
 		return  (exec1 != null && exec1.length > 0 && exec1[0] == value) 
 			|| (exec2 != null && exec2.length > 0 && exec2[0] == value);
-	}, "Ingrese un tel√©fono v√°lido");
+	}, "Ingrese un telÈfono v·lido");
 
 	$.validator.addMethod("validPhoneOpt", function(value, element) { 
 		var exp1 = new RegExp("[+]?[\\d]+[\\s]?[\\d]+");
@@ -29,7 +29,7 @@ $(document).ready(function() {
 		var exec2 = exp2.exec(value);
 		return  value == "" || (exec1 != null && exec1.length > 0 && exec1[0] == value) 
 		|| (exec2 != null && exec2.length > 0 && exec2[0] == value);
-	}, "Ingrese un tel√©fono v√°lido");
+	}, "Ingrese un telÈfono v·lido");
 
 	$.validator.addMethod("validRUT", function(value, element) { 
 		var M=0,S=1;
@@ -45,7 +45,7 @@ $(document).ready(function() {
 		else{
 			return 'k'==rut[1] || 'K'==rut[1];
 		}
-	}, "Ingrese un RUT v√°lido");
+	}, "Ingrese un RUT v·lido");
 
 	var $validator = $("#postulacionForm").validate({
 		rules: {
@@ -112,24 +112,24 @@ $(document).ready(function() {
 			},
 			messages:{
 				nombre: {
-					validName: "Por favor ingrese un(os) nombre(s) v√°lido(s)",
+					validName: "Por favor ingrese un(os) nombre(s) v·lido(s)",
 				},
 				apellido: {
-					validName: "Por favor ingrese un(os) apellido(s) v√°lido(s)",
+					validName: "Por favor ingrese un(os) apellido(s) v·lido(s)",
 				},
 				telefono_p:{
-					validPhone: "Ingrese un telefono v√°lido",
+					validPhone: "Ingrese un telefono v·lido",
 				},
 				celular_p:{
-					validPhoneOpt: "Ingrese un celular v√°lido", 
+					validPhoneOpt: "Ingrese un celular v·lido", 
 				},
 				emailfield: {
 					required: "Campo requerido",
-					email: "Por favor ingrese un email v√°lido"
+					email: "Por favor ingrese un email v·lido"
 				},
 				namefield: {
 					required: "Campo requerido",
-					minlength: "Largo m√≠nimo 3"
+					minlength: "Largo mÌnimo 3"
 				}
 			}
 
@@ -166,29 +166,29 @@ $(document).ready(function() {
 		
 		var fieldWrapper = $("<div class=\"fieldwrapper\" id=\"field" + i + "\"/>");
 		var hr = $('<hr>');
-		var gradoArea = $('<!-- Textarea --><div class="control-group">	<label class="control-label">Grado Acad√©mico:</label><div class="controls">');
-		var grado = $('<textarea id="grado' + j + '" name="grado' + j +'" class="" placeholder="Ingrese su grado acad√©mico" required=""></textarea>');
+		var gradoArea = $('<!-- Textarea --><div class="control-group">	<label class="control-label">Grado AcadÈmico:</label><div class="controls">');
+		var grado = $('<textarea id="grado' + j + '" name="grado' + j +'" class="" placeholder="Ingrese su grado acadÈmico" required=""></textarea>');
 		grado.change(function(){
 			var value = $(this).val();
 			$("#grado" + j + "_resumen").text(value);
 		});
-		var institucionArea = $('</div></div><!-- Textarea --><div class="control-group"><label class="control-label">Instituci√≥n:</label><div class="controls">');
-		var institucion = $('<textarea id="institucion' + j + '" name="institucion' + j + '" class=" " placeholder="Ingrese la instituci√≥n de la cual obtuvo el grado acad√©mico"	required=""></textarea></div></div>');
+		var institucionArea = $('</div></div><!-- Textarea --><div class="control-group"><label class="control-label">InstituciÛn:</label><div class="controls">');
+		var institucion = $('<textarea id="institucion' + j + '" name="institucion' + j + '" class=" " placeholder="Ingrese la instituciÛn de la cual obtuvo el grado acadÈmico"	required=""></textarea></div></div>');
 		institucion.change(function(){
 			var value = $(this).val();
 			$("#institucion" + j + "_resumen").text(value);
 		});
-		var fechaArea = $('<!-- Text input--><div class="control-group"><label class="control-label">Fecha de Obtenci√≥n:</label><div class="controls">');
+		var fechaArea = $('<!-- Text input--><div class="control-group"><label class="control-label">Fecha de ObtenciÛn:</label><div class="controls">');
 		var fecha = $('<input id="fecha_ob' + j + '" name="fecha_ob' + j + '" class="datepicker" type="text" required=""></div></div>');
 		fecha.change(function(){
 			var value = $(this).val();
 			$("#fecha_ob" + j + "_resumen").text(value);
 		});
 		var paisCT =$('<!-- Select Basic --><div class="control-group"></div>');
-		var paisLabel = $('<label class="control-label">Pais de la Instituci√≥n:</label>');
+		var paisLabel = $('<label class="control-label">Pais de la InstituciÛn:</label>');
 		var paisCdiv = $('<div class="controls"></div>	');
 		var paisSelect = $('<select id="pais_grado' + j + '" name="pais_grado' + j + '"	class="  input-xlarge"></select>');
-		var cTitulo = $('<!-- File Button --><div class="control-group"><label class="control-label">Certificado de T√≠tulo o Grado:</label><div class="controls"><input id="cert_titulo' + j + '" name="cert_titulo' + j + '" class="  input-file" type="file" required=""></div></div>');
+		var cTitulo = $('<!-- File Button --><div class="control-group"><label class="control-label">Certificado de TÌtulo o Grado:</label><div class="controls"><input id="cert_titulo' + j + '" name="cert_titulo' + j + '" class="  input-file" type="file" required=""></div></div>');
 		var cNotas = $('<!-- File Button --><div class="control-group"><label class="control-label">Certificado de Notas:</label><div class="controls"><input id="cert_notas' + j + '" name="cert_notas' + j + '" class="  input-file" type="file" required=""></div></div>');
 		var removeButton = $('<div class="control-group"><label class="control-label" for=""></label> <div class="controls"><a class="remove btn btn-danger" href="#"><i class="icon-remove icon-white"></i> Eliminar Estudio</a></div></div>');
 		removeButton.click(function() {

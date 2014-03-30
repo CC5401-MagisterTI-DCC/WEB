@@ -42,14 +42,14 @@ public class DeleteController extends HttpServlet {
 
 		String forward="";
 		try{
-			//Obtenemos el numero de track para obtener la postulaciÃ³n
+			//Obtenemos el numero de track para obtener la postulación
 			String track = request.getParameter("track_n");
 			PostulacionDTO postulacion = postulacionDAO.getPostulacion(track);
 			
-			//"Eliminamos" la postulaciÃ³n (La dejamos en estado ELIMINADA)
+			//"Eliminamos" la postulación (La dejamos en estado ELIMINADA)
 			postulacionDAO.eliminar(postulacion.getId());
 			//Se agrega el historial
-			historialDAO.agregar(new HistorialDTO(0,postulacion.getId(),"<i class='icon-remove'></i> Se eliminÃ³ la postulaciÃ³n",new Date(),""));
+			historialDAO.agregar(new HistorialDTO(0,postulacion.getId(),"<i class='icon-remove'></i> Se eliminó la postulación",new Date(),""));
 			forward=SUCCESS;
 		}
 		catch(Exception e){

@@ -3,7 +3,6 @@ package cl.uchile.dcc.cc5401.controllers;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
@@ -54,10 +53,10 @@ import cl.uchile.dcc.cc5401.util.TipoFinanciamiento;
  * Servlet implementation class FormController
  */
 @WebServlet("/app/form")
-@MultipartConfig(fileSizeThreshold=1024*1024, maxFileSize=1024*1024*10, maxRequestSize=1024*1024*10*10)
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 10, maxRequestSize = 1024 * 1024 * 10 * 10)
 public class FormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static String FORM ="/app/form.jsp";
+	private static String FORM = "/app/form.jsp";
 	private static String ERROR_PAGE = "/error.jsp";
 	private static String SUCCESS = "/success.jsp";
 
@@ -66,7 +65,7 @@ public class FormController extends HttpServlet {
 	private PostulanteDAO postulanteDAO;
 	private DatosEmpresaDAO datosEmpresaDAO;
 	private IdentificacionDAO identificacionDAO;
-	private FinanciamientoDAO financiamientoDAO; 
+	private FinanciamientoDAO financiamientoDAO;
 	private GradoAcademicoDAO gradoAcademicoDAO;
 	private DocumentoDAO documentoDAO;
 	private HistorialDAO historialDAO;
@@ -81,10 +80,10 @@ public class FormController extends HttpServlet {
 		super();
 	}
 
-
-
-	public void init(ServletConfig config) throws ServletException { 
+	@Override
+	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
+
 		postulacionDAO = PostulacionDAOFactory.getPostulacionDAO();
 		postulanteDAO = PostulanteDAOFactory.getPostulanteDAO();
 		paisDAO = PaisDAOFactory.getPaisDAO();
@@ -94,24 +93,27 @@ public class FormController extends HttpServlet {
 		gradoAcademicoDAO = GradoAcademicoDAOFactory.getGradoAcademicoDAO();
 		documentoDAO = DocumentoDAOFactory.getDocumentoDAO();
 		historialDAO = HistorialDAOFactory.getHistorialDAO();
-		mailHelper = new MailHelper(
-				config.getServletContext().getInitParameter("usernameMail"),
-				config.getServletContext().getInitParameter("passwordMail"),
-				config.getServletContext().getInitParameter("hostMail"),
-				config.getServletContext().getInitParameter("portMail"), true);
-		successSubject = config.getServletContext().getInitParameter("successSubject");
-		successBody = config.getServletContext().getInitParameter("successBody");
-		paginaTrack = config.getServletContext().getInitParameter("paginaTrack");
+		mailHelper = new MailHelper(config.getServletContext()
+				.getInitParameter("usernameMail"), config.getServletContext()
+				.getInitParameter("passwordMail"), config.getServletContext()
+				.getInitParameter("hostMail"), config.getServletContext()
+				.getInitParameter("portMail"), true);
+		successSubject = config.getServletContext().getInitParameter(
+				"successSubject");
+		successBody = config.getServletContext()
+				.getInitParameter("successBody");
+		paginaTrack = config.getServletContext()
+				.getInitParameter("paginaTrack");
 		ruta = config.getServletContext().getInitParameter("archivos.dir");
-	}   
+	}
 
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// Managment de beans
 
 		String forward = "";
 
-		forward=FORM;
+		forward = FORM;
 
 		request.setAttribute("paises", paisDAO.getAll());
 		request.setAttribute("form", "form");
@@ -119,9 +121,8 @@ public class FormController extends HttpServlet {
 		view.forward(request, response);
 	}
 
-
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 
 		String successBodyP;
 
@@ -129,18 +130,19 @@ public class FormController extends HttpServlet {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		request.setCharacterEncoding("UTF-8");
 
-		try{
-			//parse
-			//postulante 
+		try {
+			// parse
+			// postulante
 			String nombre = request.getParameter("nombre");
 			String apellido = request.getParameter("apellido");
 			String nacionalidad = request.getParameter("nacionalidad");
-			PaisDTO paisNacionalidad = paisDAO.get(Integer.parseInt(nacionalidad));
+			PaisDTO paisNacionalidad = paisDAO.get(Integer
+					.parseInt(nacionalidad));
 
 			String genero = request.getParameter("genero");
 			Genero gender = Genero.FEMENINO;
 
-			if(genero.equalsIgnoreCase("masculino")){
+			if (genero.equalsIgnoreCase("masculino")) {
 				gender = Genero.MASCULINO;
 			}
 
@@ -153,71 +155,80 @@ public class FormController extends HttpServlet {
 			PaisDTO paisResidencia = paisDAO.get(Integer.parseInt(residencia));
 			String direccionResidencia = request.getParameter("direccion");
 
-			PostulanteDTO postulante = new PostulanteDTO(null,null,null,null,null,paisNacionalidad,gender,convertedFechaNacimiento,fonoPersonal,fonoCelular,paisResidencia,emailPersonal,direccionResidencia);
+			PostulanteDTO postulante = new PostulanteDTO(null, null, null,
+					null, null, paisNacionalidad, gender,
+					convertedFechaNacimiento, fonoPersonal, fonoCelular,
+					paisResidencia, emailPersonal, direccionResidencia);
 
-			if(nombre.indexOf(' ') == -1)
+			if (nombre.indexOf(' ') == -1)
 				postulante.setPrimerNombre(nombre);
-			else{
-				postulante.setPrimerNombre(nombre.substring(0,nombre.indexOf(' ')));
-				postulante.setSegundoNombre(nombre.substring(nombre.indexOf(' ')+1));
+			else {
+				postulante.setPrimerNombre(nombre.substring(0,
+						nombre.indexOf(' ')));
+				postulante.setSegundoNombre(nombre.substring(nombre
+						.indexOf(' ') + 1));
 			}
-			if(apellido.indexOf(' ') == -1)
+			if (apellido.indexOf(' ') == -1)
 				postulante.setApellidoPaterno(apellido);
-			else{
-				postulante.setApellidoPaterno(apellido.substring(0,apellido.indexOf(' ')));
-				postulante.setApellidoMaterno(apellido.substring(apellido.indexOf(' ')+1));
+			else {
+				postulante.setApellidoPaterno(apellido.substring(0,
+						apellido.indexOf(' ')));
+				postulante.setApellidoMaterno(apellido.substring(apellido
+						.indexOf(' ') + 1));
 			}
 
 			String tipoDoc = request.getParameter("tipoDoc");
 
-			//identificacion
+			// identificacion
 			IdentificacionDTO identificacion = new IdentificacionDTO();
-			if(tipoDoc.equalsIgnoreCase("rut")){
+			if (tipoDoc.equalsIgnoreCase("rut")) {
 				identificacion.setEsRut(true);
-				identificacion.setIdentificacion(request.getParameter("rut").trim().replaceAll("\\.", ""));
+				identificacion.setIdentificacion(request.getParameter("rut")
+						.trim().replaceAll("\\.", ""));
 				identificacion.setPais(null);
-			}
-			else{
+			} else {
 				identificacion.setEsRut(false);
-				identificacion.setIdentificacion(request.getParameter("pasaporte"));
-				identificacion.setPais(paisDAO.get(Integer.parseInt(request.getParameter("nacionalidadPasaporte"))));
+				identificacion.setIdentificacion(request
+						.getParameter("pasaporte"));
+				identificacion.setPais(paisDAO.get(Integer.parseInt(request
+						.getParameter("nacionalidadPasaporte"))));
 			}
 
-			//grados academicos
+			// grados academicos
 			String grado = request.getParameter("grado");
 			String institucion = request.getParameter("institucion");
 			String fechaObtencion = request.getParameter("fecha_ob");
 			String paisGrado = request.getParameter("pais_grado");
 			int j = 10;
 
-			GradoAcademicoDTO[] gradosAcademicos= new GradoAcademicoDTO[j];
+			GradoAcademicoDTO[] gradosAcademicos = new GradoAcademicoDTO[j];
 
-			gradosAcademicos[0] = new GradoAcademicoDTO(0,grado, institucion, sdf.parse(fechaObtencion),paisDAO.get(Integer.parseInt(paisGrado)),0,0);
-			for(int i = 1; i<j;i++){
-				if(request.getParameterMap().containsKey("grado" + i)){
+			gradosAcademicos[0] = new GradoAcademicoDTO(0, grado, institucion,
+					sdf.parse(fechaObtencion), paisDAO.get(Integer
+							.parseInt(paisGrado)), 0, 0);
+			for (int i = 1; i < j; i++) {
+				if (request.getParameterMap().containsKey("grado" + i)) {
 					grado = request.getParameter("grado" + i);
 					institucion = request.getParameter("institucion" + i);
 					fechaObtencion = request.getParameter("fecha_ob" + i);
 					paisGrado = request.getParameter("pais_grado" + i);
-					gradosAcademicos[i] = new GradoAcademicoDTO(0,grado, institucion, sdf.parse(fechaObtencion),paisDAO.get(Integer.parseInt(paisGrado)),0,0);
+					gradosAcademicos[i] = new GradoAcademicoDTO(0, grado,
+							institucion, sdf.parse(fechaObtencion),
+							paisDAO.get(Integer.parseInt(paisGrado)), 0, 0);
 				}
 			}
 
-
-
-			//financiamiento
-			String financiamiento= request.getParameter("financiamiento");
+			// financiamiento
+			String financiamiento = request.getParameter("financiamiento");
 			FinanciamientoDTO finance = new FinanciamientoDTO();
-			if(financiamiento.equalsIgnoreCase("Particular")){
+			if (financiamiento.equalsIgnoreCase("Particular")) {
 				finance.setTipo(TipoFinanciamiento.PARTICULAR);
-			}
-			else if(financiamiento.equalsIgnoreCase("Empresa")){
+			} else if (financiamiento.equalsIgnoreCase("Empresa")) {
 				finance.setTipo(TipoFinanciamiento.EMPRESA);
-			}
-			else if(financiamiento.equalsIgnoreCase("Beca")){
+			} else if (financiamiento.equalsIgnoreCase("Beca")) {
 				finance.setTipo(TipoFinanciamiento.BECA);
 				String detalle_beca = request.getParameter("comentario_beca");
-				if(detalle_beca != null && !detalle_beca.equals(""))
+				if (detalle_beca != null && !detalle_beca.equals(""))
 					finance.setDetalle(detalle_beca);
 			}
 
@@ -226,7 +237,7 @@ public class FormController extends HttpServlet {
 			postulacion.setNombrePostulante(nombre + " " + apellido);
 			postulacion.setEstado(Estado.getInicial());
 
-			//persist
+			// persist
 			identificacion.setId(identificacionDAO.agregar(identificacion));
 			postulante.setIdentificacion(identificacion);
 			postulante.setId(postulanteDAO.agregar(postulante));
@@ -234,36 +245,40 @@ public class FormController extends HttpServlet {
 			finance.setId(financiamientoDAO.agregar(finance));
 			postulacion.setIdFinanciamiento(finance.getId());
 
-
-			//empresa
+			// empresa
 			String empresa = request.getParameter("empresa");
 			DatosEmpresaDTO datosEmpresa = null;
-			if(empresa!=null && !empresa.equals("")){
-				//Insertar datos empresa
+			if (empresa != null && !empresa.equals("")) {
+				// Insertar datos empresa
 				String cargo = request.getParameter("cargo");
-				String direccionEmpresa= request.getParameter("dir_empr");
-				String fonoEmpresa= request.getParameter("fono_empr");
-				datosEmpresa = new DatosEmpresaDTO(0,postulante.getId(),empresa,cargo,direccionEmpresa,fonoEmpresa);
+				String direccionEmpresa = request.getParameter("dir_empr");
+				String fonoEmpresa = request.getParameter("fono_empr");
+				datosEmpresa = new DatosEmpresaDTO(0, postulante.getId(),
+						empresa, cargo, direccionEmpresa, fonoEmpresa);
 				datosEmpresaDAO.agregar(datosEmpresa);
 			}
 
-			//TODO:ver la forma de identificar indice mejor(primer archivo primer grado)
-			Collection<Part> parts = request.getParts();
-			java.util.Iterator<Part> iter = parts.iterator();
+			// TODO:ver la forma de identificar indice mejor(primer archivo
+			// primer grado)
+			
+			// no se ocupa. Revisión 2014-1 
+			//Collection<Part> parts = request.getParts();
+			//java.util.Iterator<Part> iter = parts.iterator();
 			Part part = null;
 			part = request.getPart("cert_titulo");
-			DocumentoDTO CG  = new DocumentoDTO();
-			//TODO: definir nombres de los archivos tomando en cuenta diferencia de pasaporte y rut            	
-			//TODO: ver caso de otros archivos
-			if(part.getContentType().equalsIgnoreCase("application/pdf"))
+			DocumentoDTO CG = new DocumentoDTO();
+			// TODO: definir nombres de los archivos tomando en cuenta
+			// diferencia de pasaporte y rut
+			// TODO: ver caso de otros archivos
+			if (part.getContentType().equalsIgnoreCase("application/pdf"))
 				CG.setNombre(identificacion.getIdentificacion() + "CG1.pdf");
 			CG.setDireccion(ruta + "/" + CG.getNombre());
 			part.write(CG.getDireccion());
 			CG.setId(documentoDAO.agregar(CG));
-			//certificado de notas
+			// certificado de notas
 			DocumentoDTO CN = new DocumentoDTO();
 			part = request.getPart("cert_notas");
-			if(part.getContentType().equalsIgnoreCase("application/pdf"))
+			if (part.getContentType().equalsIgnoreCase("application/pdf"))
 				CN.setNombre(identificacion.getIdentificacion() + "CN1.pdf");
 			CN.setDireccion(ruta + "/" + CN.getNombre());
 			part.write(ruta + "/" + CN.getNombre());
@@ -272,68 +287,77 @@ public class FormController extends HttpServlet {
 			gradosAcademicos[0].setIdCertificadoTitulo(CG.getId());
 			gradosAcademicos[0].setIdCertificadoNotas(CN.getId());
 
-			gradosAcademicos[0].setId(gradoAcademicoDAO.agregar(gradosAcademicos[0]));
-			
-			for(int i = 1; i<gradosAcademicos.length; i++){
-				//Certificado de grado
-				if(request.getParameterMap().containsKey("grado" + i)){
+			gradosAcademicos[0].setId(gradoAcademicoDAO
+					.agregar(gradosAcademicos[0]));
+
+			for (int i = 1; i < gradosAcademicos.length; i++) {
+				// Certificado de grado
+				if (request.getParameterMap().containsKey("grado" + i)) {
 					part = request.getPart("cert_titulo" + i);
-					CG  = new DocumentoDTO();
-					//TODO: definir nombres de los archivos tomando en cuenta diferencia de pasaporte y rut            	
-					//TODO: ver caso de otros archivos
-					if(part.getContentType().equalsIgnoreCase("application/pdf"))
-						CG.setNombre(identificacion.getIdentificacion() + "CG" + (i+1) + ".pdf");
+					CG = new DocumentoDTO();
+					// TODO: definir nombres de los archivos tomando en cuenta
+					// diferencia de pasaporte y rut
+					// TODO: ver caso de otros archivos
+					if (part.getContentType().equalsIgnoreCase(
+							"application/pdf"))
+						CG.setNombre(identificacion.getIdentificacion() + "CG"
+								+ (i + 1) + ".pdf");
 					CG.setDireccion(ruta + "/" + CG.getNombre());
 					part.write(CG.getDireccion());
 					CG.setId(documentoDAO.agregar(CG));
-					//certificado de notas
+					// certificado de notas
 					CN = new DocumentoDTO();
 					part = request.getPart("cert_notas" + i);
-					if(part.getContentType().equalsIgnoreCase("application/pdf"))
-						CN.setNombre(identificacion.getIdentificacion() + "CN" + (i+1) + ".pdf");
+					if (part.getContentType().equalsIgnoreCase(
+							"application/pdf"))
+						CN.setNombre(identificacion.getIdentificacion() + "CN"
+								+ (i + 1) + ".pdf");
 					CN.setDireccion(ruta + "/" + CN.getNombre());
 					part.write(ruta + "/" + CN.getNombre());
 					CN.setId(documentoDAO.agregar(CN));
 					gradosAcademicos[i].setIdPostulante(postulante.getId());
 					gradosAcademicos[i].setIdCertificadoTitulo(CG.getId());
 					gradosAcademicos[i].setIdCertificadoNotas(CN.getId());
-	
-					gradosAcademicos[i].setId(gradoAcademicoDAO.agregar(gradosAcademicos[i]));
+
+					gradosAcademicos[i].setId(gradoAcademicoDAO
+							.agregar(gradosAcademicos[i]));
 				}
 			}
-			//curriculum vitae
+			// curriculum vitae
 			part = request.getPart("cv");
-			DocumentoDTO CV = new DocumentoDTO();            
-			if(part.getContentType().equalsIgnoreCase("application/pdf"))
+			DocumentoDTO CV = new DocumentoDTO();
+			if (part.getContentType().equalsIgnoreCase("application/pdf"))
 				CV.setNombre(identificacion.getIdentificacion() + "CV" + ".pdf");
 			CV.setDireccion(ruta + "/" + CV.getNombre());
 			part.write(CV.getDireccion());
 			CV.setId(documentoDAO.agregar(CV));
 
-			//carta presentacion
+			// carta presentacion
 			part = request.getPart("carta_pres");
 			DocumentoDTO CP = new DocumentoDTO();
 
-			if(part.getContentType().equalsIgnoreCase("application/pdf"))
+			if (part.getContentType().equalsIgnoreCase("application/pdf"))
 				CP.setNombre(identificacion.getIdentificacion() + "CP" + ".pdf");
 			CP.setDireccion(ruta + "/" + CP.getNombre());
 			part.write(CP.getDireccion());
 			CP.setId(documentoDAO.agregar(CP));
 
-			//carta recomendacion 1
+			// carta recomendacion 1
 			part = request.getPart("carta_rec_1");
-			DocumentoDTO CR1 = new DocumentoDTO();            
-			if(part.getContentType().equalsIgnoreCase("application/pdf"))
-				CR1.setNombre(identificacion.getIdentificacion() + "CR1" + ".pdf");
+			DocumentoDTO CR1 = new DocumentoDTO();
+			if (part.getContentType().equalsIgnoreCase("application/pdf"))
+				CR1.setNombre(identificacion.getIdentificacion() + "CR1"
+						+ ".pdf");
 			CR1.setDireccion(ruta + "/" + CR1.getNombre());
 			part.write(CR1.getDireccion());
 			CR1.setId(documentoDAO.agregar(CR1));
 
-			//carta recomendacion 2
+			// carta recomendacion 2
 			part = request.getPart("carta_rec_2");
-			DocumentoDTO CR2 = new DocumentoDTO();            
-			if(part.getContentType().equalsIgnoreCase("application/pdf"))
-				CR2.setNombre(identificacion.getIdentificacion() + "CR2" + ".pdf");
+			DocumentoDTO CR2 = new DocumentoDTO();
+			if (part.getContentType().equalsIgnoreCase("application/pdf"))
+				CR2.setNombre(identificacion.getIdentificacion() + "CR2"
+						+ ".pdf");
 			CR2.setDireccion(ruta + "/" + CR2.getNombre());
 			part.write(CR2.getDireccion());
 			CR2.setId(documentoDAO.agregar(CR2));
@@ -349,23 +373,27 @@ public class FormController extends HttpServlet {
 			postulacion.setDeadline(null);
 			postulacion.setId(postulacionDAO.agregar(postulacion));
 
-			request.setAttribute("email",postulante.getEmail());
-			successBodyP = successBody.replaceAll("@nombre", postulacion.getNombrePostulante());
-			successBodyP = successBodyP.replaceAll("@track", HashHelper.toHash(String.valueOf(postulacion.getId()*10+postulacion.getIdPostulante()), Algoritmo.MD5));
+			request.setAttribute("email", postulante.getEmail());
+			successBodyP = successBody.replaceAll("@nombre",
+					postulacion.getNombrePostulante());
+			successBodyP = successBodyP.replaceAll("@track", HashHelper.toHash(
+					String.valueOf(postulacion.getId() * 10
+							+ postulacion.getIdPostulante()), Algoritmo.MD5));
 			successBodyP = successBodyP.replaceAll("@paginaTrack", paginaTrack);
-			try{
-				mailHelper.sendMail(postulante.getEmail(),successSubject,successBodyP);
-			}
-			catch(Exception e){
+			try {
+				mailHelper.sendMail(postulante.getEmail(), successSubject,
+						successBodyP);
+			} catch (Exception e) {
 				e.printStackTrace();
-				System.out.println("OcurriÃ³ un error al enviar mail a "+postulante.getEmail());
+				System.out.println("Ocurrió un error al enviar mail a "
+						+ postulante.getEmail());
 			}
-			historialDAO.agregar(new HistorialDTO(0,postulacion.getId(),"Se ingresÃ³ la postulaciÃ³n al sistema",new Date(),""));
-			forward=SUCCESS;
-		}
-		catch (Exception e){
+			historialDAO.agregar(new HistorialDTO(0, postulacion.getId(),
+					"Se ingresó la postulación al sistema", new Date(), ""));
+			forward = SUCCESS;
+		} catch (Exception e) {
 			e.printStackTrace();
-			forward=ERROR_PAGE;
+			forward = ERROR_PAGE;
 		}
 
 		RequestDispatcher view = request.getRequestDispatcher(forward);
