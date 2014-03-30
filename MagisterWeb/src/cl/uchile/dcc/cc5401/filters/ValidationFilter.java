@@ -55,7 +55,7 @@ public class ValidationFilter implements Filter {
 		PostulacionDAO postulacionDAO = PostulacionDAOFactory
 				.getPostulacionDAO();
 
-		// S�lo si el m�todo es post, validamos los par�metros
+		// Sólo si el método es post, validamos los parámetros
 		if (request.getMethod().equalsIgnoreCase("POST")) {
 			// TODO: validar formulario
 			try {
@@ -103,7 +103,7 @@ public class ValidationFilter implements Filter {
 
 				String residencia = request.getParameter("residencia").trim();
 				if (paisDAO.get(Integer.parseInt(residencia)) == null)
-					throw new Exception("Error en pais de residencia");
+					throw new Exception("Error en país de residencia");
 
 				String direccionResidencia = request.getParameter("direccion")
 						.trim();
@@ -158,7 +158,7 @@ public class ValidationFilter implements Filter {
 					throw new Exception("Error en institucion");
 				sdf.parse(fechaObtencion);
 				if (paisDAO.get(Integer.parseInt(paisGrado)) == null)
-					throw new Exception("Error en pais de la institucion ");
+					throw new Exception("Error en país de la institucion ");
 
 				int j = 1;
 
@@ -176,7 +176,7 @@ public class ValidationFilter implements Filter {
 						sdf.parse(fechaObtencion);
 						if (paisDAO.get(Integer.parseInt(paisGrado)) == null)
 							throw new Exception(
-									"Error en pais de la institucion " + i);
+									"Error en país de la institucion " + i);
 						j++;
 					}
 				}
@@ -211,14 +211,14 @@ public class ValidationFilter implements Filter {
 										"application/pdf")
 								|| part.getSize() > maxSize)
 							throw new Exception(
-									"Error en Certificado de t�tulo " + (i + 1));
+									"Error en Certificado de título " + (i + 1));
 						part = request.getPart("cert_notas" + i);
 						if (part.getContentType() == null
 								|| !part.getContentType().equalsIgnoreCase(
 										"application/pdf")
 								|| part.getSize() > maxSize)
 							throw new Exception(
-									"Error en Certificado de notas t�tulo "
+									"Error en Certificado de notas título "
 											+ (i + 1));
 					}
 				}
@@ -231,17 +231,17 @@ public class ValidationFilter implements Filter {
 				if (part.getContentType() == null
 						|| !part.getContentType().equalsIgnoreCase(
 								"application/pdf") || part.getSize() > maxSize)
-					throw new Exception("Error en Carta de Presentaci�n");
+					throw new Exception("Error en Carta de Presentación");
 				part = request.getPart("carta_rec_1");
 				if (part.getContentType() == null
 						|| !part.getContentType().equalsIgnoreCase(
 								"application/pdf") || part.getSize() > maxSize)
-					throw new Exception("Error en Carta Recomendaci�n 1");
+					throw new Exception("Error en Carta Recomendación 1");
 				part = request.getPart("carta_rec_2");
 				if (part.getContentType() == null
 						|| !part.getContentType().equalsIgnoreCase(
 								"application/pdf") || part.getSize() > maxSize)
-					throw new Exception("Error en Carta Recomendaci�n 2");
+					throw new Exception("Error en Carta Recomendación 2");
 
 			} catch (Exception e) {
 				e.printStackTrace();

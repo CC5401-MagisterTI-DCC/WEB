@@ -1,11 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="root" value="${pageContext.request.contextPath}" />
 
 <div class="page-header">
 	<h1>Edición de Postulación N°${postulacion.id}</h1>
 </div>
 
 <form id="postulacionForm" method="post"
-	action="<%=request.getContextPath()%>/app/admin/edit"
+	action="${root}/app/admin/edit"
 	enctype="multipart/form-data" class="form-horizontal">
 	<!-- Hidden values -->
 	<input type="hidden" value="${postulacion.id}" name="idPostulacion">
@@ -160,7 +161,7 @@
 						<button type="submit" class="btn btn-primary btn-large center">
 							<i class="icon-ok icon-white"></i> Guardar Cambios
 						</button>
-						<a href="<%=request.getContextPath()%>/app/admin/postulaciones"
+						<a href="${root}/app/admin/postulaciones"
 							class="btn btn-large btn-danger"><i
 							class="icon-remove icon-white"></i>Cancelar</a>
 					</div>
@@ -228,7 +229,7 @@
 						<button type="submit" class="btn btn-primary btn-large center">
 							<i class="icon-ok icon-white"></i> Guardar Cambios
 						</button>
-						<a href="<%=request.getContextPath()%>/app/admin/postulaciones"
+						<a href="${root}/app/admin/postulaciones"
 							class="btn btn-large btn-danger"><i
 							class="icon-remove icon-white"></i>Cancelar</a>
 					</div>
@@ -350,7 +351,7 @@
 						<button type="submit" class="btn btn-primary btn-large center">
 							<i class="icon-ok icon-white"></i> Guardar Cambios
 						</button>
-						<a href="<%=request.getContextPath()%>/app/admin/postulaciones"
+						<a href="${root}/app/admin/postulaciones"
 							class="btn btn-large btn-danger"><i
 							class="icon-remove icon-white"></i>Cancelar</a>
 					</div>
@@ -411,7 +412,7 @@
 						<button type="submit" class="btn btn-primary btn-large center">
 							<i class="icon-ok icon-white"></i> Guardar Cambios
 						</button>
-						<a href="<%=request.getContextPath()%>/app/admin/postulaciones"
+						<a href="${root}/app/admin/postulaciones"
 							class="btn btn-large btn-danger"><i
 							class="icon-remove icon-white"></i>Cancelar</a>
 					</div>
@@ -465,7 +466,7 @@
 						<button type="submit" class="btn btn-primary btn-large center">
 							<i class="icon-ok icon-white"></i> Guardar Cambios
 						</button>
-						<a href="<%=request.getContextPath()%>/app/admin/postulaciones"
+						<a href="${root}/app/admin/postulaciones"
 							class="btn btn-large btn-danger"><i
 							class="icon-remove icon-white"></i>Cancelar</a>
 					</div>
@@ -543,7 +544,7 @@
 						<button type="submit" class="btn btn-primary btn-large center">
 							<i class="icon-ok icon-white"></i> Guardar Cambios
 						</button>
-						<a href="<%=request.getContextPath()%>/app/admin/postulaciones"
+						<a href="${root}/app/admin/postulaciones"
 							class="btn btn-large btn-danger"><i
 							class="icon-remove icon-white"></i>Cancelar</a>
 					</div>
@@ -561,18 +562,18 @@
 
 
 <!-- Scripts -->
-<script src="<%=request.getContextPath()%>/js/jquery.js"></script>
-<script src="<%=request.getContextPath()%>/js/jquery.validate.js"></script>
-<script src="<%=request.getContextPath()%>/js/prettify.js"
+<script src="${root}/js/jquery.js"></script>
+<script src="${root}/js/jquery.validate.js"></script>
+<script src="${root}/js/prettify.js"
 	type="text/javascript"></script>
 <script
-	src="<%=request.getContextPath()%>/js/jquery.bootstrap.wizard.min.js"
+	src="${root}/js/jquery.bootstrap.wizard.min.js"
 	type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/js/bootstrap.js"
+<script src="${root}/js/bootstrap.js"
 	type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/js/form.js"
+<script src="${root}/js/form.js"
 	type="text/javascript"></script>
-<script src="<%=request.getContextPath()%>/js/bootstrap-datepicker.js"
+<script src="${root}/js/bootstrap-datepicker.js"
 	type="text/javascript"></script>
 </body>
 </html>

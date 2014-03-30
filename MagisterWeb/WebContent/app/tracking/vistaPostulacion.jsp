@@ -1,24 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	import="java.io.*" pageEncoding="UTF-8" isErrorPage="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="root" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <link rel="shortcut icon"
-	href="<%=request.getContextPath()%>/favicon.ico" />
+	href="${root}/favicon.ico" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Tracking postulación ${track} - Magister TI DCC</title>
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/bootstrap.min.css">
+	href="${root}/css/bootstrap.min.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/bootstrap-responsive.css">
+	href="${root}/css/bootstrap-responsive.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/header.css">
+	href="${root}/css/header.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/footer.css">
+	href="${root}/css/footer.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/fancybox/source/jquery.fancybox.css?v=2.1.5"
+	href="${root}/fancybox/source/jquery.fancybox.css?v=2.1.5"
 	type="text/css" media="screen" />
 
 
@@ -54,7 +55,7 @@
 
 			<li class="span4">
 				<div class="thumbnail valid-thumb">
-					<img src="<%=request.getContextPath()%>/img/business-success.jpg"
+					<img src="${root}/img/business-success.jpg"
 						style="height: 180px;" alt="ALT NAME">
 					<div class="caption">
 						<h3>
@@ -82,7 +83,7 @@
 			</li>
 			<li class="span4">
 				<div class="thumbnail progress-thumb">
-					<img src="<%=request.getContextPath()%>/img/report_icon.gif"
+					<img src="${root}/img/report_icon.gif"
 						style="height: 180px;" alt="ALT NAME">
 					<div class="caption">
 						<h3>
@@ -109,7 +110,7 @@
 					<c:choose>
 						<c:when test="${resuelta}">
 							<c:if test="${resolucion.resultado.id==1}">
-								<img src="<%=request.getContextPath()%>/img/right.png"
+								<img src="${root}/img/right.png"
 									style="height: 180px;" alt="ALT NAME">
 								<div class="caption">
 									<h3>Resolución Tomada</h3>
@@ -121,7 +122,7 @@
 								</div>
 							</c:if>
 							<c:if test="${resolucion.resultado.id==2}">
-								<img src="<%=request.getContextPath()%>/img/wrong.png"
+								<img src="${root}/img/wrong.png"
 									style="height: 180px;" alt="ALT NAME">
 								<div class="caption">
 									<h3>Resolución Tomada</h3>
@@ -133,7 +134,7 @@
 								</div>
 							</c:if>
 							<c:if test="${resolucion.resultado.id==3}">
-								<img src="<%=request.getContextPath()%>/img/right.png"
+								<img src="${root}/img/right.png"
 									style="height: 180px;" alt="ALT NAME">
 								<div class="caption">
 									<h3>Resolución Tomada</h3>
@@ -146,7 +147,7 @@
 							</c:if>
 						</c:when>
 						<c:otherwise>
-							<img src="<%=request.getContextPath()%>/img/question.png"
+							<img src="${root}/img/question.png"
 								style="height: 180px;" alt="ALT NAME">
 							<div class="caption">
 								<h3>Resolución Tomada</h3>
@@ -166,7 +167,7 @@
 			<h3>Acciones</h3>
 
 			<a class="btn btn-success btn-large"
-				href="<%=request.getContextPath()%>/index.jsp"> <i
+				href="${root}/index.jsp"> <i
 				class="icon-home icon-white"></i> Ir Al Inicio
 			</a>
 			<c:if test="${!resuelta}">
@@ -181,13 +182,13 @@
 	</div>
 
 	<jsp:include page="../../footer.jsp"></jsp:include>
-	<script src="<%=request.getContextPath()%>/js/jquery.js"></script>
+	<script src="${root}/js/jquery.js"></script>
 	<script type="text/javascript"
-		src="<%=request.getContextPath()%>/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+		src="${root}/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
 	<script type="text/javascript"
-		src="<%=request.getContextPath()%>/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-	<script src="<%=request.getContextPath()%>/js/delete.js"></script>
-	<script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
+		src="${root}/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+	<script src="${root}/js/delete.js"></script>
+	<script src="${root}/js/bootstrap.js"></script>
 
 </body>
 </html>

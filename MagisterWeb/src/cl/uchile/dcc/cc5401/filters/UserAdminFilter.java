@@ -36,7 +36,7 @@ public class UserAdminFilter implements Filter {
          
          if(session.getAttribute("user")!=null){
         	 UserDTO user = (UserDTO) session.getAttribute("user");
-        	//Si el usuario tiene permisos para administrar usuarios, se le deja pasar, si no se redirige a una p·gina de error.
+        	//Si el usuario tiene permisos para administrar usuarios, se le deja pasar, si no se redirige a una p√°gina de error.
         	 if(user.hasPermisos("ADMIN_USERS"))
         		 chain.doFilter(request, response);
         	 else{

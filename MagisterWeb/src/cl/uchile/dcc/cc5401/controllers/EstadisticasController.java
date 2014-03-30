@@ -42,7 +42,7 @@ public class EstadisticasController extends HttpServlet {
 			
 			//Ordenamos las llaves un un TreeMap
 			Map<String, Integer> treeMap = new TreeMap<String, Integer>(mapPPM);
-			//TODO: Fecha de inicio seteada con respecto a la primera postulación o otro criterio.
+			//TODO: Fecha de inicio seteada con respecto a la primera postulaciÃ³n o otro criterio.
 			request.setAttribute("mapPPM", treeMap);
 			forward=ESTADISTICAS_PAGE;
 		}

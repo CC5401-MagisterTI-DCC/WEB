@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="cl.uchile.dcc.cc5401.util.ResultadoPostulacion"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="root" value="${pageContext.request.contextPath}" />
+
 <jsp:useBean id="now" class="java.util.Date" />
 <!DOCTYPE html>
 <html>
@@ -17,19 +19,19 @@
 			ResultadoPostulacion.RECHAZADO);
 %>
 <link rel="shortcut icon"
-	href="<%=request.getContextPath()%>/favicon.ico" />
+	href="${root}/favicon.ico" />
 <!-- Bootstrap -->
-<link href="<%=request.getContextPath()%>/css/bootstrap.min.css"
+<link href="${root}/css/bootstrap.min.css"
 	rel="stylesheet" media="screen">
-<link href="<%=request.getContextPath()%>/css/bootstrap-responsive.css"
+<link href="${root}/css/bootstrap-responsive.css"
 	rel="stylesheet" media="screen">
-<link href="<%=request.getContextPath()%>/css/header.css"
+<link href="${root}/css/header.css"
 	rel="stylesheet" media="screen">
-<link href="<%=request.getContextPath()%>/css/footer.css"
+<link href="${root}/css/footer.css"
 	rel="stylesheet" media="screen">
-<link href="<%=request.getContextPath()%>/css/admin/styles.css"
+<link href="${root}/css/admin/styles.css"
 	rel="stylesheet" media="screen">
-<link href="<%=request.getContextPath()%>/css/DT_bootstrap.css"
+<link href="${root}/css/DT_bootstrap.css"
 	rel="stylesheet" media="screen">
 <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="vendors/flot/excanvas.min.js"></script><![endif]-->
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -39,7 +41,7 @@
 
 <!-- FancyBox -->
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/fancybox/source/jquery.fancybox.css?v=2.1.5"
+	href="${root}/fancybox/source/jquery.fancybox.css?v=2.1.5"
 	type="text/css" media="screen" />
 </head>
 
@@ -203,7 +205,7 @@
 															data-original-title="Historial Particular"> <i
 															class="icon-time"></i>
 														</a> <a
-															href="<%=request.getContextPath()%>/app/admin/edit?id=${postulacion.id }"
+															href="${root}/app/admin/edit?id=${postulacion.id }"
 															class="btn" data-placement="bottom" data-toggle="tooltip"
 															data-original-title="Editar Postulación"> <i
 															class="icon-edit"></i>
@@ -263,7 +265,7 @@
 															data-original-title="Historial Particular"> <i
 															class="icon-time"></i>
 														</a> <a
-															href="<%=request.getContextPath()%>/app/admin/edit?id=${postulacion.id }"
+															href="${root}/app/admin/edit?id=${postulacion.id }"
 															class="btn" data-placement="bottom" data-toggle="tooltip"
 															data-original-title="Editar Postulación"> <i
 															class="icon-edit"></i>
@@ -326,7 +328,7 @@
 															data-original-title="Historial Particular"> <i
 															class="icon-time"></i>
 														</a> <a
-															href="<%=request.getContextPath()%>/app/admin/edit?id=${postulacion.id }"
+															href="${root}/app/admin/edit?id=${postulacion.id }"
 															class="btn" data-placement="bottom" data-toggle="tooltip"
 															data-original-title="Editar Postulación"> <i
 															class="icon-edit"></i>
@@ -398,7 +400,7 @@
 															data-original-title="Historial Particular"> <i
 															class="icon-time"></i>
 														</a> <a
-															href="<%=request.getContextPath()%>/app/admin/edit?id=${postulacion.id }"
+															href="${root}/app/admin/edit?id=${postulacion.id }"
 															class="btn" data-placement="bottom" data-toggle="tooltip"
 															data-original-title="Editar Postulación"> <i
 															class="icon-edit"></i>
@@ -460,7 +462,7 @@
 															data-original-title="Historial Particular"> <i
 															class="icon-time"></i>
 														</a> <a
-															href="<%=request.getContextPath()%>/app/admin/edit?id=${postulacion.id }"
+															href="${root}/app/admin/edit?id=${postulacion.id }"
 															class="btn" data-placement="bottom" data-toggle="tooltip"
 															data-original-title="Editar Postulación"> <i
 															class="icon-edit"></i>
@@ -526,7 +528,7 @@
 															data-original-title="Historial Particular"> <i
 															class="icon-time"></i>
 														</a> <a
-															href="<%=request.getContextPath()%>/app/admin/edit?id=${postulacion.id }"
+															href="${root}/app/admin/edit?id=${postulacion.id }"
 															class="btn" data-placement="bottom" data-toggle="tooltip"
 															data-original-title="Editar Postulación"> <i
 															class="icon-edit"></i>
@@ -592,7 +594,7 @@
 															data-original-title="Historial Particular"> <i
 															class="icon-time"></i>
 														</a> <a
-															href="<%=request.getContextPath()%>/app/admin/edit?id=${postulacion.id }"
+															href="${root}/app/admin/edit?id=${postulacion.id }"
 															class="btn" data-placement="bottom" data-toggle="tooltip"
 															data-original-title="Editar Postulación"> <i
 															class="icon-edit"></i>
@@ -624,17 +626,17 @@
 	<!--/.fluid-container-->
 
 
-	<script src="<%=request.getContextPath()%>/js/jquery.js"></script>
-	<script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
-	<script src="<%=request.getContextPath()%>/js/jquery.dataTables.js"></script>
+	<script src="${root}/js/jquery.js"></script>
+	<script src="${root}/js/bootstrap.js"></script>
+	<script src="${root}/js/jquery.dataTables.js"></script>
 	<script type="text/javascript"
-		src="<%=request.getContextPath()%>/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+		src="${root}/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 	<script type="text/javascript"
-		src="<%=request.getContextPath()%>/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
-	<script src="<%=request.getContextPath()%>/js/header.js"></script>
-	<script src="<%=request.getContextPath()%>/js/dataTables.bootstrap.js"></script>
-	<script src="<%=request.getContextPath()%>/js/admin/scripts.js"></script>
-	<script src="<%=request.getContextPath()%>/js/admin/postulaciones.js"></script>
+		src="${root}/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+	<script src="${root}/js/header.js"></script>
+	<script src="${root}/js/dataTables.bootstrap.js"></script>
+	<script src="${root}/js/admin/scripts.js"></script>
+	<script src="${root}/js/admin/postulaciones.js"></script>
 
 </body>
 

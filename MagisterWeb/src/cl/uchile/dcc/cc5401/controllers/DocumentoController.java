@@ -36,7 +36,7 @@ public class DocumentoController extends HttpServlet {
 		documentoDAO = DocumentoDAOFactory.getDocumentoDAO();
 	}
 
-	//Encargado de la lógica de descargar archivos
+	//Encargado de la lÃ³gica de descargar archivos
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//Obtenemos el id del request y extraemos el documento

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<c:set var="root" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Magister TI - DCC</title>
 <link rel="shortcut icon"
-	href="<%=request.getContextPath()%>/favicon.ico" />
+	href="${root}/favicon.ico" />
 <!-- CSS -->
 <link rel="stylesheet" type="text/css" href="../css/DT_bootstrap.css">
 <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -42,7 +42,7 @@
 				</c:when>
 				<c:otherwise>
 					<form id="postulacionForm" method="post"
-						action="<%=request.getContextPath()%>/app/reenvio"
+						action="${root}/app/reenvio"
 						enctype="multipart/form-data" class="form-horizontal">
 						<h3>Ingrese a continuación los elementos que han sido
 							rechazados en su postulación</h3>
@@ -59,7 +59,7 @@
 							<c:forEach items="${inputs}" var="input">
 
 								<!-- File Button -->
-								<div class="control-group"">
+								<div class="control-group">
 									<label class="control-label" for="cv">${input.label }</label>
 									<div class="controls">
 										<input id="${input.id }" name="${input.name }"

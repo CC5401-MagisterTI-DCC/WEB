@@ -149,7 +149,7 @@ public class PostulacionController extends HttpServlet {
 					}
 				}			
 
-				//Seteamos los parametros en el request y seteamos la redirecciÛn
+				//Seteamos los parametros en el request y seteamos la redirecci√≥n
 				request.setAttribute("postulacionesRevision", revision);
 				request.setAttribute("postulacionesValidacion", validacion);
 				request.setAttribute("postulacionesConsideracion", consideracion);
@@ -168,8 +168,8 @@ public class PostulacionController extends HttpServlet {
 				int nComision = 0;
 				int nJefePEC = 0;
 
-				// Revisamos si las listas contienen algo, si es asÌ aumentamos el contador de postulaciones pendientes para las entidades
-				// Una vez contados todos los pendientes, seteamos la variable en la sesiÛn para que todas las vistas tengan acceso al conteo.
+				// Revisamos si las listas contienen algo, si es as√≠ aumentamos el contador de postulaciones pendientes para las entidades
+				// Una vez contados todos los pendientes, seteamos la variable en la sesi√≥n para que todas las vistas tengan acceso al conteo.
 				if(revision.size()>0){
 					nAsistente +=revision.size();
 				}
@@ -222,14 +222,14 @@ public class PostulacionController extends HttpServlet {
 					session.setAttribute("nPendientes", nPendientes);;
 				}
 			}
-			//Par·metros de navegaciÛn
+			//Par√°metros de navegaci√≥n
 			request.setAttribute("postulaciones", "yes");
 			request.setAttribute("admin", "admin");
 			forward=LIST_POSTULACIONES;
 
 		}
 		else{
-			//Caso de vista particular de postulaciÛn
+			//Caso de vista particular de postulaci√≥n
 			if(action.equalsIgnoreCase("revisar")){
 
 				int id = Integer.parseInt(request.getParameter("id"));

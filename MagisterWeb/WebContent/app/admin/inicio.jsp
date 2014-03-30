@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="root" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html>
 <html class="no-js">
@@ -7,14 +9,14 @@
 <head>
 <title>Admin Home Page</title>
 <!-- Bootstrap -->
-<link href="<%=request.getContextPath()%>/css/bootstrap.min.css"
+<link href="${root}/css/bootstrap.min.css"
 	rel="stylesheet" media="screen">
-<link href="<%=request.getContextPath()%>/css/bootstrap-responsive.css"
+<link href="${root}/css/bootstrap-responsive.css"
 	rel="stylesheet" media="screen">
-<link href="<%=request.getContextPath()%>/css/admin/styles.css"
+<link href="${root}/css/admin/styles.css"
 	rel="stylesheet" media="screen">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/header.css">
+	href="${root}/css/header.css">
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
             <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -426,10 +428,10 @@
 		</footer>
 	</div>
 	<!--/.fluid-container-->
-	<script src="<%=request.getContextPath()%>/js/jquery.js"></script>
-	<script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
+	<script src="${root}/js/jquery.js"></script>
+	<script src="${root}/js/bootstrap.js"></script>
 	<script src="vendors/easypiechart/jquery.easy-pie-chart.js"></script>
-	<script src="<%=request.getContextPath()%>/js/admin/scripts.js"></script>
+	<script src="${root}/js/admin/scripts.js"></script>
 	<script>
         $(function() {
             // Easy pie charts

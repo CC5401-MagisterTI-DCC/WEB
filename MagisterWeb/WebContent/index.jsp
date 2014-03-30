@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<c:set var="root" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -9,8 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Magister TI - DCC</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="shortcut icon"
-	href="<%=request.getContextPath()%>/favicon.ico" />
+<link rel="shortcut icon" href="${root}/favicon.ico" />
 <!-- CSS -->
 <link rel="stylesheet" type="text/css" href="css/DT_bootstrap.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -31,16 +30,14 @@
 
 	<div class="container">
 
-
 		<div class="hero-unit">
 			<h1>Magister en TI</h1>
 			<p>Bienvenido al sistema de postulación al Magíster en
 				Tecnologías de la Información del Departamento de Ciencias de la
 				Computación de la Universidad de Chile.</p>
 			<p>
-				<a class="btn btn-primary btn-large"
-					href="<%=request.getContextPath()%>/app/form"> Ir al formulario
-					de postulación </a>
+				<a class="btn btn-primary btn-large" href="${root}/app/form"> Ir
+					al formulario de postulación </a>
 			</p>
 		</div>
 	</div>

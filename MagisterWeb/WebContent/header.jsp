@@ -1,28 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-	
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="root" value="${pageContext.request.contextPath}" />
+
 <div class="navbar navbar-inverse navbar-static-top header-nav">
 
 	<div class="navbar-inner">
 		<button type="button" class="btn btn-navbar" data-toggle="collapse"
-			data-target=".nav-collapse">
+			data-target="#main-menu">
 			<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 				class="icon-bar"></span>
 		</button>
 
-		<a href="<%=request.getContextPath()%>/index.jsp"> <img
-			class="brand" src="<%=request.getContextPath()%>/img/logo_dcc.png"></a>
-		<div class="nav-collapse collapse">
+		<a href="${root}/index.jsp"> <img class="brand"
+			src="${root}/img/logo_dcc.png"></a>
+		<div class="nav-collapse collapse" id="main-menu">
 			<ul class="nav">
 				<li ${form==null&&admin==null ? 'class="active"' : '' }><a
-					href="<%=request.getContextPath()%>/index.jsp">Inicio</a></li>
+					href="${root}/index.jsp">Inicio</a></li>
 				<li ${form!=null ? 'class="active"' : '' }><a
-					href="<%=request.getContextPath()%>/app/form">Formulario de
-						Postulación</a></li>
+					href="${root}/app/form">Formulario de Postulación</a></li>
 				<li ${tracking!=null ? 'class="active"' : ''}><a
-					href="<%=request.getContextPath()%>/app/track">Tracking</a>
+					href="${root}/app/track">Tracking</a>
 				<li ${admin!=null ? 'class="active"' : ''}><a
-					href="<%=request.getContextPath()%>/app/login">${admin!=null ?
+					href="${root}/app/login">${admin!=null ?
 						'Administración' : 'Ingresar'}</a></li>
 
 			</ul>
@@ -35,15 +37,13 @@
 
 					</a>
 						<ul class="dropdown-menu">
-							<li><a tabindex="-1"
-								href="<%=request.getContextPath()%>/app/admin/passwordChange"><i
+							<li><a tabindex="-1" href="${root}/app/admin/passwordChange"><i
 									class="icon-pencil"></i>&nbsp; Cambiar Contraseña</a></li>
 							<li ${user.hasPermisos("ADMIN_USERS") ? '' : 'hidden'}><a
-								href="<%=request.getContextPath()%>/app/admin/userAdmin"><i
-									class="icon-user"></i>&nbsp; Administrar Usuarios</a></li>
+								href="${root}/app/admin/userAdmin"><i class="icon-user"></i>&nbsp;
+									Administrar Usuarios</a></li>
 							<li class="divider"></li>
-							<li><a tabindex="-1"
-								href="<%=request.getContextPath()%>/app/logout">Cerrar
+							<li><a tabindex="-1" href="${root}/app/logout">Cerrar
 									Sesión</a></li>
 						</ul></li>
 				</ul>

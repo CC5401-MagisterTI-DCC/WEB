@@ -64,7 +64,7 @@ public class ReenvioController extends HttpServlet {
 
 		String hash = request.getParameter("track");
 
-		//Obtenemos la postulaciÛn a travÈs del numero de seguimiento
+		//Obtenemos la postulaci√≥n a trav√©s del numero de seguimiento
 		PostulacionDTO postulacion = postulacionDAO.getPostulacion(hash);
 		
 		//Si no lo encontramos lo mandamos a una pagina de error, si no seguimos...
@@ -83,7 +83,7 @@ public class ReenvioController extends HttpServlet {
 				if(cn.getComentario()!=null&&cn.getComentario().equalsIgnoreCase("rechazado"))
 					inputs.add(new InputHelper("certificado_notas"+i,"Certificado de Notas de "+grado.getNombre(),"certificado_notas"+i,cn.getId()));
 				if(ct.getComentario()!=null&&ct.getComentario().equalsIgnoreCase("rechazado"))
-					inputs.add(new InputHelper("certificado_titulo"+i,"Certificado de TÌtulo de "+grado.getNombre(),"certificado_notas"+i,ct.getId()));
+					inputs.add(new InputHelper("certificado_titulo"+i,"Certificado de T√≠tulo de "+grado.getNombre(),"certificado_notas"+i,ct.getId()));
 				i++;
 			}
 
@@ -92,15 +92,15 @@ public class ReenvioController extends HttpServlet {
 			DocumentoDTO c1 = documentoDAO.get(postulacion.getIdCarta1());
 			DocumentoDTO c2 = documentoDAO.get(postulacion.getIdCarta2());
 			
-			//Construimos las entradas del formulario para que luego se desplieguen de manera din·mica
+			//Construimos las entradas del formulario para que luego se desplieguen de manera din√°mica
 			if(cv.getComentario()!=null&&cv.getComentario().equalsIgnoreCase("rechazado"))
-				inputs.add(new InputHelper("cv","CurrÌculum Vitae","cv",cv.getId()));
+				inputs.add(new InputHelper("cv","Curr√≠culum Vitae","cv",cv.getId()));
 			if(cp.getComentario()!=null&&cp.getComentario().equalsIgnoreCase("rechazado"))
-				inputs.add(new InputHelper("carta_presentacion","Carta de PresentaciÛn","carta_presentacion",cp.getId()));
+				inputs.add(new InputHelper("carta_presentacion","Carta de Presentaci√≥n","carta_presentacion",cp.getId()));
 			if(c1.getComentario()!=null&&c1.getComentario().equalsIgnoreCase("rechazado"))
-				inputs.add(new InputHelper("carta_1","Carta de RecomendaciÛn 1","carta_1",c1.getId()));
+				inputs.add(new InputHelper("carta_1","Carta de Recomendaci√≥n 1","carta_1",c1.getId()));
 			if(c2.getComentario()!=null&&c2.getComentario().equalsIgnoreCase("rechazado"))
-				inputs.add(new InputHelper("carta_2","Carta de RecomendaciÛn 2","carta_2",c2.getId()));
+				inputs.add(new InputHelper("carta_2","Carta de Recomendaci√≥n 2","carta_2",c2.getId()));
 
 			session.setAttribute("inputs", inputs);
 			request.setAttribute("idPostulacion", postulacion.getId());
@@ -131,8 +131,8 @@ public class ReenvioController extends HttpServlet {
 			documentoDAO.actualizar(doc);
 		}
 
-		//Agregamos la acciÛn al historial
-		historialDAO.agregar(new HistorialDTO(0,idPostulacion,"<i class='icon-upload'></i> El postulante subiÛ nuevos documentos",new Date(),""));
+		//Agregamos la acci√≥n al historial
+		historialDAO.agregar(new HistorialDTO(0,idPostulacion,"<i class='icon-upload'></i> El postulante subi√≥ nuevos documentos",new Date(),""));
 
 		session.invalidate();
 		request.setAttribute("reenvio","reenvio");

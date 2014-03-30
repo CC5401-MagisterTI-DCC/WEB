@@ -6844,7 +6844,7 @@ function Datepicker() {
 		monthNames: ["Enero","Febrero","Marzo","Abril","Mayo","Junio",
 			"Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"], // Names of months for drop-down and formatting
 		monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"], // For formatting
-		dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"], // For formatting
+		dayNames: ["Domingo", "Lunes", "Martes", "MiÃ©rcoles", "Jueves", "Viernes", "SÃ¡bado"], // For formatting
 		dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"], // For formatting
 		dayNamesMin: ["Do","Lu","Ma","Mi","Ju","Vi","Sa"], // Column headings for days starting at Sunday
 		weekHeader: "Sem", // Column header for week of the year

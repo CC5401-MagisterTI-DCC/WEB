@@ -1,16 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="root" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Usuario</title>
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/bootstrap.min.css">
+	href="${root}/css/bootstrap.min.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/datepicker.css">
+	href="${root}/css/datepicker.css">
 
 <style>
 body {
@@ -18,14 +20,14 @@ body {
 }
 </style>
 
-<script src="<%=request.getContextPath()%>/js/jquery.js"></script>
-<script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
-<script src="<%=request.getContextPath()%>/js/jquery.validate.js"></script>
-<script src="<%=request.getContextPath()%>/js/admin/postulacionview.js"></script>
-<script src="<%=request.getContextPath()%>/js/bootstrap-datepicker.js"
+<script src="${root}/js/jquery.js"></script>
+<script src="${root}/js/bootstrap.js"></script>
+<script src="${root}/js/jquery.validate.js"></script>
+<script src="${root}/js/admin/postulacionview.js"></script>
+<script src="${root}/js/bootstrap-datepicker.js"
 	type="text/javascript"></script>
 <script
-	src="<%=request.getContextPath()%>/js/locales/bootstrap-datepicker.es.js"
+	src="${root}/js/locales/bootstrap-datepicker.es.js"
 	type="text/javascript"></script>
 
 </head>

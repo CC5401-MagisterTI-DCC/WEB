@@ -1,22 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="root" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>Adminstración de Usuarios - Magister TI DCC</title>
 <link rel="shortcut icon"
-	href="<%=request.getContextPath()%>/favicon.ico" />
+	href="${root}/favicon.ico" />
 <!-- Bootstrap -->
-<link href="<%=request.getContextPath()%>/css/bootstrap.min.css"
+<link href="${root}/css/bootstrap.min.css"
 	rel="stylesheet" media="screen">
-<link href="<%=request.getContextPath()%>/css/bootstrap-responsive.css"
+<link href="${root}/css/bootstrap-responsive.css"
 	rel="stylesheet" media="screen">
-<link href="<%=request.getContextPath()%>/css/header.css"
+<link href="${root}/css/header.css"
 	rel="stylesheet" media="screen">
-<link href="<%=request.getContextPath()%>/css/footer.css"
+<link href="${root}/css/footer.css"
 	rel="stylesheet" media="screen">
-<link href="<%=request.getContextPath()%>/css/admin/styles.css"
+<link href="${root}/css/admin/styles.css"
 	rel="stylesheet" media="screen">
 
 
@@ -28,7 +30,7 @@
 
 <!-- FancyBox -->
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/fancybox/source/jquery.fancybox.css?v=2.1.5"
+	href="${root}/fancybox/source/jquery.fancybox.css?v=2.1.5"
 	type="text/css" media="screen" />
 
 </head>
@@ -98,12 +100,12 @@
 		</div>
 	</div>
 	<jsp:include page="../../../footer.jsp"></jsp:include>
-	<script src="<%=request.getContextPath()%>/js/jquery.js"></script>
-	<script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
+	<script src="${root}/js/jquery.js"></script>
+	<script src="${root}/js/bootstrap.js"></script>
 	<script type="text/javascript"
-		src="<%=request.getContextPath()%>/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+		src="${root}/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 	<script type="text/javascript"
-		src="<%=request.getContextPath()%>/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
-	<script src="<%=request.getContextPath()%>/js/header.js"></script>
+		src="${root}/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+	<script src="${root}/js/header.js"></script>
 </body>
 </html>

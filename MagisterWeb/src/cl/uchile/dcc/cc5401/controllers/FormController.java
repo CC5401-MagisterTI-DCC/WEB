@@ -261,7 +261,7 @@ public class FormController extends HttpServlet {
 			// TODO:ver la forma de identificar indice mejor(primer archivo
 			// primer grado)
 			
-			// no se ocupa. Revisión 2014-1 
+			// no se ocupa. RevisiÃ³n 2014-1 
 			//Collection<Part> parts = request.getParts();
 			//java.util.Iterator<Part> iter = parts.iterator();
 			Part part = null;
@@ -385,11 +385,11 @@ public class FormController extends HttpServlet {
 						successBodyP);
 			} catch (Exception e) {
 				e.printStackTrace();
-				System.out.println("Ocurrió un error al enviar mail a "
+				System.out.println("OcurriÃ³ un error al enviar mail a "
 						+ postulante.getEmail());
 			}
 			historialDAO.agregar(new HistorialDTO(0, postulacion.getId(),
-					"Se ingresó la postulación al sistema", new Date(), ""));
+					"Se ingresÃ³ la postulaciÃ³n al sistema", new Date(), ""));
 			forward = SUCCESS;
 		} catch (Exception e) {
 			e.printStackTrace();

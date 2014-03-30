@@ -1,23 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="root" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Estadísticas - Magister en TI</title>
 <link rel="shortcut icon"
-	href="<%=request.getContextPath()%>/favicon.ico" />
+	href="${root}/favicon.ico" />
 <!-- Bootstrap -->
-<link href="<%=request.getContextPath()%>/css/bootstrap.min.css"
+<link href="${root}/css/bootstrap.min.css"
 	rel="stylesheet" media="screen">
-<link href="<%=request.getContextPath()%>/css/bootstrap-responsive.css"
+<link href="${root}/css/bootstrap-responsive.css"
 	rel="stylesheet" media="screen">
-<link href="<%=request.getContextPath()%>/css/header.css"
+<link href="${root}/css/header.css"
 	rel="stylesheet" media="screen">
-<link href="<%=request.getContextPath()%>/css/footer.css"
+<link href="${root}/css/footer.css"
 	rel="stylesheet" media="screen">
-<link href="<%=request.getContextPath()%>/css/admin/styles.css"
+<link href="${root}/css/admin/styles.css"
 	rel="stylesheet" media="screen">
 <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="vendors/flot/excanvas.min.js"></script><![endif]-->
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -28,7 +30,7 @@
 
 
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/morris.css">
+	href="${root}/css/morris.css">
 
 </head>
 <body>
@@ -132,20 +134,20 @@
 
 
 	<jsp:include page="../../footer.jsp"></jsp:include>
-	<script src="<%=request.getContextPath()%>/js/jquery.js"></script>
-	<script src="<%=request.getContextPath()%>/js/jquery.dataTables.js"></script>
+	<script src="${root}/js/jquery.js"></script>
+	<script src="${root}/js/jquery.dataTables.js"></script>
 	<script type="text/javascript"
-		src="<%=request.getContextPath()%>/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+		src="${root}/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
 	<script type="text/javascript"
-		src="<%=request.getContextPath()%>/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-	<script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
-	<script src="<%=request.getContextPath()%>/js/header.js"></script>
-	<script src="<%=request.getContextPath()%>/js/DT_bootstrap.js"></script>
+		src="${root}/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+	<script src="${root}/js/bootstrap.js"></script>
+	<script src="${root}/js/header.js"></script>
+	<script src="${root}/js/DT_bootstrap.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/js/jquery.dataTables.columnFilter.js"></script>
-	<script src="<%=request.getContextPath()%>/js/admin/scripts.js"></script>
-	<script src="<%=request.getContextPath()%>/js/raphael-min.js"></script>
-	<script src="<%=request.getContextPath()%>/js/morris.min.js"></script>
+		src="${root}/js/jquery.dataTables.columnFilter.js"></script>
+	<script src="${root}/js/admin/scripts.js"></script>
+	<script src="${root}/js/raphael-min.js"></script>
+	<script src="${root}/js/morris.min.js"></script>
 
 	<script type="text/javascript">
 	

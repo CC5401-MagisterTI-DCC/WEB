@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<c:set var="root" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Magister TI - DCC</title>
 <link rel="shortcut icon"
-	href="<%=request.getContextPath()%>/favicon.ico" />
+	href="${root}/favicon.ico" />
 <!-- CSS -->
 <link rel="stylesheet" type="text/css" href="../css/DT_bootstrap.css">
 <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -36,18 +36,18 @@
 			</div>
 
 			<form id="postulacionForm" method="post"
-				action="<%=request.getContextPath()%>/app/form"
+				action="${root}/app/form"
 				enctype="multipart/form-data" class="form-horizontal">
 				<div id="rootwizard">
 					<div class="navbar">
 						<div class="navbar-inner">
 							<div class="container">
 								<button type="button" class="btn btn-navbar"
-									data-toggle="collapse" data-target=".nav-collapse">
+									data-toggle="collapse" data-target="#submenu">
 									<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 										class="icon-bar"></span>
 								</button>
-								<div class="nav-collapse collapse">
+								<div class="nav-collapse collapse" id="submenu">
 									<ul>
 										<li><a href="#tab1" data-toggle="tab"><span
 												class="label label-info">1</span> Datos del Postulante</a></li>

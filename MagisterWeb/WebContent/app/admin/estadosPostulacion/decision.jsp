@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="root" value="${pageContext.request.contextPath}" />
+
 <c:if test='${user.hasPermisos("VOTAR")}'>
 	<div class="container-fluid" style="text-align: left;">
 		<c:forEach items="${usuariosVotos}" var="user" varStatus="status">
@@ -11,7 +13,7 @@
 						<c:choose>
 							<c:when test="${votos.get(status.index).tipoVoto.id==1}">
 								<img class="media-object pull-left"
-									src="<%=request.getContextPath()%>/img/aceptado.png"
+									src="${root}/img/aceptado.png"
 									alt="64x64" style="width: 64px; height: 64px;">
 								<div class="media-body">
 									<h4 class="media-heading">${user.username}</h4>
@@ -23,7 +25,7 @@
 							</c:when>
 							<c:otherwise>
 								<img class="media-object pull-left"
-									src="<%=request.getContextPath()%>/img/rechazado.png"
+									src="${root}/img/rechazado.png"
 									alt="64x64" style="width: 64px; height: 64px;">
 								<div class="media-body">
 									<h4 class="media-heading">${user.username}</h4>
@@ -37,7 +39,7 @@
 					</c:when>
 					<c:otherwise>
 						<img class="media-object pull-left"
-							src="<%=request.getContextPath()%>/img/novoto.png" alt="64x64"
+							src="${root}/img/novoto.png" alt="64x64"
 							style="width: 64px; height: 64px;">
 						<div class="media-body">
 							<h4 class="media-heading">${user.username}</h4>

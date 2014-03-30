@@ -70,24 +70,24 @@ public class EstadoController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String action = request.getParameter("action");
 
-		//Obtenemos el usuario activo en la sesión
+		//Obtenemos el usuario activo en la sesiÃ³n
 		HttpSession session = request.getSession(true);
 		UserDTO user = (UserDTO) session.getAttribute("user");
 
-		//Si la acción es distinta de null procedemos
+		//Si la acciÃ³n es distinta de null procedemos
 		if(action!=null){
 
-			//Cambio de estado: Revisión -> Validación
+			//Cambio de estado: RevisiÃ³n -> ValidaciÃ³n
 			if(action.equalsIgnoreCase("revision")){
 				int id = Integer.parseInt(request.getParameter("id"));
 				PostulacionDTO postulacion = postulacionDAO.getPostulacion(id);
 				postulacion.setEstado(Estado.EN_VALIDACION);
 				postulacionDAO.actualizar(postulacion);
-				historialDAO.agregar(new HistorialDTO(0,postulacion.getId(),"<strong>"+user.getUsername()+"</strong>: Cambio de Estados: En Revisión <i class='icon-arrow-right'></i> En Validación",new Date(),""));
+				historialDAO.agregar(new HistorialDTO(0,postulacion.getId(),"<strong>"+user.getUsername()+"</strong>: Cambio de Estados: En RevisiÃ³n <i class='icon-arrow-right'></i> En ValidaciÃ³n",new Date(),""));
 				forward = SUCCESS_PAGE;
 			}
 
-			//Cambio de estado: Validación -> Consideración
+			//Cambio de estado: ValidaciÃ³n -> ConsideraciÃ³n
 			else if(action.equalsIgnoreCase("validacion")){
 				int id = Integer.parseInt(request.getParameter("id"));
 				String comentario = request.getParameter("comentario");
@@ -95,12 +95,12 @@ public class EstadoController extends HttpServlet {
 				comentarioDAO.agregar(comentarioDTO);
 				PostulacionDTO postulacion = postulacionDAO.getPostulacion(id);
 				postulacion.setEstado(Estado.EN_CONSIDERACION);
-				historialDAO.agregar(new HistorialDTO(0,postulacion.getId(),"<strong>"+user.getUsername()+"</strong>: Cambio de Estados: En Validación <i class='icon-arrow-right'></i> En Consideración",new Date(),comentarioDTO.getTexto()));
+				historialDAO.agregar(new HistorialDTO(0,postulacion.getId(),"<strong>"+user.getUsername()+"</strong>: Cambio de Estados: En ValidaciÃ³n <i class='icon-arrow-right'></i> En ConsideraciÃ³n",new Date(),comentarioDTO.getTexto()));
 				postulacionDAO.actualizar(postulacion);
 				forward = SUCCESS_PAGE;
 			}
 
-			//Cambio de estado: Consideración -> Evaluación
+			//Cambio de estado: ConsideraciÃ³n -> EvaluaciÃ³n
 			else if(action.equalsIgnoreCase("consideracion")){
 				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -120,23 +120,23 @@ public class EstadoController extends HttpServlet {
 				PostulacionDTO postulacion = postulacionDAO.getPostulacion(id);
 				postulacion.setEstado(Estado.EN_EVALUACION);
 				postulacion.setDeadline(deadline);
-				historialDAO.agregar(new HistorialDTO(0,postulacion.getId(),"<strong>"+user.getUsername()+"</strong>: Cambio de Estados: En Consideración <i class='icon-arrow-right'></i> En Evaluación",new Date(),comentarioDTO.getTexto()));
+				historialDAO.agregar(new HistorialDTO(0,postulacion.getId(),"<strong>"+user.getUsername()+"</strong>: Cambio de Estados: En ConsideraciÃ³n <i class='icon-arrow-right'></i> En EvaluaciÃ³n",new Date(),comentarioDTO.getTexto()));
 				postulacionDAO.actualizar(postulacion);
 				forward = SUCCESS_PAGE;
 
 			}
 
-			//Cambio de estado: Evaluación -> Decisión
+			//Cambio de estado: EvaluaciÃ³n -> DecisiÃ³n
 			else if(action.equalsIgnoreCase("evaluacion")){
 				int id = Integer.parseInt(request.getParameter("id"));
 				PostulacionDTO postulacion = postulacionDAO.getPostulacion(id);
 				postulacion.setEstado(Estado.DECISION);
 				postulacionDAO.actualizar(postulacion);
-				historialDAO.agregar(new HistorialDTO(0,postulacion.getId(),"<strong>"+user.getUsername()+"</strong>: Cambio de Estados: En Evaluación <i class='icon-arrow-right'></i> En Decisión",new Date(),""));
+				historialDAO.agregar(new HistorialDTO(0,postulacion.getId(),"<strong>"+user.getUsername()+"</strong>: Cambio de Estados: En EvaluaciÃ³n <i class='icon-arrow-right'></i> En DecisiÃ³n",new Date(),""));
 				forward = SUCCESS_PAGE;
 			}
 
-			//Cambio de estado: Decisión -> En Espera de Notificación
+			//Cambio de estado: DecisiÃ³n -> En Espera de NotificaciÃ³n
 			else if(action.equalsIgnoreCase("decision")){
 				int id = Integer.parseInt(request.getParameter("id"));
 				String detalles = request.getParameter("detalles");
@@ -146,36 +146,36 @@ public class EstadoController extends HttpServlet {
 				ResolucionDTO resolucion = null;
 				if(decision.equalsIgnoreCase("aceptado")){
 					resolucion = new ResolucionDTO(0,id,detalles,ResultadoPostulacion.ACEPTADO,new Date());
-					historialDAO.agregar(new HistorialDTO(0,postulacion.getId(),"<strong>"+user.getUsername()+"</strong>: Postulación Aceptada",new Date(),detalles));
+					historialDAO.agregar(new HistorialDTO(0,postulacion.getId(),"<strong>"+user.getUsername()+"</strong>: PostulaciÃ³n Aceptada",new Date(),detalles));
 				}
 				else if(decision.equalsIgnoreCase("aceptado_condicional")){
 					resolucion = new ResolucionDTO(0,id,detalles,ResultadoPostulacion.ACEPTADO_CONDICIONAL,new Date());
-					historialDAO.agregar(new HistorialDTO(0,postulacion.getId(),"<strong>"+user.getUsername()+"</strong>: Postulación Aceptada Condicionalmente",new Date(),detalles));
+					historialDAO.agregar(new HistorialDTO(0,postulacion.getId(),"<strong>"+user.getUsername()+"</strong>: PostulaciÃ³n Aceptada Condicionalmente",new Date(),detalles));
 				}
 				else{
 					resolucion = new ResolucionDTO(0,id,detalles,ResultadoPostulacion.RECHAZADO,new Date());
-					historialDAO.agregar(new HistorialDTO(0,postulacion.getId(),"<strong>"+user.getUsername()+"</strong>: Postulación Rechazada",new Date(),detalles));
+					historialDAO.agregar(new HistorialDTO(0,postulacion.getId(),"<strong>"+user.getUsername()+"</strong>: PostulaciÃ³n Rechazada",new Date(),detalles));
 				}
 
-				historialDAO.agregar(new HistorialDTO(0,postulacion.getId(),"<strong>"+user.getUsername()+"</strong>: Cambio de Estados: En Decisión <i class='icon-arrow-right'></i> En Espera de Notificación",new Date(),""));
+				historialDAO.agregar(new HistorialDTO(0,postulacion.getId(),"<strong>"+user.getUsername()+"</strong>: Cambio de Estados: En DecisiÃ³n <i class='icon-arrow-right'></i> En Espera de NotificaciÃ³n",new Date(),""));
 				postulacionDAO.actualizar(postulacion);
 				resolucionDAO.agregar(resolucion);
 				forward = SUCCESS_PAGE;
 			}
 
-			//Cambio de estado: En Espera de Notificación -> Resuelta
+			//Cambio de estado: En Espera de NotificaciÃ³n -> Resuelta
 			else if(action.equalsIgnoreCase("espera_notificacion")){
 				int id = Integer.parseInt(request.getParameter("id"));
 				String decision = request.getParameter("decision");
 				PostulacionDTO postulacion = postulacionDAO.getPostulacion(id);
 				
-				//Si se decidió notificar formalmente al estudiante
+				//Si se decidiÃ³ notificar formalmente al estudiante
 				if(decision.equalsIgnoreCase("notificar")){
 					String contenido = request.getParameter("contenido");
 					PostulanteDTO postulante = postulanteDAO.get(postulacion.getIdPostulante());
 					//Enviamos un mail al postulante
 					try{
-						mailHelper.sendMail(postulante.getEmail(), "Postulación Resuelta - Magister T.I.", contenido);
+						mailHelper.sendMail(postulante.getEmail(), "PostulaciÃ³n Resuelta - Magister T.I.", contenido);
 					}
 					catch(Exception e){
 						e.printStackTrace();
@@ -185,14 +185,14 @@ public class EstadoController extends HttpServlet {
 					finally{
 						postulacion.setEstado(Estado.RESUELTA);
 						postulacionDAO.actualizar(postulacion);
-						historialDAO.agregar(new HistorialDTO(0,postulacion.getId(),"<strong>"+user.getUsername()+"</strong>: Cambio de Estados: En Espera de Notificación <i class='icon-arrow-right'></i> Resuelta",new Date(),"Se notificó formalmente al postulante"));
+						historialDAO.agregar(new HistorialDTO(0,postulacion.getId(),"<strong>"+user.getUsername()+"</strong>: Cambio de Estados: En Espera de NotificaciÃ³n <i class='icon-arrow-right'></i> Resuelta",new Date(),"Se notificÃ³ formalmente al postulante"));
 					}
 				}
-				//Si se decidió no notificar
+				//Si se decidiÃ³ no notificar
 				else{
 					postulacion.setEstado(Estado.RESUELTA);
 					postulacionDAO.actualizar(postulacion);
-					historialDAO.agregar(new HistorialDTO(0,postulacion.getId(),"<strong>"+user.getUsername()+"</strong>: Cambio de Estados: En Espera de Notificación <i class='icon-arrow-right'></i> Resuelta",new Date(),"No se notificó formalmente al postulante"));
+					historialDAO.agregar(new HistorialDTO(0,postulacion.getId(),"<strong>"+user.getUsername()+"</strong>: Cambio de Estados: En Espera de NotificaciÃ³n <i class='icon-arrow-right'></i> Resuelta",new Date(),"No se notificÃ³ formalmente al postulante"));
 				}
 				forward = SUCCESS_PAGE;
 			}
