@@ -24,59 +24,69 @@ import cl.uchile.dcc.cc5401.model.dto.HistorialDTO;
 import cl.uchile.dcc.cc5401.model.dto.UserDTO;
 
 @WebServlet("/app/admin/docExtra")
-@MultipartConfig(fileSizeThreshold=1024*1024, maxFileSize=1024*1024*10, maxRequestSize=1024*1024*10*10)
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 10, maxRequestSize = 1024 * 1024 * 10 * 10)
 public class DocumentoExtraController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
 	private String ruta = "";
 	private DocumentoDAO documentoDAO;
 	private HistorialDAO historialDAO;
+
 	private static String SUCCESS = "/app/operacionExitosa.jsp";
 
-    public DocumentoExtraController() {
-        super();
-    }
-    
-    public void init(ServletConfig config) throws ServletException { 
-        super.init(config);
-        documentoDAO = DocumentoDAOFactory.getDocumentoDAO();
-        historialDAO = HistorialDAOFactory.getHistorialDAO();
-        ruta = config.getServletContext().getInitParameter("archivos.dir");
-    }   
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
+	public DocumentoExtraController() {
+		super();
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		documentoDAO = DocumentoDAOFactory.getDocumentoDAO();
+		historialDAO = HistorialDAOFactory.getHistorialDAO();
+		ruta = config.getServletContext().getInitParameter("archivos.dir");
+	}
+
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
 		String forward = "";
-		
-		//Obtenemos los parámetros del formulario junto con el usuario de la sesión actual
-		int idPostulacion = Integer.parseInt(request.getParameter("id_postulacion"));
+
+		// Obtenemos los parámetros del formulario junto con el usuario de la
+		// sesión actual
+		int idPostulacion = Integer.parseInt(request
+				.getParameter("id_postulacion"));
 		String comentario = request.getParameter("comentario");
 		HttpSession session = request.getSession(true);
 		UserDTO user = (UserDTO) session.getAttribute("user");
-		
-		//Obtenemos el archivo del documento
+
+		// Obtenemos el archivo del documento
 		Part part = request.getPart("doc_extra");
-		
-		//Vemos si no habia otro con el mismo numero para no sobreescribirlo
+
+		// Vemos si no habia otro con el mismo numero para no sobreescribirlo
 		List<DocumentoDTO> extras = documentoDAO.getExtras(idPostulacion);
 		int count = 0;
-		if(extras != null)
+		if (extras != null)
 			count = extras.size();
-		DocumentoDTO docExtra = new DocumentoDTO(0,ruta+"/"+"DocumentoExtra"+ (count +1) +":"+idPostulacion+".pdf","DocumentoExtra"+ (count +1) +":"+idPostulacion+".pdf",comentario);
-		
-		//Subimos el archivo al servidor
+		DocumentoDTO docExtra = new DocumentoDTO(0,
+				ruta + "/" + "DocumentoExtra" + (count + 1) + ":"
+						+ idPostulacion + ".pdf", "DocumentoExtra"
+						+ (count + 1) + ":" + idPostulacion + ".pdf",
+				comentario);
+
+		// Subimos el archivo al servidor
 		part.write(docExtra.getDireccion());
-		
-		//Agregamos el registro a la base de datos, junto con el historial
+
+		// Agregamos el registro a la base de datos, junto con el historial
 		documentoDAO.agregarExtra(idPostulacion, docExtra);
-		historialDAO.agregar(new HistorialDTO(0,idPostulacion,"<strong>"+user.getUsername()+":</strong> <i class='icon-plus'></i> Se agregó un documento extra",new Date(),comentario));
-		
-		
-		forward=SUCCESS;
+		historialDAO
+				.agregar(new HistorialDTO(
+						0,
+						idPostulacion,
+						"<strong>"
+								+ user.getUsername()
+								+ ":</strong> <i class='icon-plus'></i> Se agregó un documento extra",
+						new Date(), comentario));
+
+		forward = SUCCESS;
 		RequestDispatcher view = request.getRequestDispatcher(forward);
 		view.forward(request, response);
 	}

@@ -6,18 +6,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link rel="shortcut icon"
-	href="${root}/favicon.ico" />
+<link rel="shortcut icon" href="${root}/favicon.ico" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Tracking postulación ${track} - Magister TI DCC</title>
-<link rel="stylesheet"
-	href="${root}/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="${root}/css/bootstrap-responsive.css">
-<link rel="stylesheet"
-	href="${root}/css/header.css">
-<link rel="stylesheet"
-	href="${root}/css/footer.css">
+<link rel="stylesheet" href="${root}/css/bootstrap.min.css">
+<link rel="stylesheet" href="${root}/css/bootstrap-responsive.css">
+<link rel="stylesheet" href="${root}/css/header.css">
+<link rel="stylesheet" href="${root}/css/footer.css">
 <link rel="stylesheet"
 	href="${root}/fancybox/source/jquery.fancybox.css?v=2.1.5"
 	type="text/css" media="screen" />
@@ -55,8 +50,8 @@
 
 			<li class="span4">
 				<div class="thumbnail valid-thumb">
-					<img src="${root}/img/business-success.jpg"
-						style="height: 180px;" alt="ALT NAME">
+					<img src="${root}/img/business-success.jpg" style="height: 180px;"
+						alt="ALT NAME">
 					<div class="caption">
 						<h3>
 							En Validación &nbsp;
@@ -83,8 +78,8 @@
 			</li>
 			<li class="span4">
 				<div class="thumbnail progress-thumb">
-					<img src="${root}/img/report_icon.gif"
-						style="height: 180px;" alt="ALT NAME">
+					<img src="${root}/img/report_icon.gif" style="height: 180px;"
+						alt="ALT NAME">
 					<div class="caption">
 						<h3>
 							En Evaluación &nbsp;
@@ -110,8 +105,8 @@
 					<c:choose>
 						<c:when test="${resuelta}">
 							<c:if test="${resolucion.resultado.id==1}">
-								<img src="${root}/img/right.png"
-									style="height: 180px;" alt="ALT NAME">
+								<img src="${root}/img/right.png" style="height: 180px;"
+									alt="ALT NAME">
 								<div class="caption">
 									<h3>Resolución Tomada</h3>
 									<p>
@@ -122,8 +117,8 @@
 								</div>
 							</c:if>
 							<c:if test="${resolucion.resultado.id==2}">
-								<img src="${root}/img/wrong.png"
-									style="height: 180px;" alt="ALT NAME">
+								<img src="${root}/img/wrong.png" style="height: 180px;"
+									alt="ALT NAME">
 								<div class="caption">
 									<h3>Resolución Tomada</h3>
 									<p>
@@ -134,8 +129,8 @@
 								</div>
 							</c:if>
 							<c:if test="${resolucion.resultado.id==3}">
-								<img src="${root}/img/right.png"
-									style="height: 180px;" alt="ALT NAME">
+								<img src="${root}/img/right.png" style="height: 180px;"
+									alt="ALT NAME">
 								<div class="caption">
 									<h3>Resolución Tomada</h3>
 									<p>
@@ -147,8 +142,8 @@
 							</c:if>
 						</c:when>
 						<c:otherwise>
-							<img src="${root}/img/question.png"
-								style="height: 180px;" alt="ALT NAME">
+							<img src="${root}/img/question.png" style="height: 180px;"
+								alt="ALT NAME">
 							<div class="caption">
 								<h3>Resolución Tomada</h3>
 								<p>Esta etapa corresponde a la finalización del proceso.
@@ -166,8 +161,7 @@
 		<div style="text-align: center;">
 			<h3>Acciones</h3>
 
-			<a class="btn btn-success btn-large"
-				href="${root}/index.jsp"> <i
+			<a class="btn btn-success btn-large" href="${root}/index.jsp"> <i
 				class="icon-home icon-white"></i> Ir Al Inicio
 			</a>
 			<c:if test="${!resuelta}">

@@ -6,15 +6,14 @@
 <html>
 <head>
 <title>Admin Login</title>
-<link rel="shortcut icon"
-	href="${root}/favicon.ico" />
+<link rel="shortcut icon" href="${root}/favicon.ico" />
 <!-- Bootstrap -->
-<link href="${root}/css/bootstrap.min.css"
-	rel="stylesheet" media="screen">
-<link href="${root}/css/bootstrap-responsive.css"
-	rel="stylesheet" media="screen">
-<link href="${root}/css/admin/styles.css"
-	rel="stylesheet" media="screen">
+<link href="${root}/css/bootstrap.min.css" rel="stylesheet"
+	media="screen">
+<link href="${root}/css/bootstrap-responsive.css" rel="stylesheet"
+	media="screen">
+<link href="${root}/css/admin/styles.css" rel="stylesheet"
+	media="screen">
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -24,8 +23,7 @@
 <body id="login">
 	<div class="container">
 
-		<form class="form-signin" method="post"
-			action="${root}/app/login">
+		<form class="form-signin" method="post" action="${root}/app/login">
 			<h2 class="form-signin-heading">Login Admin</h2>
 			<div class="alert alert-error fade in"
 				${incorrecto!=null ? '' : 'hidden' }>

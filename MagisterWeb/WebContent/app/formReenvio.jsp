@@ -9,8 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Magister TI - DCC</title>
-<link rel="shortcut icon"
-	href="${root}/favicon.ico" />
+<link rel="shortcut icon" href="${root}/favicon.ico" />
 <!-- CSS -->
 <link rel="stylesheet" type="text/css" href="../css/DT_bootstrap.css">
 <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -42,8 +41,8 @@
 				</c:when>
 				<c:otherwise>
 					<form id="postulacionForm" method="post"
-						action="${root}/app/reenvio"
-						enctype="multipart/form-data" class="form-horizontal">
+						action="${root}/app/reenvio" enctype="multipart/form-data"
+						class="form-horizontal">
 						<h3>Ingrese a continuación los elementos que han sido
 							rechazados en su postulación</h3>
 						<div class="well ">

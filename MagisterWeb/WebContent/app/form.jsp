@@ -9,8 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Magister TI - DCC</title>
-<link rel="shortcut icon"
-	href="${root}/favicon.ico" />
+<link rel="shortcut icon" href="${root}/favicon.ico" />
 <!-- CSS -->
 <link rel="stylesheet" type="text/css" href="../css/DT_bootstrap.css">
 <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -35,8 +34,7 @@
 				</h1>
 			</div>
 
-			<form id="postulacionForm" method="post"
-				action="${root}/app/form"
+			<form id="postulacionForm" method="post" action="${root}/app/form"
 				enctype="multipart/form-data" class="form-horizontal">
 				<div id="rootwizard">
 					<div class="navbar">
@@ -657,8 +655,7 @@
 												id="grado_resumen"></span><br> <span
 												id="institucion_resumen"></span><br> <span
 												id="pais_grado_resumen"></span><br> <span
-												id="fecha_ob_resumen"></span><br>
-											<br>
+												id="fecha_ob_resumen"></span><br> <br>
 											<div id="grados"></div>
 										</address>
 									</div>

@@ -6,18 +6,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link rel="shortcut icon"
-	href="${root}/favicon.ico" />
+<link rel="shortcut icon" href="${root}/favicon.ico" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Usuario Inválido - Magister TI DCC</title>
-<link rel="stylesheet"
-	href="${root}/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="${root}/css/bootstrap-responsive.css">
-<link rel="stylesheet"
-	href="${root}/css/header.css">
-<link rel="stylesheet"
-	href="${root}/css/footer.css">
+<link rel="stylesheet" href="${root}/css/bootstrap.min.css">
+<link rel="stylesheet" href="${root}/css/bootstrap-responsive.css">
+<link rel="stylesheet" href="${root}/css/header.css">
+<link rel="stylesheet" href="${root}/css/footer.css">
 <script src="${root}/js/jquery.js"></script>
 <script src="${root}/js/bootstrap.min.js"></script>
 
@@ -52,11 +47,10 @@
 
 
 		<br> <br> <a class="btn btn-primary btn-large"
-			href="${root}/app/login"><i
-			class=" icon-user icon-white"></i> Ingresar</a> <a
-			class="btn btn-success btn-large"
-			href="${root}/index.jsp"><i
-			class="icon-home icon-white"></i> Ir Al Inicio</a>
+			href="${root}/app/login"><i class=" icon-user icon-white"></i>
+			Ingresar</a> <a class="btn btn-success btn-large"
+			href="${root}/index.jsp"><i class="icon-home icon-white"></i> Ir
+			Al Inicio</a>
 	</div>
 
 

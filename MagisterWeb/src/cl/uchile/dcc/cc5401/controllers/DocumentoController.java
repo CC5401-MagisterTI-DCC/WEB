@@ -31,48 +31,50 @@ public class DocumentoController extends HttpServlet {
 		super();
 	}
 
-	public void init(ServletConfig config) throws ServletException { 
+	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		documentoDAO = DocumentoDAOFactory.getDocumentoDAO();
 	}
 
-	//Encargado de la lógica de descargar archivos
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//Obtenemos el id del request y extraemos el documento
+	/**
+	 * Encargado de la lógica de descargar archivos
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
+		// Obtenemos el id del request y extraemos el documento
 		int id = Integer.parseInt(request.getParameter("id"));
 		DocumentoDTO documento = documentoDAO.get(id);
 		File file = new File(documento.getDireccion());
-		
-		if(!file.exists()){
+
+		if (!file.exists()) {
 			throw new ServletException("Archivo no existe en el servidor.");
 		}
-		
-		System.out.println("File location on server::"+file.getAbsolutePath());
-		
-		//Extraemos el documento del sistema
+
+		System.out
+				.println("File location on server::" + file.getAbsolutePath());
+
+		// Extraemos el documento del sistema
 		ServletContext ctx = getServletContext();
 		InputStream fis = new FileInputStream(file);
 		String mimeType = ctx.getMimeType(file.getAbsolutePath());
-		response.setContentType(mimeType != null? mimeType:"application/octet-stream");
+		response.setContentType(mimeType != null ? mimeType
+				: "application/octet-stream");
 		response.setContentLength((int) file.length());
-		response.setHeader("Content-Disposition", "attachment; filename=\"" + documento.getNombre() + "\"");
+		response.setHeader("Content-Disposition", "attachment; filename=\""
+				+ documento.getNombre() + "\"");
 
-		//Enviamos el stream de datos al cliente
+		// Enviamos el stream de datos al cliente
 		ServletOutputStream os = response.getOutputStream();
 		byte[] bufferData = new byte[1024];
-		int read=0;
-		while((read = fis.read(bufferData))!= -1){
+		int read = 0;
+		while ((read = fis.read(bufferData)) != -1) {
 			os.write(bufferData, 0, read);
 		}
 		os.flush();
 		os.close();
 		fis.close();
 		System.out.println("Archivo descargado correctamente por el usuario");
-	
-	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	}
-
 }

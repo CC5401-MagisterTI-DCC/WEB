@@ -9,8 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Eliminar Usuario</title>
 
-<link rel="stylesheet"
-	href="${root}/css/bootstrap.min.css">
+<link rel="stylesheet" href="${root}/css/bootstrap.min.css">
 
 <script src="${root}/js/jquery.js"></script>
 <script src="${root}/js/bootstrap.js"></script>
