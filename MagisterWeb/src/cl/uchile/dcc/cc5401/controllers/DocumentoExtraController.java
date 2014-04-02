@@ -45,17 +45,21 @@ public class DocumentoExtraController extends HttpServlet {
 		ruta = config.getServletContext().getInitParameter("archivos.dir");
 	}
 
+	/**
+	 * Agrega un documento a la postulación
+	 * */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
 		String forward = "";
+		int count = 0;
 
 		// Obtenemos los parámetros del formulario junto con el usuario de la
 		// sesión actual
 		int idPostulacion = Integer.parseInt(request
 				.getParameter("id_postulacion"));
 		String comentario = request.getParameter("comentario");
-		HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession(false);
 		UserDTO user = (UserDTO) session.getAttribute("user");
 
 		// Obtenemos el archivo del documento
@@ -63,9 +67,10 @@ public class DocumentoExtraController extends HttpServlet {
 
 		// Vemos si no habia otro con el mismo numero para no sobreescribirlo
 		List<DocumentoDTO> extras = documentoDAO.getExtras(idPostulacion);
-		int count = 0;
+
 		if (extras != null)
 			count = extras.size();
+
 		DocumentoDTO docExtra = new DocumentoDTO(0,
 				ruta + "/" + "DocumentoExtra" + (count + 1) + ":"
 						+ idPostulacion + ".pdf", "DocumentoExtra"
@@ -77,10 +82,7 @@ public class DocumentoExtraController extends HttpServlet {
 
 		// Agregamos el registro a la base de datos, junto con el historial
 		documentoDAO.agregarExtra(idPostulacion, docExtra);
-		historialDAO
-				.agregar(new HistorialDTO(
-						0,
-						idPostulacion,
+		historialDAO.agregar(new HistorialDTO(0, idPostulacion,
 						"<strong>"
 								+ user.getUsername()
 								+ ":</strong> <i class='icon-plus'></i> Se agregó un documento extra",
