@@ -21,7 +21,6 @@ import cl.uchile.dcc.cc5401.util.MailHelper;
 
 public class MailScheduler implements Job {
 
-
 	private PostulacionDAO postulacionDAO;
 	private UserDAO userDAO;
 	private VotoDAO votoDAO;
@@ -33,48 +32,50 @@ public class MailScheduler implements Job {
 	private String[] coordinador;
 	private String[] asistente;
 
-	//Función auxiliar encargada de inicializar las variables.
-	private void initDAOs(JobDataMap jdm){
+	// Función auxiliar encargada de inicializar las variables.
+	private void initDAOs(JobDataMap jdm) {
 		postulacionDAO = PostulacionDAOFactory.getPostulacionDAO();
 		userDAO = UserDAOFactory.getUserDAO();
 		votoDAO = VotoDAOFactory.getVotoDAO();
-		mailHelper = new MailHelper(
-				jdm.getString("usernameMail"),
-				jdm.getString("passwordMail"),
-				jdm.getString("hostMail"),
+
+		mailHelper = new MailHelper(jdm.getString("usernameMail"),
+				jdm.getString("passwordMail"), jdm.getString("hostMail"),
 				jdm.getString("portMail"), true);
+
 		subject = jdm.getString("SubjectMensaje");
 		body = jdm.getString("BodyMensaje");
+
 		jefePEC = jdm.getString("jefe_pec").split(",");
 		comision = jdm.getString("comision").split(",");
 		coordinador = jdm.getString("coordinador").split(",");
 		asistente = jdm.getString("asistente").split(",");
-	} 
-	
-	//Función auxiliar encargada de enviar emails.
-	private void sendMail(UserDTO usuario, String nPostulaciones){
+	}
+
+	// Función auxiliar encargada de enviar emails.
+	private void sendMail(UserDTO usuario, String nPostulaciones) {
 		String msjBody = body.replaceAll("@usuario", usuario.getUsername());
 		msjBody = msjBody.replaceAll("@numero_postulacion", nPostulaciones);
-		
-		String email = usuario.getEmail(); 
-		
-		try{
+
+		String email = usuario.getEmail();
+
+		try {
 			mailHelper.sendMail(email, subject, msjBody);
-			System.out.println(new Date()+"[INFO] Enviando mail a "+email+": "+nPostulaciones+" pendientes.");
-		}catch(Exception e){
+			System.out.println(new Date() + "[INFO] Enviando mail a " + email
+					+ ": " + nPostulaciones + " pendientes.");
+		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("NO SE PUDO MANDAR MAIL A "+email);
+			System.out.println("NO SE PUDO MANDAR MAIL A " + email);
 		}
 	}
 
-
 	@Override
-	public void execute(JobExecutionContext context) throws JobExecutionException {
+	public void execute(JobExecutionContext context)
+			throws JobExecutionException {
 
-		this.initDAOs( context.getMergedJobDataMap());
+		this.initDAOs(context.getMergedJobDataMap());
 
 		List<PostulacionDTO> postulaciones = postulacionDAO.getAll();
-		//Inicializamos las listas de postulaciones
+		// Inicializamos las listas de postulaciones
 		List<PostulacionDTO> revision = new ArrayList<PostulacionDTO>();
 		List<PostulacionDTO> validacion = new ArrayList<PostulacionDTO>();
 		List<PostulacionDTO> consideracion = new ArrayList<PostulacionDTO>();
@@ -82,10 +83,9 @@ public class MailScheduler implements Job {
 		List<PostulacionDTO> decision = new ArrayList<PostulacionDTO>();
 		List<PostulacionDTO> esperaNotificacion = new ArrayList<PostulacionDTO>();
 
-		
-		//Rellenamos las listas con respecto a su estado
-		for(PostulacionDTO p : postulaciones){
-			switch (p.getEstado()){
+		// Rellenamos las listas con respecto a su estado
+		for (PostulacionDTO p : postulaciones) {
+			switch (p.getEstado()) {
 			case REVISION:
 				revision.add(p);
 				break;
@@ -115,80 +115,83 @@ public class MailScheduler implements Job {
 		int nAsistente = 0;
 		int nComision = 0;
 		int nJefePEC = 0;
-		
-		//Revisamos si las listas contienen algo, si es así aumentamos el contador de postulaciones pendientes para las entidades
-		if(revision.size()>0){
-			nAsistente +=revision.size();
+
+		// Revisamos si las listas contienen algo, si es así aumentamos el
+		// contador de postulaciones pendientes para las entidades
+		if (revision.size() > 0) {
+			nAsistente += revision.size();
 		}
-		if(validacion.size()>0){
+		if (validacion.size() > 0) {
 			nJefePEC += validacion.size();
 		}
-		if(consideracion.size()>0){
-			nCoordinador+=consideracion.size();
+		if (consideracion.size() > 0) {
+			nCoordinador += consideracion.size();
 		}
-		if(evaluacion.size()>0){
-			nComision+=evaluacion.size();
-			nCoordinador+=evaluacion.size();
+		if (evaluacion.size() > 0) {
+			nComision += evaluacion.size();
+			nCoordinador += evaluacion.size();
 		}
-		if(decision.size()>0){
-			nCoordinador+=decision.size();
+		if (decision.size() > 0) {
+			nCoordinador += decision.size();
 		}
-		if(esperaNotificacion.size()>0){
-			nAsistente +=esperaNotificacion.size();
+		if (esperaNotificacion.size() > 0) {
+			nAsistente += esperaNotificacion.size();
 		}
-		
-		
-		//Enviamos los emails
-		if(nJefePEC>0){
-			//Le enviamos un mail a cada jefe del PEC (en caso de existir mas de uno)
-			for(String u : jefePEC){
+
+		// Enviamos los emails
+		if (nJefePEC > 0) {
+			// Le enviamos un mail a cada jefe del PEC (en caso de existir mas
+			// de uno)
+			for (String u : jefePEC) {
 				UserDTO usuario = userDAO.getUser(u);
 				String nPostulaciones = String.valueOf(nJefePEC);
 				this.sendMail(usuario, nPostulaciones);
 			}
 		}
-		if(nCoordinador>0){
-			//Le enviamos un mail a cada coordinador (en caso de existir mas de uno)
-			for(String u : coordinador){
+		if (nCoordinador > 0) {
+			// Le enviamos un mail a cada coordinador (en caso de existir mas de
+			// uno)
+			for (String u : coordinador) {
 				UserDTO usuario = userDAO.getUser(u);
 				int nPendientes = nCoordinador;
-				//Caso en que ya haya votado
-				for(PostulacionDTO p : evaluacion){
-					if(votoDAO.get(p.getId(), usuario.getId())!=null){
+				// Caso en que ya haya votado
+				for (PostulacionDTO p : evaluacion) {
+					if (votoDAO.get(p.getId(), usuario.getId()) != null) {
 						nPendientes--;
 					}
 				}
 				String nPostulaciones = String.valueOf(nPendientes);
-				if(nPendientes!=0)
+				if (nPendientes != 0)
 					this.sendMail(usuario, nPostulaciones);
 			}
 		}
-		if(nAsistente>0){
-			//Le enviamos un mail a cada asistente
-			for(String u : asistente){
+		if (nAsistente > 0) {
+			// Le enviamos un mail a cada asistente
+			for (String u : asistente) {
 				UserDTO usuario = userDAO.getUser(u);
 				String nPostulaciones = String.valueOf(nAsistente);
 				this.sendMail(usuario, nPostulaciones);
 			}
 		}
-		if(nComision>0){
-			//Le enviamos un mail a cada miembro de la comisión (excepto al coordinador que ya le enviamos)
-			for(String u : comision){
+		if (nComision > 0) {
+			// Le enviamos un mail a cada miembro de la comisión (excepto al
+			// coordinador que ya le enviamos)
+			for (String u : comision) {
 				UserDTO usuario = userDAO.getUser(u);
 				int nPendientes = nComision;
-				//Caso en que ya haya votado
-				for(PostulacionDTO p : evaluacion){
-					if(votoDAO.get(p.getId(), usuario.getId())!=null){
+				// Caso en que ya haya votado
+				for (PostulacionDTO p : evaluacion) {
+					if (votoDAO.get(p.getId(), usuario.getId()) != null) {
 						nPendientes--;
 					}
 				}
-				if(!u.equals(coordinador)){
+				if (!u.equals(coordinador)) {
 					String nPostulaciones = String.valueOf(nPendientes);
-					if(nPendientes!=0)
+					if (nPendientes != 0)
 						this.sendMail(usuario, nPostulaciones);
 				}
 			}
 		}
-		
+
 	}
 }

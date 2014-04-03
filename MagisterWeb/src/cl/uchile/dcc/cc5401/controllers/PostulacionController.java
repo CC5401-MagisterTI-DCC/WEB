@@ -310,10 +310,5 @@ public class PostulacionController extends HttpServlet {
 		view.forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher view = request.getRequestDispatcher(ERROR_PAGE);
-		view.forward(request, response);
-	}
-
 }
 

@@ -30,43 +30,49 @@ public class TrackingController extends HttpServlet {
 		resolucionDAO = ResolucionDAOFactory.getResolucionDAO();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	/**
+	 * Muestra la página para ingresar el número de track y mail del postulante
+	 * */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher view = request.getRequestDispatcher(LOGIN_PAGE);
 		view.forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	/**
+	 * Muestra la postulación según el número de track y mail ingresados por el
+	 * usuario.
+	 * */
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 
-		String forward="";
-		HttpServletRequest request = (HttpServletRequest) req;
-		HttpServletResponse response = (HttpServletResponse) res;
+		String forward = "";
 		String email = request.getParameter("email").trim();
 		String trackNumber = request.getParameter("track_n").trim();
 
-		PostulacionDTO postulacion = postulacionDAO.getPostulacion(trackNumber, email);
-		
-		if(postulacion==null){
+		PostulacionDTO postulacion = postulacionDAO.getPostulacion(trackNumber,
+				email);
+
+		if (postulacion == null) {
 			request.setAttribute("incorrecto", true);
-			forward=LOGIN_PAGE;
-		}
-		else{
+			forward = LOGIN_PAGE;
+		} else {
 			request.setAttribute("postulacion", postulacion);
 			request.setAttribute("track", trackNumber);
-			if(postulacion.getEstado().getId()<3){
+
+			if (postulacion.getEstado().getId() < 3) {
 				request.setAttribute("validacion", true);
-			}
-			else if(postulacion.getEstado().getId()<7){
+			} else if (postulacion.getEstado().getId() < 7) {
 				request.setAttribute("evaluacion", true);
-			}
-			else if(postulacion.getEstado().equals(Estado.ELIMINADA)){
+			} else if (postulacion.getEstado().equals(Estado.ELIMINADA)) {
 				request.setAttribute("eliminada", true);
-			}
-			else{
-				request.setAttribute("resolucion", resolucionDAO.get(postulacion.getId()));
+			} else {
+				request.setAttribute("resolucion",
+						resolucionDAO.get(postulacion.getId()));
 				request.setAttribute("resuelta", true);
 			}
 			request.setAttribute("tracking", true);
-			forward=TRACKING_PAGE;
+			forward = TRACKING_PAGE;
 		}
 
 		RequestDispatcher view = request.getRequestDispatcher(forward);

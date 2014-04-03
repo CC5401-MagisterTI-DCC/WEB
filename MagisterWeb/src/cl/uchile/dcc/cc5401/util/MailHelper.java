@@ -61,6 +61,8 @@ public class MailHelper {
 	public void sendMail(String to, String subject, String body) throws AddressException, MessagingException{
 		props.put("mail.smtp.host", host);
 		props.put("mail.smtp.port", port);
+		//quitar después
+		props.put("mail.smtp.starttls.enable", "true");
 
 		Session session = Session.getDefaultInstance(props);
 		MimeMessage message = new MimeMessage(session);
@@ -69,7 +71,7 @@ public class MailHelper {
 		InternetAddress toAddress = new InternetAddress(to);
 
 		message.addRecipient(Message.RecipientType.TO, toAddress);
-
+		
 		message.setSubject(subject);
 		message.setText(body);
 		Transport transport = session.getTransport("smtp");

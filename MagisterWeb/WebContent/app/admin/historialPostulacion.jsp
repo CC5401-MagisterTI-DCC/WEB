@@ -23,7 +23,7 @@ body {
 <body>
 
 	<h1>
-		Historial de Postulación <small>N° ${idPostulación}</small>
+		Historial de Postulación <small>N° ${idPostulacion}</small>
 	</h1>
 
 	<table cellpadding="0" cellspacing="0" border="0"

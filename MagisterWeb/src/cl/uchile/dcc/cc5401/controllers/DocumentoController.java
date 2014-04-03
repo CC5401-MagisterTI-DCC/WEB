@@ -47,12 +47,12 @@ public class DocumentoController extends HttpServlet {
 		DocumentoDTO documento = documentoDAO.get(id);
 		File file = new File(documento.getDireccion());
 
+		System.out
+				.println("File location on server:: " + file.getAbsolutePath());
+
 		if (!file.exists()) {
 			throw new ServletException("Archivo no existe en el servidor.");
 		}
-
-		System.out
-				.println("File location on server::" + file.getAbsolutePath());
 
 		// Extraemos el documento del sistema
 		ServletContext ctx = getServletContext();

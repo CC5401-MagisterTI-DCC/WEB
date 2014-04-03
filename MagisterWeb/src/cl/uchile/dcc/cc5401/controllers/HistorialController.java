@@ -49,7 +49,7 @@ public class HistorialController extends HttpServlet {
 			List<HistorialDTO> ht = historialDAO.get(id);
 			Collections.reverse(ht);
 			request.setAttribute("listaHistorial",ht);
-			request.setAttribute("idPostualacion", idPostulacion);
+			request.setAttribute("idPostulacion", idPostulacion);
 			forward=HISTORIAL_PARTICULAR;
 		}
 		RequestDispatcher view = request.getRequestDispatcher(forward);
