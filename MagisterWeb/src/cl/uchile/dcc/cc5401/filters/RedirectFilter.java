@@ -19,31 +19,33 @@ import javax.servlet.http.HttpSession;
 @WebFilter("/app/admin/*")
 public class RedirectFilter implements Filter {
 
-	private static String ERROR_PERMISOS = "/app/permisos.jsp";
-	
-    public RedirectFilter() {
-    	
-    }
-    
-    public void init(FilterConfig fConfig) throws ServletException {
-    	
+	private static final String ERROR_PERMISOS = "/app/permisos.jsp";
+
+	public RedirectFilter() {
+
 	}
-	
-	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-		 HttpServletRequest request = (HttpServletRequest) req;
-         HttpServletResponse response = (HttpServletResponse) res;
-         HttpSession session = request.getSession(true);
-         
-         if(session.getAttribute("user")!=null){
-        	 chain.doFilter(request, response);
-         }
-         else{
-        	 response.sendRedirect(request.getContextPath() + ERROR_PERMISOS); 
-         }
+
+	public void init(FilterConfig fConfig) throws ServletException {
+
+	}
+
+	public void doFilter(ServletRequest req, ServletResponse res,
+			FilterChain chain) throws IOException, ServletException {
+
+		HttpServletRequest request = (HttpServletRequest) req;
+		HttpServletResponse response = (HttpServletResponse) res;
+
+		HttpSession session = request.getSession(true);
+
+		if (session.getAttribute("user") != null) {
+			chain.doFilter(request, response);
+		} else {
+			response.sendRedirect(request.getContextPath() + ERROR_PERMISOS);
+		}
 	}
 
 	public void destroy() {
-		
+
 	}
 
 }

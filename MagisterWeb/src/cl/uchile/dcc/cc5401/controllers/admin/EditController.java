@@ -1,4 +1,4 @@
-package cl.uchile.dcc.cc5401.controllers;
+package cl.uchile.dcc.cc5401.controllers.admin;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -68,9 +68,9 @@ public class EditController extends HttpServlet {
 
 	private String ruta = "";
 
-	private static String EDIT_FORM = "/app/admin/editPostulacion.jsp";
-	private static String ERROR_PAGE = "/error.jsp";
-	private static String SUCCESS = "/app/admin/postulaciones";
+	private static final String EDIT_FORM = "/app/admin/editPostulacion.jsp";
+	private static final String ERROR_PAGE = "/error.jsp";
+	private static final String SUCCESS = "/app/admin/postulaciones";
 
 	public EditController() {
 		super();

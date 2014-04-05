@@ -1,8 +1,9 @@
-package cl.uchile.dcc.cc5401.controllers;
+package cl.uchile.dcc.cc5401.controllers.tracking;
 
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,13 +20,22 @@ import cl.uchile.dcc.cc5401.util.Estado;
 @WebServlet("/app/track")
 public class TrackingController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static String TRACKING_PAGE = "/app/tracking/vistaPostulacion.jsp";
-	private static String LOGIN_PAGE = "/app/loginTracking.jsp";
+
 	private PostulacionDAO postulacionDAO;
 	private ResolucionDAO resolucionDAO;
 
+	private static final String TRACKING_PAGE = "/app/tracking/vistaPostulacion.jsp";
+	private static final String LOGIN_PAGE = "/app/loginTracking.jsp";
+
 	public TrackingController() {
 		super();
+	}
+
+	/**
+	 * Inicializa los objetos DAO para interacturar con la BD
+	 * */
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
 		postulacionDAO = PostulacionDAOFactory.getPostulacionDAO();
 		resolucionDAO = ResolucionDAOFactory.getResolucionDAO();
 	}

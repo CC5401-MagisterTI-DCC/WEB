@@ -1,8 +1,9 @@
-package cl.uchile.dcc.cc5401.controllers;
+package cl.uchile.dcc.cc5401.controllers.admin;
 
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,23 +19,36 @@ import cl.uchile.dcc.cc5401.util.HashHelper;
 @WebServlet("/app/admin/userAdmin")
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	private UserDAO userDAO;
+
 	private static final String USER_PAGE = "/app/admin/userAdmin/users.jsp";
-	private static final String ERROR_PAGE = "/app/admin/userAdmin/users.jsp";
+	private static final String ERROR_PAGE = "/error.jsp";
 	private static final String DELETE_PAGE = "/app/admin/userAdmin/delete.jsp";
 	private static final String NEW_PAGE = "/app/admin/userAdmin/new.jsp";
 	private static final String EDIT_PAGE = "/app/admin/userAdmin/edit.jsp";
 	private static final String SUCCESS = "/app/operacionExitosa.jsp";
-	private UserDAO userDAO;
 
 	public UserController() {
 		super();
+	}
+
+	/**
+	 * Inicializa los objetos DAO para interacturar con la BD
+	 * */
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
 		userDAO = UserDAOFactory.getUserDAO();
 	}
 
+	/**
+	 * Carga una vista dependiendo de la variable 'action' presente en el
+	 * request.
+	 * */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		String forward = "";
+		String forward;
 		String action = request.getParameter("action");
 
 		if (action == null) {
@@ -60,9 +74,13 @@ public class UserController extends HttpServlet {
 		view.forward(request, response);
 	}
 
+	/**
+	 * Realiza la acción indicada en el request (agregar, eliminar, actualizar).
+	 * */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String forward = "";
+
+		String forward;
 		String nuevo = request.getParameter("new");
 		String edit = request.getParameter("edit");
 		String delete = request.getParameter("delete");
@@ -75,6 +93,7 @@ public class UserController extends HttpServlet {
 			password = HashHelper.toHash(password, Algoritmo.MD5);
 
 			System.out.println("idRol:" + idRol);
+
 			UserDTO user = new UserDTO(0, username, password, mail, "", idRol,
 					null);
 			userDAO.agregar(user);
@@ -95,6 +114,7 @@ public class UserController extends HttpServlet {
 		} else if (delete != null) {
 			int id = Integer.parseInt(request.getParameter("id"));
 			userDAO.eliminar(id);
+			
 			forward = SUCCESS;
 		} else {
 			forward = ERROR_PAGE;

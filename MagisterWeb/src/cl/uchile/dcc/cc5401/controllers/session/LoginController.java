@@ -1,4 +1,4 @@
-package cl.uchile.dcc.cc5401.controllers;
+package cl.uchile.dcc.cc5401.controllers.session;
 
 import java.io.IOException;
 
@@ -23,15 +23,14 @@ import cl.uchile.dcc.cc5401.util.HashHelper;
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private static String POSTULACIONES_PAGE = "/app/admin/postulaciones";
-	private static String LOGIN_PAGE = "/app/login.jsp";
-
 	private UserDAO userDAO;
+
+	private static final String POSTULACIONES_PAGE = "/app/admin/postulaciones";
+	private static final String LOGIN_PAGE = "/app/login.jsp";
 
 	public LoginController() {
 		super();
 		userDAO = UserDAOFactory.getUserDAO();
-
 	}
 
 	/**
@@ -39,6 +38,7 @@ public class LoginController extends HttpServlet {
 	 * */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+
 		RequestDispatcher view = request.getRequestDispatcher(LOGIN_PAGE);
 		view.forward(request, response);
 	}
@@ -48,9 +48,9 @@ public class LoginController extends HttpServlet {
 	 * */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		
+
 		HttpSession session;
-		
+
 		// Obtenemos los datos y aplicamos MD5 a la contraseña
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
@@ -68,6 +68,7 @@ public class LoginController extends HttpServlet {
 			if (usuario.getPassword().equalsIgnoreCase(password)) {
 				session = request.getSession(true);
 				session.setAttribute("user", usuario);
+
 				response.sendRedirect(request.getContextPath()
 						+ POSTULACIONES_PAGE);
 			}

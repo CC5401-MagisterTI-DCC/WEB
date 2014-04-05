@@ -1,8 +1,9 @@
-package cl.uchile.dcc.cc5401.controllers;
+package cl.uchile.dcc.cc5401.controllers.admin;
 
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,13 +21,20 @@ import cl.uchile.dcc.cc5401.util.HashHelper;
 public class PasswordController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private static String POSTULACIONES_PAGE = "/app/admin/postulaciones";
-	private static String PASS_CHANGE = "/app/admin/passchange.jsp";
-
 	private UserDAO userDAO;
+
+	private static final String POSTULACIONES_PAGE = "/app/admin/postulaciones";
+	private static final String PASS_CHANGE = "/app/admin/passchange.jsp";
 
 	public PasswordController() {
 		super();
+	}
+
+	/**
+	 * Inicializa los objetos DAO para interacturar con la BD
+	 * */
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
 		userDAO = UserDAOFactory.getUserDAO();
 	}
 
@@ -42,9 +50,9 @@ public class PasswordController extends HttpServlet {
 	/**
 	 * Persiste el cambio de contraseña.
 	 * */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
 		HttpSession session = request.getSession();
 		UserDTO user = (UserDTO) session.getAttribute("user");
 

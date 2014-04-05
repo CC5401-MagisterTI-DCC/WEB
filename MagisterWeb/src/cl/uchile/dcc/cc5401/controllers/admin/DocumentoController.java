@@ -1,4 +1,4 @@
-package cl.uchile.dcc.cc5401.controllers;
+package cl.uchile.dcc.cc5401.controllers.admin;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,7 +19,7 @@ import cl.uchile.dcc.cc5401.model.dao.impl.factory.DocumentoDAOFactory;
 import cl.uchile.dcc.cc5401.model.dto.DocumentoDTO;
 
 /**
- * Servlet implementation class DocumentoController
+ * Encargado de la lógica de descargar archivos
  */
 @WebServlet("/app/admin/documento")
 public class DocumentoController extends HttpServlet {
@@ -30,14 +30,17 @@ public class DocumentoController extends HttpServlet {
 	public DocumentoController() {
 		super();
 	}
-
+	
+	/**
+	 * Inicializa los objetos DAO para interacturar con la BD
+	 * */
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		documentoDAO = DocumentoDAOFactory.getDocumentoDAO();
 	}
-
+	
 	/**
-	 * Encargado de la lógica de descargar archivos
+	 * Descarga el archivo indicado en el request.
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -47,8 +50,8 @@ public class DocumentoController extends HttpServlet {
 		DocumentoDTO documento = documentoDAO.get(id);
 		File file = new File(documento.getDireccion());
 
-		System.out
-				.println("File location on server:: " + file.getAbsolutePath());
+		System.out.println("File location on server:: "
+				+ file.getAbsolutePath());
 
 		if (!file.exists()) {
 			throw new ServletException("Archivo no existe en el servidor.");

@@ -1,10 +1,11 @@
-package cl.uchile.dcc.cc5401.controllers;
+package cl.uchile.dcc.cc5401.controllers.admin;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,10 +48,6 @@ import cl.uchile.dcc.cc5401.util.PostulacionPostulante;
 @WebServlet("/app/admin/postulaciones")
 public class PostulacionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static String LIST_POSTULACIONES ="/app/admin/postulaciones.jsp";
-	private static String ERROR_PAGE = "/error.jsp";
-	private static String POSTULACION_VIEW = "/app/admin/postulacionview.jsp";
-	private static String POSTULACION_GENERAL_VIEW = "/app/admin/postulacionInfoGeneral.jsp";
 
 	private PostulacionDAO postulacionDAO;
 	private PostulanteDAO postulanteDAO;
@@ -63,8 +60,20 @@ public class PostulacionController extends HttpServlet {
 	private DocumentoDAO documentoDAO;
 	private VotoDAO votoDAO;
 
+	private static final String LIST_POSTULACIONES = "/app/admin/postulaciones.jsp";
+	private static final String ERROR_PAGE = "/error.jsp";
+	private static final String POSTULACION_VIEW = "/app/admin/postulacionview.jsp";
+	private static final String POSTULACION_GENERAL_VIEW = "/app/admin/postulacionInfoGeneral.jsp";
+
 	public PostulacionController() {
 		super();
+	}
+
+	/**
+	 * Inicializa los objetos DAO para interacturar con la BD
+	 * */
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
 		postulacionDAO = PostulacionDAOFactory.getPostulacionDAO();
 		postulanteDAO = PostulanteDAOFactory.getPostulanteDAO();
 		resolucionDAO = ResolucionDAOFactory.getResolucionDAO();
@@ -77,7 +86,8 @@ public class PostulacionController extends HttpServlet {
 		votoDAO = VotoDAOFactory.getVotoDAO();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 
 		String forward = "";
 		String action = request.getParameter("action");
@@ -85,15 +95,14 @@ public class PostulacionController extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		UserDTO user = (UserDTO) session.getAttribute("user");
 
-		//Vista General
-		if(action==null){
+		// Vista General
+		if (action == null) {
 
-			try{
+			try {
 				postulaciones = postulacionDAO.getAll();
-			}
-			catch (Exception e){
+			} catch (Exception e) {
 				e.printStackTrace();
-				forward=ERROR_PAGE;
+				forward = ERROR_PAGE;
 			}
 
 			List<PostulacionPostulante> revision = new ArrayList<PostulacionPostulante>();
@@ -107,12 +116,13 @@ public class PostulacionController extends HttpServlet {
 			List<ResolucionDTO> resolucionesEnEspera = new ArrayList<ResolucionDTO>();
 			List<Boolean> votos = new ArrayList<Boolean>();
 
-
-			if(postulaciones!=null){
-				//Recorremos las postulaciones para ir rellenando las listas de argumentos de la vista
-				for(PostulacionDTO p : postulaciones){
-					PostulacionPostulante pp = new PostulacionPostulante(p, postulanteDAO.get(p.getIdPostulante()));
-					switch (p.getEstado()){
+			if (postulaciones != null) {
+				// Recorremos las postulaciones para ir rellenando las listas de
+				// argumentos de la vista
+				for (PostulacionDTO p : postulaciones) {
+					PostulacionPostulante pp = new PostulacionPostulante(p,
+							postulanteDAO.get(p.getIdPostulante()));
+					switch (p.getEstado()) {
 					case REVISION:
 						revision.add(pp);
 						break;
@@ -124,10 +134,9 @@ public class PostulacionController extends HttpServlet {
 						break;
 					case EN_EVALUACION:
 						evaluacion.add(pp);
-						if(votoDAO.get(p.getId(), user.getId())!=null){
+						if (votoDAO.get(p.getId(), user.getId()) != null) {
 							votos.add(new Boolean(true));
-						}
-						else{
+						} else {
 							votos.add(new Boolean(false));
 						}
 						break;
@@ -147,12 +156,14 @@ public class PostulacionController extends HttpServlet {
 					default:
 						break;
 					}
-				}			
+				}
 
-				//Seteamos los parametros en el request y seteamos la redirección
+				// Seteamos los parametros en el request y seteamos la
+				// redirección
 				request.setAttribute("postulacionesRevision", revision);
 				request.setAttribute("postulacionesValidacion", validacion);
-				request.setAttribute("postulacionesConsideracion", consideracion);
+				request.setAttribute("postulacionesConsideracion",
+						consideracion);
 				request.setAttribute("postulacionesDecision", decision);
 				request.setAttribute("postulacionesEvaluacion", evaluacion);
 				request.setAttribute("postulacionesEspera", esperaNotificacion);
@@ -161,42 +172,44 @@ public class PostulacionController extends HttpServlet {
 				request.setAttribute("resoluciones", resoluciones);
 				request.setAttribute("votos", votos);
 
-
-				//Manejo de numeros de pendientes
+				// Manejo de numeros de pendientes
 				int nCoordinador = 0;
 				int nAsistente = 0;
 				int nComision = 0;
 				int nJefePEC = 0;
 
-				// Revisamos si las listas contienen algo, si es así aumentamos el contador de postulaciones pendientes para las entidades
-				// Una vez contados todos los pendientes, seteamos la variable en la sesión para que todas las vistas tengan acceso al conteo.
-				if(revision.size()>0){
-					nAsistente +=revision.size();
+				// Revisamos si las listas contienen algo, si es así aumentamos
+				// el contador de postulaciones pendientes para las entidades
+				// Una vez contados todos los pendientes, seteamos la variable
+				// en la sesión para que todas las vistas tengan acceso al
+				// conteo.
+				if (revision.size() > 0) {
+					nAsistente += revision.size();
 				}
-				if(validacion.size()>0){
+				if (validacion.size() > 0) {
 					nJefePEC += validacion.size();
 				}
-				if(consideracion.size()>0){
-					nCoordinador+=consideracion.size();
+				if (consideracion.size() > 0) {
+					nCoordinador += consideracion.size();
 				}
-				if(evaluacion.size()>0){
-					nComision+=evaluacion.size();
-					nCoordinador+=evaluacion.size();
+				if (evaluacion.size() > 0) {
+					nComision += evaluacion.size();
+					nCoordinador += evaluacion.size();
 				}
-				if(decision.size()>0){
-					nCoordinador+=decision.size();
+				if (decision.size() > 0) {
+					nCoordinador += decision.size();
 				}
-				if(esperaNotificacion.size()>0){
-					nAsistente +=esperaNotificacion.size();
+				if (esperaNotificacion.size() > 0) {
+					nAsistente += esperaNotificacion.size();
 				}
 
-				if(user.getRol().equals("Coordinador")){
+				if (user.getRol().equals("Coordinador")) {
 					int nPendientes = nCoordinador;
 					int nPendientesVoto = nComision;
-					//Caso en que ya haya votado
-					for(PostulacionPostulante pp : evaluacion){
-						PostulacionDTO p = pp.getPostulacion(); 
-						if(votoDAO.get(p.getId(), user.getId())!=null){
+					// Caso en que ya haya votado
+					for (PostulacionPostulante pp : evaluacion) {
+						PostulacionDTO p = pp.getPostulacion();
+						if (votoDAO.get(p.getId(), user.getId()) != null) {
 							nPendientes--;
 							nPendientesVoto--;
 						}
@@ -204,89 +217,102 @@ public class PostulacionController extends HttpServlet {
 					session.setAttribute("nPendientes", nPendientes);
 					session.setAttribute("nPendientesVoto", nPendientesVoto);
 				}
-				if(user.getRol().equals("Jefe del PEC")){
+				if (user.getRol().equals("Jefe del PEC")) {
 					session.setAttribute("nPendientes", nJefePEC);
 				}
-				if(user.getRol().equals("Asistente")){
+				if (user.getRol().equals("Asistente")) {
 					session.setAttribute("nPendientes", nAsistente);
 				}
-				if(user.getRol().equals("Comisionado")){
+				if (user.getRol().equals("Comisionado")) {
 					int nPendientes = nComision;
-					//Caso en que ya haya votado
-					for(PostulacionPostulante pp : evaluacion){
+					// Caso en que ya haya votado
+					for (PostulacionPostulante pp : evaluacion) {
 						PostulacionDTO p = pp.getPostulacion();
-						if(votoDAO.get(p.getId(), user.getId())!=null){
+						if (votoDAO.get(p.getId(), user.getId()) != null) {
 							nPendientes--;
 						}
 					}
-					session.setAttribute("nPendientes", nPendientes);;
+					session.setAttribute("nPendientes", nPendientes);
+					;
 				}
 			}
-			//Parámetros de navegación
+			// Parámetros de navegación
 			request.setAttribute("postulaciones", "yes");
 			request.setAttribute("admin", "admin");
-			forward=LIST_POSTULACIONES;
+			forward = LIST_POSTULACIONES;
 
-		}
-		else{
-			//Caso de vista particular de postulación
-			if(action.equalsIgnoreCase("revisar")){
+		} else {
+			// Caso de vista particular de postulación
+			if (action.equalsIgnoreCase("revisar")) {
 
 				int id = Integer.parseInt(request.getParameter("id"));
 				PostulacionDTO postulacion = postulacionDAO.getPostulacion(id);
-				PostulanteDTO postulante = postulanteDAO.get(postulacion.getIdPostulante());
-				DatosEmpresaDTO datosEmpresa = datosEmpresaDAO.get(postulante.getId());
-				FinanciamientoDTO financiamiento = financiamientoDAO.get(postulacion.getIdFinanciamiento());
-				List<GradoAcademicoDTO> gradosAcademicos = gradoAcademicoDAO.get(postulante.getId());
+				PostulanteDTO postulante = postulanteDAO.get(postulacion
+						.getIdPostulante());
+				DatosEmpresaDTO datosEmpresa = datosEmpresaDAO.get(postulante
+						.getId());
+				FinanciamientoDTO financiamiento = financiamientoDAO
+						.get(postulacion.getIdFinanciamiento());
+				List<GradoAcademicoDTO> gradosAcademicos = gradoAcademicoDAO
+						.get(postulante.getId());
 				List<ComentarioDTO> comentarios = comentarioDAO.get(id);
 				List<UserDTO> usuarios = new ArrayList<UserDTO>();
 
-
-				//Caso en el que se involucran votos
-				if(request.getParameter("evaluacion")!=null || request.getParameter("decision")!=null || request.getParameter("espera_notificacion")!=null || request.getParameter("resuelta")!=null){
+				// Caso en el que se involucran votos
+				if (request.getParameter("evaluacion") != null
+						|| request.getParameter("decision") != null
+						|| request.getParameter("espera_notificacion") != null
+						|| request.getParameter("resuelta") != null) {
 
 					List<Integer> comIds = userDAO.getComisionIds();
 					List<ComentarioDTO> comentariosVotos = new ArrayList<ComentarioDTO>();
 					List<VotoDTO> votos = new ArrayList<VotoDTO>();
 					List<UserDTO> usuariosVotos = new ArrayList<UserDTO>();
-					for(Integer i : comIds){
+					for (Integer i : comIds) {
 						VotoDTO voto = votoDAO.get(id, i);
 						votos.add(voto);
 						List<ComentarioDTO> cs = comentarioDAO.get(id, i);
-						if(cs!=null)
-							comentariosVotos.add(cs.get(cs.size()-1));
+						if (cs != null)
+							comentariosVotos.add(cs.get(cs.size() - 1));
 						else
 							comentariosVotos.add(null);
 						usuariosVotos.add(userDAO.getUser(i));
 
 					}
-					if(votoDAO.get(id, user.getId())!=null){
+					if (votoDAO.get(id, user.getId()) != null) {
 						request.setAttribute("userVoto", true);
 					}
 					request.setAttribute("votos", votos);
 					request.setAttribute("usuariosVotos", usuariosVotos);
 					request.setAttribute("comentariosVotos", comentariosVotos);
 				}
-				if(comentarios!=null){
-					for(ComentarioDTO comentario : comentarios){
+				if (comentarios != null) {
+					for (ComentarioDTO comentario : comentarios) {
 						usuarios.add(userDAO.getUser(comentario.getIdUsuario()));
 					}
 				}
 
-				if(request.getParameter("resuelta")!=null || request.getParameter("espera_notificacion")!=null ){
+				if (request.getParameter("resuelta") != null
+						|| request.getParameter("espera_notificacion") != null) {
 					ResolucionDTO resolucion = resolucionDAO.get(id);
 					request.setAttribute("resolucion", resolucion);
 				}
 
 				request.setAttribute("docExtras", documentoDAO.getExtras(id));
-				request.setAttribute("CV", documentoDAO.get(postulacion.getIdCV()));
-				request.setAttribute("CartaPresentacion", documentoDAO.get(postulacion.getIdCartaPresentacion()));
-				request.setAttribute("Carta1", documentoDAO.get(postulacion.getIdCarta1()));
-				request.setAttribute("Carta2", documentoDAO.get(postulacion.getIdCarta2()));
+				request.setAttribute("CV",
+						documentoDAO.get(postulacion.getIdCV()));
+				request.setAttribute("CartaPresentacion",
+						documentoDAO.get(postulacion.getIdCartaPresentacion()));
+				request.setAttribute("Carta1",
+						documentoDAO.get(postulacion.getIdCarta1()));
+				request.setAttribute("Carta2",
+						documentoDAO.get(postulacion.getIdCarta2()));
 				List<DocumentoDTO> docGrados = new ArrayList<DocumentoDTO>();
-				for(int i=0;i<gradosAcademicos.size();i++){
-					docGrados.add(documentoDAO.get(gradosAcademicos.get(i).getIdCertificadoNotas()));
-					docGrados.add(documentoDAO.get(gradosAcademicos.get(i).getIdCertificadoTitulo()));
+				for (int i = 0; i < gradosAcademicos.size(); i++) {
+					docGrados.add(documentoDAO.get(gradosAcademicos.get(i)
+							.getIdCertificadoNotas()));
+					docGrados.add(documentoDAO.get(gradosAcademicos.get(i)
+							.getIdCertificadoTitulo()));
 				}
 
 				request.setAttribute("docGrados", docGrados);
@@ -298,17 +324,16 @@ public class PostulacionController extends HttpServlet {
 				request.setAttribute("gradosAcademicos", gradosAcademicos);
 				request.setAttribute("comentarios", comentarios);
 				request.setAttribute("usuarios", usuarios);
-				
-				if(request.getParameter("general")!=null)
-					forward= POSTULACION_GENERAL_VIEW;
+
+				if (request.getParameter("general") != null)
+					forward = POSTULACION_GENERAL_VIEW;
 				else
 					forward = POSTULACION_VIEW;
 			}
 		}
-		
+
 		RequestDispatcher view = request.getRequestDispatcher(forward);
 		view.forward(request, response);
 	}
 
 }
-

@@ -16,59 +16,46 @@ public class UserDAOImpl implements UserDAO {
 	private Connection connection = null;
 	private PreparedStatement ptmt = null;
 	private ResultSet resultSet = null;
-	
-	private static final String SQL_INSERT = 
-			"INSERT INTO usuario ("
-					+ " username, password, mail, id_rol "
-					+ ") VALUES (?,?,?,?)";
-	
-	private static final String SQL_SELECT_ID =
-			"SELECT *"
-					+ " FROM usuario us "
-					+ " JOIN rol ON us.id_rol= rol.id"
-					+ " JOIN rol_permiso rp ON rol.id = rp.id_rol"
-					+ " JOIN permiso pe ON rp.id_permiso = pe.id"
-					+ " WHERE us.id=?";
-	
-	private static final String SQL_SELECT_ALL_ID =
-			"SELECT id"
-					+ " FROM usuario";
-	
-	private static final String SQL_SELECT_COMISION =
-			"SELECT id" 
-					+ " FROM usuario" 
-					+ " WHERE id_rol=3 OR id_rol=2";
-	
-	private static final String SQL_SELECT_USERNAME =
-			"SELECT *"
-					+ " FROM usuario us "
-					+ " JOIN rol ON us.id_rol= rol.id"
-					+ " JOIN rol_permiso rp ON rol.id = rp.id_rol"
-					+ " JOIN permiso pe ON rp.id_permiso = pe.id"
-					+ " WHERE us.username=?";
-	
-	private static final String SQL_DELETE = 
-			"DELETE FROM usuario" 
-					+ " WHERE id=?";
-	
-	private static final String SQL_UPDATE = 
-			"UPDATE usuario SET"
-					+ " username = ?, password = ?, mail = ?, id_rol = ? "
-					+ "  WHERE id = ?";
-	
-	private static final String SQL_UPDATE_PASSWORD =
-			"UPDATE usuario SET"
-					+ " password = ? "
-					+ " WHERE id = ?";
-	
+
+	private static final String SQL_INSERT = "INSERT INTO usuario ("
+			+ " username, password, mail, id_rol " + ") VALUES (?,?,?,?)";
+
+	private static final String SQL_SELECT_ID = "SELECT *"
+			+ " FROM usuario us "
+			+ " JOIN rol ON us.id_rol= rol.id"
+			+ " JOIN rol_permiso rp ON rol.id = rp.id_rol"
+			+ " JOIN permiso pe ON rp.id_permiso = pe.id" + " WHERE us.id=?";
+
+	private static final String SQL_SELECT_ALL_ID = "SELECT id"
+			+ " FROM usuario";
+
+	private static final String SQL_SELECT_COMISION = "SELECT id"
+			+ " FROM usuario" + " WHERE id_rol=3 OR id_rol=2";
+
+	private static final String SQL_SELECT_USERNAME = "SELECT *"
+			+ " FROM usuario us " + " JOIN rol ON us.id_rol= rol.id"
+			+ " JOIN rol_permiso rp ON rol.id = rp.id_rol"
+			+ " JOIN permiso pe ON rp.id_permiso = pe.id"
+			+ " WHERE us.username=?";
+
+	private static final String SQL_DELETE = "DELETE FROM usuario"
+			+ " WHERE id=?";
+
+	private static final String SQL_UPDATE = "UPDATE usuario SET"
+			+ " username = ?, password = ?, mail = ?, id_rol = ? "
+			+ "  WHERE id = ?";
+
+	private static final String SQL_UPDATE_PASSWORD = "UPDATE usuario SET"
+			+ " password = ? " + " WHERE id = ?";
+
 	private Connection getConnection() throws SQLException {
 		Connection conn;
 		conn = ConnectionFactory.getInstance().getConnection();
 		return conn;
 	}
-	
+
 	private UserDTO getResult(ResultSet rs) throws SQLException {
-		UserDTO userDTO= new UserDTO();
+		UserDTO userDTO = new UserDTO();
 		List<String> permisos = new ArrayList<String>();
 		boolean empty = true;
 		while (rs.next()) {
@@ -82,12 +69,11 @@ public class UserDAOImpl implements UserDAO {
 			permisos.add(rs.getString("permiso"));
 
 		}
-		if(empty)
+		if (empty)
 			return null;
 		userDTO.setPermisos(permisos);
 		return userDTO;
 	}
-	
 
 	@Override
 	public UserDTO getUser(int id) {
@@ -97,7 +83,7 @@ public class UserDAOImpl implements UserDAO {
 			ptmt.setInt(1, id);
 			resultSet = ptmt.executeQuery();
 			UserDTO results = getResult(resultSet);
-			if (results !=null) {
+			if (results != null) {
 				return results;
 			} else {
 				return null;
@@ -129,7 +115,7 @@ public class UserDAOImpl implements UserDAO {
 			ptmt.setString(1, username);
 			resultSet = ptmt.executeQuery();
 			UserDTO results = getResult(resultSet);
-			if (results !=null) {
+			if (results != null) {
 				return results;
 			} else {
 				return null;
@@ -201,11 +187,9 @@ public class UserDAOImpl implements UserDAO {
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
 
-	
-	
 	@Override
 	public void actualizarPassword(UserDTO user) {
 		try {
@@ -240,7 +224,7 @@ public class UserDAOImpl implements UserDAO {
 			while (resultSet.next()) {
 				list.add(resultSet.getInt("id"));
 			}
-			if (list.size()!=0) {
+			if (list.size() != 0) {
 				return list;
 			} else {
 				return null;
@@ -275,8 +259,8 @@ public class UserDAOImpl implements UserDAO {
 			while (resultSet.next()) {
 				list.add(resultSet.getInt("id"));
 			}
-			if (list.size()!=0) {
-				for(int i : list){
+			if (list.size() != 0) {
+				for (int i : list) {
 					users.add(this.getUser(i));
 				}
 				return users;
@@ -327,8 +311,6 @@ public class UserDAOImpl implements UserDAO {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 
-	
 }

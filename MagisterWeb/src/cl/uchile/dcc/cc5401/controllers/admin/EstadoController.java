@@ -1,4 +1,4 @@
-package cl.uchile.dcc.cc5401.controllers;
+package cl.uchile.dcc.cc5401.controllers.admin;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -37,8 +37,6 @@ import cl.uchile.dcc.cc5401.util.ResultadoPostulacion;
 @WebServlet("/app/admin/estado")
 public class EstadoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static String ERROR_PAGE = "/error.jsp";
-	private static String SUCCESS_PAGE = "/app/operacionExitosa.jsp";
 
 	private PostulacionDAO postulacionDAO;
 	private PostulanteDAO postulanteDAO;
@@ -46,6 +44,9 @@ public class EstadoController extends HttpServlet {
 	private HistorialDAO historialDAO;
 	private ResolucionDAO resolucionDAO;
 	private MailHelper mailHelper;
+
+	private static final String ERROR_PAGE = "/error.jsp";
+	private static final String SUCCESS_PAGE = "/app/operacionExitosa.jsp";
 
 	public EstadoController() {
 		super();

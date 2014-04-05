@@ -1,4 +1,4 @@
-package cl.uchile.dcc.cc5401.controllers;
+package cl.uchile.dcc.cc5401.controllers.admin;
 
 import java.io.IOException;
 import java.util.Date;
@@ -32,12 +32,16 @@ public class DocumentoExtraController extends HttpServlet {
 	private DocumentoDAO documentoDAO;
 	private HistorialDAO historialDAO;
 
-	private static String SUCCESS = "/app/operacionExitosa.jsp";
+	private static final String SUCCESS = "/app/operacionExitosa.jsp";
 
 	public DocumentoExtraController() {
 		super();
 	}
 
+	/**
+	 * Inicializa los objetos DAO para interacturar con la BD y carga
+	 * información de la configuración inicial.
+	 * */
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		documentoDAO = DocumentoDAOFactory.getDocumentoDAO();
@@ -82,7 +86,10 @@ public class DocumentoExtraController extends HttpServlet {
 
 		// Agregamos el registro a la base de datos, junto con el historial
 		documentoDAO.agregarExtra(idPostulacion, docExtra);
-		historialDAO.agregar(new HistorialDTO(0, idPostulacion,
+		historialDAO
+				.agregar(new HistorialDTO(
+						0,
+						idPostulacion,
 						"<strong>"
 								+ user.getUsername()
 								+ ":</strong> <i class='icon-plus'></i> Se agregó un documento extra",

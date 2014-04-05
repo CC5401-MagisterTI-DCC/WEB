@@ -1,4 +1,4 @@
-package cl.uchile.dcc.cc5401.controllers;
+package cl.uchile.dcc.cc5401.controllers.session;
 
 import java.io.IOException;
 
@@ -15,17 +15,22 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/app/logout")
 public class LogoutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public LogoutController() {
-        super();
-    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//Invalidamos la sesión y redirigimos al index
-		HttpSession session = request.getSession();
-		session.invalidate();
-		response.sendRedirect(request.getContextPath() + "/index.jsp");
+	private static final String INDEX_PAGE = "/index.jsp";
+
+	public LogoutController() {
+		super();
 	}
-	
+
+	/**
+	 * Inválida la sesión actual y redirecciona al index.
+	 * */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
+		HttpSession session = request.getSession(false);
+		session.invalidate();
+		response.sendRedirect(request.getContextPath() + INDEX_PAGE);
+	}
+
 }

@@ -1,4 +1,4 @@
-package cl.uchile.dcc.cc5401.controllers;
+package cl.uchile.dcc.cc5401.controllers.admin;
 
 import java.io.IOException;
 import java.util.Date;
@@ -39,25 +39,28 @@ public class RechazoController extends HttpServlet {
 	private DocumentoDAO documentoDAO;
 	private HistorialDAO historialDAO;
 
-	private static String ERROR_PAGE = "/error.jsp";
-	private static String SUCCESS_PAGE = "/app/operacionExitosa.jsp";
-
 	private MailHelper mailHelper;
 	private String rechazoSubject;
 	private String rechazoBody;
 	private String paginaRechazo;
 
+	private static final String ERROR_PAGE = "/error.jsp";
+	private static final String SUCCESS_PAGE = "/app/operacionExitosa.jsp";
+
 	public RechazoController() {
 		super();
+	}
+
+	/**
+	 * Inicializamos las variables
+	 * */
+	public void init(ServletConfig config) throws ServletException {
+
 		postulacionDAO = PostulacionDAOFactory.getPostulacionDAO();
 		documentoDAO = DocumentoDAOFactory.getDocumentoDAO();
 		historialDAO = HistorialDAOFactory.getHistorialDAO();
 		postulanteDAO = PostulanteDAOFactory.getPostulanteDAO();
 
-	}
-
-	// Inicializamos las variables
-	public void init(ServletConfig config) throws ServletException {
 		mailHelper = new MailHelper(config.getServletContext()
 				.getInitParameter("usernameMail"), config.getServletContext()
 				.getInitParameter("passwordMail"), config.getServletContext()
@@ -71,13 +74,19 @@ public class RechazoController extends HttpServlet {
 				"paginaRechazo");
 	}
 
+	/**
+	 * Rechaza algún documento enviado por el postulante.
+	 * */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+
 		String forward = "";
 		String splitter = " ";
 		String rechazoBodyP = "";
-		HttpSession session = request.getSession(true);
+
+		HttpSession session = request.getSession(false);
 		UserDTO user = (UserDTO) session.getAttribute("user");
+
 		try {
 			String idPostulacion = request.getParameter("id_postulacion");
 			String documentos1 = request.getParameter("id_documentos1");
