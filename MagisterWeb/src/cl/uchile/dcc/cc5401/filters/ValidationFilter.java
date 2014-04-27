@@ -197,13 +197,11 @@ public class ValidationFilter implements Filter {
 				Part part = null;
 				part = request.getPart("cert_titulo");
 				if (part.getContentType() == null
-						|| !part.getContentType().equalsIgnoreCase(
-								"application/pdf") || part.getSize() > maxSize)
+						|| !Validacion.isPdfType(part.getContentType()))
 					throw new Exception("Error en Certificado de titulo 1");
 				part = request.getPart("cert_notas");
 				if (part.getContentType() == null
-						|| !part.getContentType().equalsIgnoreCase(
-								"application/pdf") || part.getSize() > maxSize)
+						|| !Validacion.isPdfType(part.getContentType()))
 					throw new Exception(
 							"Error en Certificado de notas titulo 1");
 				for (int i = 1; i < j; i++) {
@@ -211,16 +209,12 @@ public class ValidationFilter implements Filter {
 					if (request.getParameterMap().containsKey("grado" + i)) {
 						part = request.getPart("cert_titulo" + i);
 						if (part.getContentType() == null
-								|| !part.getContentType().equalsIgnoreCase(
-										"application/pdf")
-								|| part.getSize() > maxSize)
+								|| !Validacion.isPdfType(part.getContentType()))
 							throw new Exception(
 									"Error en Certificado de título " + (i + 1));
 						part = request.getPart("cert_notas" + i);
 						if (part.getContentType() == null
-								|| !part.getContentType().equalsIgnoreCase(
-										"application/pdf")
-								|| part.getSize() > maxSize)
+								|| !Validacion.isPdfType(part.getContentType()))
 							throw new Exception(
 									"Error en Certificado de notas título "
 											+ (i + 1));
@@ -228,23 +222,19 @@ public class ValidationFilter implements Filter {
 				}
 				part = request.getPart("cv");
 				if (part.getContentType() == null
-						|| !part.getContentType().equalsIgnoreCase(
-								"application/pdf") || part.getSize() > maxSize)
+						|| !Validacion.isPdfType(part.getContentType()))
 					throw new Exception("Error en Curriculum Vitae");
 				part = request.getPart("carta_pres");
 				if (part.getContentType() == null
-						|| !part.getContentType().equalsIgnoreCase(
-								"application/pdf") || part.getSize() > maxSize)
+						|| !Validacion.isPdfType(part.getContentType()))
 					throw new Exception("Error en Carta de Presentación");
 				part = request.getPart("carta_rec_1");
 				if (part.getContentType() == null
-						|| !part.getContentType().equalsIgnoreCase(
-								"application/pdf") || part.getSize() > maxSize)
+						|| !Validacion.isPdfType(part.getContentType()))
 					throw new Exception("Error en Carta Recomendación 1");
 				part = request.getPart("carta_rec_2");
 				if (part.getContentType() == null
-						|| !part.getContentType().equalsIgnoreCase(
-								"application/pdf") || part.getSize() > maxSize)
+						|| !Validacion.isPdfType(part.getContentType()))
 					throw new Exception("Error en Carta Recomendación 2");
 
 			} catch (Exception e) {

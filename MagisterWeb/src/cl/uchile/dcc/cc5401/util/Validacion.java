@@ -35,4 +35,9 @@ public class Validacion {
 		return phone.matches("(\\+?\\d+\\s?\\d+)") || phone.matches("((\\(\\+?\\d+\\))\\s?\\d+))");
 	}
 	
+	public static boolean isPdfType(String contentType) {
+		return contentType.equalsIgnoreCase("application/pdf");
+	}
+
+	
 }
