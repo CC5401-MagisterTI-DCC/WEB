@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class ValidacionTests {
+public class ValidacionRutTests {
 
 	@Test
 	public void basicRutTest() {
