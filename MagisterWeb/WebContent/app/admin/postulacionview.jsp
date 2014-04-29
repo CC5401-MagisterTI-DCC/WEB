@@ -9,10 +9,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Usuario</title>
-<link rel="stylesheet"
-	href="${root}/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="${root}/css/datepicker.css">
+<link rel="stylesheet" href="${root}/css/bootstrap.min.css">
+<link rel="stylesheet" href="${root}/css/datepicker.css">
 
 <style>
 body {
@@ -24,10 +22,8 @@ body {
 <script src="${root}/js/bootstrap.js"></script>
 <script src="${root}/js/jquery.validate.js"></script>
 <script src="${root}/js/admin/postulacionview.js"></script>
-<script src="${root}/js/bootstrap-datepicker.js"
-	type="text/javascript"></script>
-<script
-	src="${root}/js/locales/bootstrap-datepicker.es.js"
+<script src="${root}/js/bootstrap-datepicker.js" type="text/javascript"></script>
+<script src="${root}/js/locales/bootstrap-datepicker.es.js"
 	type="text/javascript"></script>
 
 </head>
@@ -277,12 +273,12 @@ body {
 		</div>
 	</div>
 	<script type="text/javascript">
-	$('.datepicker').datepicker({
-		format: "dd/mm/yyyy",
-		weekStart: 1,
-		startView: 2,
-		language: "es"
-	});
+		$('.datepicker').datepicker({
+			format : "dd/mm/yyyy",
+			weekStart : 1,
+			startView : 2,
+			language : "es"
+		});
 	</script>
 </body>
 </html>
