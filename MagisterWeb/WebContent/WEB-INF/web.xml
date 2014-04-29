@@ -90,6 +90,14 @@ Atte.,
 
 Programa de Educación Continua
 		</param-value>
+  </context-param>  
+  <context-param>
+      <param-name>quartz:shutdown-on-unload</param-name>
+      <param-value>true</param-value>
+  </context-param>
+  <context-param>
+      <param-name>quartz:start-on-load</param-name>
+      <param-value>true</param-value>
   </context-param>
   <listener>
     <listener-class>org.quartz.ee.servlet.QuartzInitializerListener</listener-class>
