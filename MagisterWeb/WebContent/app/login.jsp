@@ -40,7 +40,7 @@
 				class="input-block-level" placeholder="Nombre de usuario" required>
 			<input type="password" name="password" id="password"
 				class="input-block-level" placeholder="Contraseña" required>
-			<button class="btn btn-large btn-block btn-primary" type="submit">Ingresar</button>
+			<input class="btn btn-large btn-block btn-primary" type="submit" id="submit_button" value="Ingresar">
 		</form>
 
 	</div>

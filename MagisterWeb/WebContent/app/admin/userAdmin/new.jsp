@@ -76,7 +76,7 @@ body {
 			<div class="control-group">
 				<label class="control-label" for="aceptar"></label>
 				<div class="controls">
-					<button id="aceptar" name="aceptar" class="btn btn-primary">Crear</button>
+					<input type="submit" id="aceptar" name="aceptar" value ="Crear" class="btn btn-primary">
 					<button id="cancelar" name="cancelar" class="btn btn-danger">Cancelar</button>
 				</div>
 			</div>

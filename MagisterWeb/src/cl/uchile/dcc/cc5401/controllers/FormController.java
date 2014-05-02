@@ -270,7 +270,7 @@ public class FormController extends HttpServlet {
 			// TODO: definir nombres de los archivos tomando en cuenta
 			// diferencia de pasaporte y rut
 			// TODO: ver caso de otros archivos
-			if (part.getContentType().equalsIgnoreCase("application/pdf"))
+			if (part.getContentType().toLowerCase().startsWith("application/pdf"))
 				CG.setNombre(identificacion.getIdentificacion() + "CG1.pdf");
 			CG.setDireccion(ruta + "/" + CG.getNombre());
 			part.write(CG.getDireccion());
@@ -278,7 +278,7 @@ public class FormController extends HttpServlet {
 			// certificado de notas
 			DocumentoDTO CN = new DocumentoDTO();
 			part = request.getPart("cert_notas");
-			if (part.getContentType().equalsIgnoreCase("application/pdf"))
+			if (part.getContentType().toLowerCase().startsWith("application/pdf"))
 				CN.setNombre(identificacion.getIdentificacion() + "CN1.pdf");
 			CN.setDireccion(ruta + "/" + CN.getNombre());
 			part.write(ruta + "/" + CN.getNombre());
@@ -298,8 +298,7 @@ public class FormController extends HttpServlet {
 					// TODO: definir nombres de los archivos tomando en cuenta
 					// diferencia de pasaporte y rut
 					// TODO: ver caso de otros archivos
-					if (part.getContentType().equalsIgnoreCase(
-							"application/pdf"))
+					if (part.getContentType().toLowerCase().startsWith("application/pdf"))
 						CG.setNombre(identificacion.getIdentificacion() + "CG"
 								+ (i + 1) + ".pdf");
 					CG.setDireccion(ruta + "/" + CG.getNombre());
@@ -308,8 +307,7 @@ public class FormController extends HttpServlet {
 					// certificado de notas
 					CN = new DocumentoDTO();
 					part = request.getPart("cert_notas" + i);
-					if (part.getContentType().equalsIgnoreCase(
-							"application/pdf"))
+					if (part.getContentType().toLowerCase().startsWith("application/pdf"))
 						CN.setNombre(identificacion.getIdentificacion() + "CN"
 								+ (i + 1) + ".pdf");
 					CN.setDireccion(ruta + "/" + CN.getNombre());
@@ -326,7 +324,7 @@ public class FormController extends HttpServlet {
 			// curriculum vitae
 			part = request.getPart("cv");
 			DocumentoDTO CV = new DocumentoDTO();
-			if (part.getContentType().equalsIgnoreCase("application/pdf"))
+			if (part.getContentType().toLowerCase().startsWith("application/pdf"))
 				CV.setNombre(identificacion.getIdentificacion() + "CV" + ".pdf");
 			CV.setDireccion(ruta + "/" + CV.getNombre());
 			part.write(CV.getDireccion());
@@ -336,7 +334,7 @@ public class FormController extends HttpServlet {
 			part = request.getPart("carta_pres");
 			DocumentoDTO CP = new DocumentoDTO();
 
-			if (part.getContentType().equalsIgnoreCase("application/pdf"))
+			if (part.getContentType().toLowerCase().startsWith("application/pdf"))
 				CP.setNombre(identificacion.getIdentificacion() + "CP" + ".pdf");
 			CP.setDireccion(ruta + "/" + CP.getNombre());
 			part.write(CP.getDireccion());
@@ -345,7 +343,7 @@ public class FormController extends HttpServlet {
 			// carta recomendacion 1
 			part = request.getPart("carta_rec_1");
 			DocumentoDTO CR1 = new DocumentoDTO();
-			if (part.getContentType().equalsIgnoreCase("application/pdf"))
+			if (part.getContentType().toLowerCase().startsWith("application/pdf"))
 				CR1.setNombre(identificacion.getIdentificacion() + "CR1"
 						+ ".pdf");
 			CR1.setDireccion(ruta + "/" + CR1.getNombre());
@@ -355,7 +353,7 @@ public class FormController extends HttpServlet {
 			// carta recomendacion 2
 			part = request.getPart("carta_rec_2");
 			DocumentoDTO CR2 = new DocumentoDTO();
-			if (part.getContentType().equalsIgnoreCase("application/pdf"))
+			if (part.getContentType().toLowerCase().startsWith("application/pdf"))
 				CR2.setNombre(identificacion.getIdentificacion() + "CR2"
 						+ ".pdf");
 			CR2.setDireccion(ruta + "/" + CR2.getNombre());

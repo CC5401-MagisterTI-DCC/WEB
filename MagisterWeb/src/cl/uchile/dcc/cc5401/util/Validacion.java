@@ -36,7 +36,7 @@ public class Validacion {
 	}
 	
 	public static boolean isPdfType(String contentType) {
-		return contentType.equalsIgnoreCase("application/pdf");
+		return contentType.toLowerCase().startsWith("application/pdf");
 	}
 
 	

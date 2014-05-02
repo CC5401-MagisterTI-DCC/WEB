@@ -678,9 +678,7 @@ debe aceptar los t√©rminos y condiciones relacionadas a la entrega de informaci√
 								</label>
 
 								<div style="text-align: center;">
-									<button type="submit" class="btn btn-primary btn-large center">
-										<i class="icon-share icon-white"></i> Enviar Formulario
-									</button>
+								<input type="submit" value="Enviar Formulario", id="submit_button" class="btn btn-primary btn-large center">
 								</div>
 
 							</div>
