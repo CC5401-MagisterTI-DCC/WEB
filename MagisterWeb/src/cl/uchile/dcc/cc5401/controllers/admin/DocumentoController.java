@@ -30,7 +30,7 @@ public class DocumentoController extends HttpServlet {
 	public DocumentoController() {
 		super();
 	}
-	
+
 	/**
 	 * Inicializa los objetos DAO para interacturar con la BD
 	 * */
@@ -38,7 +38,7 @@ public class DocumentoController extends HttpServlet {
 		super.init(config);
 		documentoDAO = DocumentoDAOFactory.getDocumentoDAO();
 	}
-	
+
 	/**
 	 * Descarga el archivo indicado en el request.
 	 */
@@ -60,6 +60,7 @@ public class DocumentoController extends HttpServlet {
 		// Extraemos el documento del sistema
 		ServletContext ctx = getServletContext();
 		InputStream fis = new FileInputStream(file);
+
 		String mimeType = ctx.getMimeType(file.getAbsolutePath());
 		response.setContentType(mimeType != null ? mimeType
 				: "application/octet-stream");

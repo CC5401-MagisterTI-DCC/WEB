@@ -1,5 +1,6 @@
 package cl.uchile.dcc.cc5401.scheduling;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -72,6 +73,10 @@ public class MailScheduler implements Job {
 	public void execute(JobExecutionContext context)
 			throws JobExecutionException {
 
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyy-mm-dd hh:mm:ss");
+		Date moment = new Date();
+		System.out.println("Se ejecuta tarea programada (CRON):" +sdf.format(moment.getTime()));
+		
 		this.initDAOs(context.getMergedJobDataMap());
 
 		List<PostulacionDTO> postulaciones = postulacionDAO.getAll();
