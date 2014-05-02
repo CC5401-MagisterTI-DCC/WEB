@@ -1,5 +1,7 @@
 package cl.uchile.dcc.cc5401.util;
 
+import javax.servlet.http.Part;
+
 public class Validacion {
 
 	public static boolean validateRut(String rut) {
@@ -34,10 +36,16 @@ public class Validacion {
 	public static boolean validatePhone(String phone) {
 		return phone.matches("(\\+?\\d+\\s?\\d+)") || phone.matches("((\\(\\+?\\d+\\))\\s?\\d+))");
 	}
+
+	public static boolean isPdfType(Part documentPart) {
+		return documentPart.getContentType().toLowerCase().startsWith("application/pdf");
+	}
 	
-	public static boolean isPdfType(String contentType) {
-		return contentType.toLowerCase().startsWith("application/pdf");
+	public static boolean isDocumentEmpty(Part documentPart){
+		return documentPart.getSize() == 0;
 	}
 
-	
+	public static boolean validateDocumentPart(Part documentPart){
+		return documentPart != null && isPdfType(documentPart) && !isDocumentEmpty(documentPart);
+	}
 }
