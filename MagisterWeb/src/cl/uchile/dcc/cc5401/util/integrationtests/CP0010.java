@@ -42,7 +42,7 @@ public class CP0010 extends IntegrationTest {
 	}
 	
 	@Test
-	public void postulacionRechazadaTest() throws SQLException {	
+	public void postulacionValidadaPorSecretariaTest() throws SQLException {	
 		int estadoPostulacion = getEstadoPostulacion(idPostulacion);
 		
 		assertEquals(2, estadoPostulacion);		

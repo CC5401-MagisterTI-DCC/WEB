@@ -47,7 +47,7 @@ public class CP0011 extends IntegrationTest {
 	}
 
 	@Test
-	public void postulacionRechazadaTest() throws SQLException,
+	public void postulacionRechazadaPorDocumentoSinIndicarCualTest() throws SQLException,
 			FailingHttpStatusCodeException, MalformedURLException, IOException {
 		int estadoPostulacion;
 

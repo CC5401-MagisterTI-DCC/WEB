@@ -45,7 +45,7 @@ public class CP0012 extends IntegrationTest {
 	}
 	
 	@Test
-	public void postulacionRechazadaTest() throws SQLException, FailingHttpStatusCodeException, MalformedURLException, IOException {
+	public void postulacionRechazadaPorDocumentoIndicadoTest() throws SQLException, FailingHttpStatusCodeException, MalformedURLException, IOException {
 		int estadoPostulacion;
 		String comentario = "se+encontraron+errores.+Corregir+por+favor";
 		String documentos = "3+4+";

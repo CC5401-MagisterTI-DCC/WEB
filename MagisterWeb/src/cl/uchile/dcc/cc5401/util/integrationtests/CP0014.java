@@ -52,7 +52,7 @@ public class CP0014 extends IntegrationTest {
 	}
 	
 	@Test
-	public void postulacionRechazadaTest() throws SQLException, FailingHttpStatusCodeException, MalformedURLException, IOException {
+	public void postulacionAceptadaPorJefePECTest() throws SQLException, FailingHttpStatusCodeException, MalformedURLException, IOException {
 		int estadoPostulacion;
 		String comentario = "poner+atención+en+calificaciones";
 		

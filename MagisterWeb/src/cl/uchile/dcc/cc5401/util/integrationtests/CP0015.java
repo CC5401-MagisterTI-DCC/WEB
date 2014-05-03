@@ -66,7 +66,7 @@ public class CP0015 extends IntegrationTest {
 	}
 
 	@Test
-	public void postulacionRechazadaTest() throws SQLException,
+	public void postulacionEnviadaAVotacionPorCoordinadorTest() throws SQLException,
 			FailingHttpStatusCodeException, MalformedURLException, IOException {
 
 		HtmlPage page;
