@@ -137,6 +137,12 @@ public class EstadoController extends HttpServlet {
 					forward = ERROR_PAGE;
 					e.printStackTrace();
 				}
+				
+				// verificamos que el deadline contiene una fecha posterior a la actual.
+				if (deadline.before(new Date())) {
+					throw new ServletException("La fecha ingresada es anterior a hoy " + (new Date()).toString());
+				}
+				
 				int id = Integer.parseInt(request.getParameter("id"));
 
 				String comentario = request.getParameter("comentario");
