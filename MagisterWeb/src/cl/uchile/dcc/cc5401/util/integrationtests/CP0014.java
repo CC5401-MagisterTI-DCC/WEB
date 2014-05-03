@@ -53,13 +53,20 @@ public class CP0014 extends IntegrationTest {
 	
 	@Test
 	public void postulacionRechazadaTest() throws SQLException, FailingHttpStatusCodeException, MalformedURLException, IOException {
+		int estadoPostulacion;
 		String comentario = "poner+atención+en+calificaciones";
 		
 		//Secretaria rechaza seleccionando algun documento
 		HtmlPage page = webClientJefePEC.getPage("http://localhost:8080/MagisterWeb/app/admin/estado?action=validacion&id=" + idPostulacion + "&comentario=" + comentario);
 		
 		// se obtiene página de éxito.
-		assertEquals("Exito!", page.getTitleText());		
+		assertEquals("Exito!", page.getTitleText());
+
+		// se obtiene el estado de la postulación
+		estadoPostulacion = getEstadoPostulacion(idPostulacion);
+		
+		// avanza al estado siguiente
+		assertEquals(3, estadoPostulacion);
 	}
 
 	@After

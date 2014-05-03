@@ -46,6 +46,7 @@ public class CP0012 extends IntegrationTest {
 	
 	@Test
 	public void postulacionRechazadaTest() throws SQLException, FailingHttpStatusCodeException, MalformedURLException, IOException {
+		int estadoPostulacion;
 		String comentario = "se+encontraron+errores.+Corregir+por+favor";
 		String documentos = "3+4+";
 		
@@ -54,6 +55,12 @@ public class CP0012 extends IntegrationTest {
 		
 		// se obtiene página de éxito.
 		assertEquals("Exito!", page.getTitleText());
+		
+		// se obtiene el estado de la postulación
+		estadoPostulacion = getEstadoPostulacion(idPostulacion);
+		
+		// avanza al estado siguiente
+		assertEquals(2, estadoPostulacion);
 		
 		//TODO: validar la llamada para enviar mails.
 	}
