@@ -24,8 +24,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 public abstract class IntegrationTest {
 	
 	protected Connection connect = null;
-	String dbUser = "root";
-	String dbPwd = "root";
+	String dbUser = "inscmti_user";
+	String dbPwd = "choazaechuah3ashaN9e";
 	
 	protected void openDBConnection() throws Exception{
 		String driverClassName = "com.mysql.jdbc.Driver";
@@ -232,7 +232,7 @@ public abstract class IntegrationTest {
 		}
 	}
 	
-	public void Votar(WebClient webClient, int postulacionID,boolean decision ) throws FailingHttpStatusCodeException, MalformedURLException, IOException{
+	public void votar(WebClient webClient, int postulacionID,boolean decision ) throws FailingHttpStatusCodeException, MalformedURLException, IOException{
 	
 		if(decision){
 			webClient.getPage("http://localhost:8080/MagisterWeb/" +

@@ -52,15 +52,15 @@ public class CP0020 extends IntegrationTest{
 		
 		//Miembro1 comite vota no
 		WebClient webClientComisionado1 = logIn("comisionado1", "comisionado1");
-		Votar(webClientComisionado1,idPostulacion,false);
+		votar(webClientComisionado1,idPostulacion,false);
 				
 		//Miembro2 comite vota no
 		WebClient webClientComisionado2 = logIn("comisionado2", "comisionado2");
-		Votar(webClientComisionado2,idPostulacion,false);
+		votar(webClientComisionado2,idPostulacion,false);
 				
 		//Miembro3 comite vota no
 		WebClient webClientComisionado3 = logIn("comisionado3", "comisionado3");
-		Votar(webClientComisionado3,idPostulacion,false);
+		votar(webClientComisionado3,idPostulacion,false);
 		
 		//Coord dice siguiente paso
 		pasarEvaluacion (webClientCoord, idPostulacion);
