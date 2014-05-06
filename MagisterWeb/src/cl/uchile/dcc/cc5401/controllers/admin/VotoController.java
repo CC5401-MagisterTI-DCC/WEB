@@ -135,6 +135,16 @@ public class VotoController extends HttpServlet {
 		else {
 			try {
 				Date deadline = sdf.parse(request.getParameter("deadline"));
+				Date currentDate = new Date();
+				
+				// verificamos que el deadline contiene una fecha posterior a la
+				// actual.
+				if (deadline.before(currentDate)) {
+					throw new ServletException(
+							"La fecha ingresada es anterior a hoy "
+									+ currentDate.toString());
+				}
+
 				PostulacionDTO postulacion = postulacionDAO.getPostulacion(id);
 				postulacion.setDeadline(deadline);
 				postulacionDAO.actualizar(postulacion);

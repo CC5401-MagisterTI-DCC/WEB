@@ -49,7 +49,6 @@ import cl.uchile.dcc.cc5401.util.HashHelper;
 import cl.uchile.dcc.cc5401.util.MailHelper;
 import cl.uchile.dcc.cc5401.util.MailHelperFactory;
 import cl.uchile.dcc.cc5401.util.MailHelperFactoryImpl;
-import cl.uchile.dcc.cc5401.util.MailHelperImpl;
 import cl.uchile.dcc.cc5401.util.TipoFinanciamiento;
 
 /**

@@ -10,7 +10,6 @@ import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-import cl.uchile.dcc.cc5401.controllers.FormController;
 import cl.uchile.dcc.cc5401.model.dao.PostulacionDAO;
 import cl.uchile.dcc.cc5401.model.dao.UserDAO;
 import cl.uchile.dcc.cc5401.model.dao.VotoDAO;
@@ -22,7 +21,6 @@ import cl.uchile.dcc.cc5401.model.dto.UserDTO;
 import cl.uchile.dcc.cc5401.util.MailHelper;
 import cl.uchile.dcc.cc5401.util.MailHelperFactory;
 import cl.uchile.dcc.cc5401.util.MailHelperFactoryImpl;
-import cl.uchile.dcc.cc5401.util.MailHelperImpl;
 
 public class MailScheduler implements Job {
 	private static MailHelperFactory mailHelperFactory = new MailHelperFactoryImpl();

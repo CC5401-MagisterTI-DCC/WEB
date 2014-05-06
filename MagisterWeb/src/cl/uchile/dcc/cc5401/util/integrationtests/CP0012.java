@@ -67,8 +67,8 @@ public class CP0012 extends IntegrationTest {
 		// se obtiene el estado de la postulación
 		estadoPostulacion = getEstadoPostulacion(idPostulacion);
 
-		// avanza al estado siguiente
-		assertEquals(2, estadoPostulacion);
+		// mantiene el estado 
+		assertEquals(1, estadoPostulacion);
 
 		// TODO: validar la llamada para enviar mails.
 	}

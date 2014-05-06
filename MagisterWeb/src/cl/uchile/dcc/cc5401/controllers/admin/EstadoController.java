@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import cl.uchile.dcc.cc5401.controllers.FormController;
 import cl.uchile.dcc.cc5401.model.dao.ComentarioDAO;
 import cl.uchile.dcc.cc5401.model.dao.HistorialDAO;
 import cl.uchile.dcc.cc5401.model.dao.PostulacionDAO;
@@ -35,7 +34,6 @@ import cl.uchile.dcc.cc5401.util.Estado;
 import cl.uchile.dcc.cc5401.util.MailHelper;
 import cl.uchile.dcc.cc5401.util.MailHelperFactory;
 import cl.uchile.dcc.cc5401.util.MailHelperFactoryImpl;
-import cl.uchile.dcc.cc5401.util.MailHelperImpl;
 import cl.uchile.dcc.cc5401.util.ResultadoPostulacion;
 
 @WebServlet("/app/admin/estado")
@@ -143,10 +141,10 @@ public class EstadoController extends HttpServlet {
 				try {
 					deadline = sdf.parse(dl);
 				} catch (ParseException e) {
-					forward = ERROR_PAGE;
-					e.printStackTrace();
+					throw new ServletException(
+							"La fecha ingresada no contiene un formato aceptable.");
 				}
-
+				
 				// verificamos que el deadline contiene una fecha posterior a la
 				// actual.
 				if (deadline.before(new Date())) {
