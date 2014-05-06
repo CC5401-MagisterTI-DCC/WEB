@@ -43,7 +43,15 @@ public class MailHelperMock implements MailHelper {
 	}
 	
 	private Collection<SentMail> sentMails = new ArrayList<SentMail>();
+
+	public Collection<SentMail> getSentMails() {
+		return sentMails;
+	}
 	
+	public void clearSentMails(){
+		sentMails.clear();
+	}
+
 	@Override
 	public void sendMail(String[] to, String subject, String body)
 			throws AddressException, MessagingException {
