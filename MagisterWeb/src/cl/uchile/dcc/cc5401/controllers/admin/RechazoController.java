@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import cl.uchile.dcc.cc5401.controllers.FormController;
 import cl.uchile.dcc.cc5401.model.dao.DocumentoDAO;
 import cl.uchile.dcc.cc5401.model.dao.HistorialDAO;
 import cl.uchile.dcc.cc5401.model.dao.PostulacionDAO;
@@ -32,7 +31,6 @@ import cl.uchile.dcc.cc5401.util.HashHelper;
 import cl.uchile.dcc.cc5401.util.MailHelper;
 import cl.uchile.dcc.cc5401.util.MailHelperFactory;
 import cl.uchile.dcc.cc5401.util.MailHelperFactoryImpl;
-import cl.uchile.dcc.cc5401.util.MailHelperImpl;
 
 @WebServlet("/app/admin/rechazo")
 public class RechazoController extends HttpServlet {

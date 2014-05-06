@@ -136,7 +136,7 @@ public class CP0017 extends IntegrationTest {
 				+ comentario + "&decision=rechazado");
 
 		// se obtiene página de exito.
-		assertEquals("Error - Admin SP", page.getTitleText());
+		assertEquals("Exito!", page.getTitleText());
 		// cantidad de votos NO asociados a la postulación
 		assertEquals(1, cantidadVotosNo(idPostulacion));
 	}
