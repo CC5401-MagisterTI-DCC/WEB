@@ -46,6 +46,9 @@ import cl.uchile.dcc.cc5401.util.Algoritmo;
 import cl.uchile.dcc.cc5401.util.Estado;
 import cl.uchile.dcc.cc5401.util.Genero;
 import cl.uchile.dcc.cc5401.util.HashHelper;
+import cl.uchile.dcc.cc5401.util.MailHelper;
+import cl.uchile.dcc.cc5401.util.MailHelperFactory;
+import cl.uchile.dcc.cc5401.util.MailHelperFactoryImpl;
 import cl.uchile.dcc.cc5401.util.MailHelperImpl;
 import cl.uchile.dcc.cc5401.util.TipoFinanciamiento;
 
@@ -55,6 +58,9 @@ import cl.uchile.dcc.cc5401.util.TipoFinanciamiento;
 @WebServlet("/app/form")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 10, maxRequestSize = 1024 * 1024 * 10 * 10)
 public class FormController extends HttpServlet {
+
+	private static MailHelperFactory mailHelperFactory = new MailHelperFactoryImpl();
+	
 	private static final long serialVersionUID = 1L;
 	private static String FORM = "/app/form.jsp";
 	private static String ERROR_PAGE = "/error.jsp";
@@ -70,12 +76,16 @@ public class FormController extends HttpServlet {
 	private DocumentoDAO documentoDAO;
 	private HistorialDAO historialDAO;
 
-	private MailHelperImpl mailHelper;
+	private MailHelper mailHelper;
 	private String ruta = "";
 	private String successSubject;
 	private String successBody;
 	private String paginaTrack;
 
+	public static void setMailHelperFactory(MailHelperFactory mailHelperFactory) {
+		FormController.mailHelperFactory = mailHelperFactory;
+	}
+	
 	public FormController() {
 		super();
 	}
@@ -93,7 +103,7 @@ public class FormController extends HttpServlet {
 		gradoAcademicoDAO = GradoAcademicoDAOFactory.getGradoAcademicoDAO();
 		documentoDAO = DocumentoDAOFactory.getDocumentoDAO();
 		historialDAO = HistorialDAOFactory.getHistorialDAO();
-		mailHelper = new MailHelperImpl(config.getServletContext()
+		mailHelper = mailHelperFactory.makeMailHelper(config.getServletContext()
 				.getInitParameter("usernameMail"), config.getServletContext()
 				.getInitParameter("passwordMail"), config.getServletContext()
 				.getInitParameter("hostMail"), config.getServletContext()
