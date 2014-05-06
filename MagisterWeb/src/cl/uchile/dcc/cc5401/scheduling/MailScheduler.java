@@ -18,14 +18,14 @@ import cl.uchile.dcc.cc5401.model.dao.impl.factory.UserDAOFactory;
 import cl.uchile.dcc.cc5401.model.dao.impl.factory.VotoDAOFactory;
 import cl.uchile.dcc.cc5401.model.dto.PostulacionDTO;
 import cl.uchile.dcc.cc5401.model.dto.UserDTO;
-import cl.uchile.dcc.cc5401.util.MailHelper;
+import cl.uchile.dcc.cc5401.util.MailHelperImpl;
 
 public class MailScheduler implements Job {
 
 	private PostulacionDAO postulacionDAO;
 	private UserDAO userDAO;
 	private VotoDAO votoDAO;
-	private MailHelper mailHelper;
+	private MailHelperImpl mailHelper;
 	private String body;
 	private String subject;
 	private String[] comision;
@@ -39,7 +39,7 @@ public class MailScheduler implements Job {
 		userDAO = UserDAOFactory.getUserDAO();
 		votoDAO = VotoDAOFactory.getVotoDAO();
 
-		mailHelper = new MailHelper(jdm.getString("usernameMail"),
+		mailHelper = new MailHelperImpl(jdm.getString("usernameMail"),
 				jdm.getString("passwordMail"), jdm.getString("hostMail"),
 				jdm.getString("portMail"), true);
 

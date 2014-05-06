@@ -31,7 +31,7 @@ import cl.uchile.dcc.cc5401.model.dto.PostulanteDTO;
 import cl.uchile.dcc.cc5401.model.dto.ResolucionDTO;
 import cl.uchile.dcc.cc5401.model.dto.UserDTO;
 import cl.uchile.dcc.cc5401.util.Estado;
-import cl.uchile.dcc.cc5401.util.MailHelper;
+import cl.uchile.dcc.cc5401.util.MailHelperImpl;
 import cl.uchile.dcc.cc5401.util.ResultadoPostulacion;
 
 @WebServlet("/app/admin/estado")
@@ -43,7 +43,7 @@ public class EstadoController extends HttpServlet {
 	private ComentarioDAO comentarioDAO;
 	private HistorialDAO historialDAO;
 	private ResolucionDAO resolucionDAO;
-	private MailHelper mailHelper;
+	private MailHelperImpl mailHelper;
 
 	private static final String ERROR_PAGE = "/error.jsp";
 	private static final String SUCCESS_PAGE = "/app/operacionExitosa.jsp";
@@ -63,7 +63,7 @@ public class EstadoController extends HttpServlet {
 		resolucionDAO = ResolucionDAOFactory.getResolucionDAO();
 		postulanteDAO = PostulanteDAOFactory.getPostulanteDAO();
 
-		mailHelper = new MailHelper(config.getServletContext()
+		mailHelper = new MailHelperImpl(config.getServletContext()
 				.getInitParameter("usernameMail"), config.getServletContext()
 				.getInitParameter("passwordMail"), config.getServletContext()
 				.getInitParameter("hostMail"), config.getServletContext()

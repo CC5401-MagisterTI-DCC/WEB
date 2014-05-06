@@ -28,7 +28,7 @@ import cl.uchile.dcc.cc5401.model.dto.UserDTO;
 import cl.uchile.dcc.cc5401.util.Algoritmo;
 import cl.uchile.dcc.cc5401.util.Estado;
 import cl.uchile.dcc.cc5401.util.HashHelper;
-import cl.uchile.dcc.cc5401.util.MailHelper;
+import cl.uchile.dcc.cc5401.util.MailHelperImpl;
 
 @WebServlet("/app/admin/rechazo")
 public class RechazoController extends HttpServlet {
@@ -39,7 +39,7 @@ public class RechazoController extends HttpServlet {
 	private DocumentoDAO documentoDAO;
 	private HistorialDAO historialDAO;
 
-	private MailHelper mailHelper;
+	private MailHelperImpl mailHelper;
 	private String rechazoSubject;
 	private String rechazoBody;
 	private String paginaRechazo;
@@ -61,7 +61,7 @@ public class RechazoController extends HttpServlet {
 		historialDAO = HistorialDAOFactory.getHistorialDAO();
 		postulanteDAO = PostulanteDAOFactory.getPostulanteDAO();
 
-		mailHelper = new MailHelper(config.getServletContext()
+		mailHelper = new MailHelperImpl(config.getServletContext()
 				.getInitParameter("usernameMail"), config.getServletContext()
 				.getInitParameter("passwordMail"), config.getServletContext()
 				.getInitParameter("hostMail"), config.getServletContext()

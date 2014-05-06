@@ -46,7 +46,7 @@ import cl.uchile.dcc.cc5401.util.Algoritmo;
 import cl.uchile.dcc.cc5401.util.Estado;
 import cl.uchile.dcc.cc5401.util.Genero;
 import cl.uchile.dcc.cc5401.util.HashHelper;
-import cl.uchile.dcc.cc5401.util.MailHelper;
+import cl.uchile.dcc.cc5401.util.MailHelperImpl;
 import cl.uchile.dcc.cc5401.util.TipoFinanciamiento;
 
 /**
@@ -70,7 +70,7 @@ public class FormController extends HttpServlet {
 	private DocumentoDAO documentoDAO;
 	private HistorialDAO historialDAO;
 
-	private MailHelper mailHelper;
+	private MailHelperImpl mailHelper;
 	private String ruta = "";
 	private String successSubject;
 	private String successBody;
@@ -93,7 +93,7 @@ public class FormController extends HttpServlet {
 		gradoAcademicoDAO = GradoAcademicoDAOFactory.getGradoAcademicoDAO();
 		documentoDAO = DocumentoDAOFactory.getDocumentoDAO();
 		historialDAO = HistorialDAOFactory.getHistorialDAO();
-		mailHelper = new MailHelper(config.getServletContext()
+		mailHelper = new MailHelperImpl(config.getServletContext()
 				.getInitParameter("usernameMail"), config.getServletContext()
 				.getInitParameter("passwordMail"), config.getServletContext()
 				.getInitParameter("hostMail"), config.getServletContext()
