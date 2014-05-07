@@ -196,37 +196,37 @@ public class ValidationFilter implements Filter {
 
 				Part part = null;
 				part = request.getPart("cert_titulo");
-				if (Validacion.validateDocumentPart(part))
-					throw new Exception("Error en Certificado de titulo 1");
+				if (!Validacion.validateDocumentPart(part))
+					throw new Exception("Error en Certificado de notas titulo 1. content-type: " + part.getContentType());
 				part = request.getPart("cert_notas");
-				if (Validacion.validateDocumentPart(part))
+				if (!Validacion.validateDocumentPart(part))
 					throw new Exception(
-							"Error en Certificado de notas titulo 1");
+							"Error en Certificado de notas titulo 1. content-type: " + part.getContentType());
 				for (int i = 1; i < j; i++) {
 					// Certificado de grado
 					if (request.getParameterMap().containsKey("grado" + i)) {
 						part = request.getPart("cert_titulo" + i);
-						if (Validacion.validateDocumentPart(part))
+						if (!Validacion.validateDocumentPart(part))
 							throw new Exception(
 									"Error en Certificado de título " + (i + 1));
 						part = request.getPart("cert_notas" + i);
-						if (Validacion.validateDocumentPart(part))
+						if (!Validacion.validateDocumentPart(part))
 							throw new Exception(
 									"Error en Certificado de notas título "
 											+ (i + 1));
 					}
 				}
 				part = request.getPart("cv");
-				if (Validacion.validateDocumentPart(part))
+				if (!Validacion.validateDocumentPart(part))
 					throw new Exception("Error en Curriculum Vitae");
 				part = request.getPart("carta_pres");
-				if (Validacion.validateDocumentPart(part))
+				if (!Validacion.validateDocumentPart(part))
 					throw new Exception("Error en Carta de Presentación");
 				part = request.getPart("carta_rec_1");
-				if (Validacion.validateDocumentPart(part))
+				if (!Validacion.validateDocumentPart(part))
 					throw new Exception("Error en Carta Recomendación 1");
 				part = request.getPart("carta_rec_2");
-				if (Validacion.validateDocumentPart(part))
+				if (!Validacion.validateDocumentPart(part))
 					throw new Exception("Error en Carta Recomendación 2");
 			} catch (Exception e) {
 				e.printStackTrace();
