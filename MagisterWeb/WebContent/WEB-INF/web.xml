@@ -11,7 +11,7 @@
   </welcome-file-list>
   <context-param>
     <param-name>archivos.dir</param-name>
-    <param-value>C:\home\inscripcion_mti</param-value>
+    <param-value>/home/inscripcion_mti</param-value>
   </context-param>
   <context-param>
     <param-name>usernameMail</param-name>
