@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class ConnectionFactory {
 
 	String driverClassName = "com.mysql.jdbc.Driver";
-	String connectionUrl = "jdbc:mysql://localhost:3306/inscmtidb";
+	String connectionUrl = "jdbc:mysql://localhost:3306/inscmtiDB";
 	String dbUser = "inscmti_user";
 	String dbPwd = "choazaechuah3ashaN9e";
 
