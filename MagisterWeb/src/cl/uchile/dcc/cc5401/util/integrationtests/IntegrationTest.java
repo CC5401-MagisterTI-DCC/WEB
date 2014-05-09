@@ -223,7 +223,7 @@ public abstract class IntegrationTest {
 	
 		if(decision){
 			webClient.getPage("http://localhost:8080/MagisterWeb/" +
-					"app/admin/estado?action=consideracion&id="+postulacionID+"&comentario=&deadline=");
+					"app/admin/estado?action=consideracion&id="+postulacionID+"&comentario=&deadline=01/01/2099");
 		}
 		
 		else{
