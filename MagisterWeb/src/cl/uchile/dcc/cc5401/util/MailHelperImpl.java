@@ -62,7 +62,7 @@ public class MailHelperImpl implements MailHelper{
 		props.put("mail.smtp.host", host);
 		props.put("mail.smtp.port", port);
 		//quitar después
-		props.put("mail.smtp.starttls.enable", "true");
+		//props.put("mail.smtp.starttls.enable", "true");
 
 		Session session = Session.getDefaultInstance(props);
 		MimeMessage message = new MimeMessage(session);
