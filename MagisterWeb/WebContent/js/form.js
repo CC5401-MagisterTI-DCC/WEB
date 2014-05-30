@@ -254,10 +254,11 @@ $(document).ready(function() {
 		});
 		
 		$('.datepicker').datepicker({
-			format: "dd/mm/yyyy",
-			weekStart: 1,
-			startView: 2,
-			language: "es"
+			 weekStart: 1,
+		    language: "es",
+		    orientation: "bottom auto",
+		    autoclose: true,
+		    todayHighlight: true
 		});
 		i++;
 
@@ -453,12 +454,14 @@ $(document).ready(function() {
 	}).mouseup();
 
 	$('.datepicker').datepicker({
-		format: "dd/mm/yyyy",
 		weekStart: 1,
-		startView: 2,
-		language: "es"
+		startView: 1,
+	    language: "es",
+	    orientation: "bottom auto",
+	    autoclose: true,
+	    todayHighlight: true
 	});
-	
+		
 	$("#grado").change(function(){
 		var value = $(this).val();
 		$("#grado_resumen").text(value);

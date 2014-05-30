@@ -274,10 +274,11 @@ body {
 	</div>
 	<script type="text/javascript">
 		$('.datepicker').datepicker({
-			format : "dd/mm/yyyy",
-			weekStart : 1,
-			startView : 2,
-			language : "es"
+			weekStart: 1, 
+		    language: "es",
+		    orientation: "bottom auto",
+		    autoclose: true,
+		    todayHighlight: true
 		});
 	</script>
 </body>
