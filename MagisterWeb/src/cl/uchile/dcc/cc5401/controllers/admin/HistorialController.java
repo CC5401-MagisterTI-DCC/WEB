@@ -51,7 +51,8 @@ public class HistorialController extends HttpServlet {
 		// Caso historial general
 		if (idPostulacion == null) {
 			List<HistorialDTO> hts = historialDAO.getAll();
-			Collections.reverse(hts);
+			if (hts != null) 
+				Collections.reverse(hts);
 			request.setAttribute("historial", "yes");
 			request.setAttribute("admin", "admin");
 			request.setAttribute("hts", hts);
