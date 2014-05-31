@@ -31,6 +31,7 @@ import cl.uchile.dcc.cc5401.util.HashHelper;
 import cl.uchile.dcc.cc5401.util.MailHelper;
 import cl.uchile.dcc.cc5401.util.MailHelperFactory;
 import cl.uchile.dcc.cc5401.util.MailHelperFactoryImpl;
+import cl.uchile.dcc.cc5401.util.RolUsuario;
 
 @WebServlet("/app/admin/rechazo")
 public class RechazoController extends HttpServlet {
@@ -138,7 +139,7 @@ public class RechazoController extends HttpServlet {
 							"<strong>"
 									+ user.getUsername()
 									+ "</strong>: <i class='icon-exclamation-sign'></i>  Rechazo de documentos",
-							new Date(), ""));
+							new Date(), "", RolUsuario.getValue(user.getIdRol())));
 			postulacionDAO.actualizar(postulacion);
 
 			// Enviamos el mail al postulante

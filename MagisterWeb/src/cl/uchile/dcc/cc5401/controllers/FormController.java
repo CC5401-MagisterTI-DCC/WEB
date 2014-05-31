@@ -49,6 +49,7 @@ import cl.uchile.dcc.cc5401.util.HashHelper;
 import cl.uchile.dcc.cc5401.util.MailHelper;
 import cl.uchile.dcc.cc5401.util.MailHelperFactory;
 import cl.uchile.dcc.cc5401.util.MailHelperFactoryImpl;
+import cl.uchile.dcc.cc5401.util.RolUsuario;
 import cl.uchile.dcc.cc5401.util.TipoFinanciamiento;
 
 /**
@@ -395,8 +396,9 @@ public class FormController extends HttpServlet {
 				System.out.println("Ocurrió un error al enviar mail a "
 						+ postulante.getEmail());
 			}
+			
 			historialDAO.agregar(new HistorialDTO(0, postulacion.getId(),
-					"Se ingresó la postulación al sistema", new Date(), ""));
+					"Se ingresó la postulación al sistema", new Date(), "", RolUsuario.POSTULANTE));
 			forward = SUCCESS;
 		} catch (Exception e) {
 			e.printStackTrace();

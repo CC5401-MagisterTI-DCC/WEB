@@ -2,6 +2,8 @@ package cl.uchile.dcc.cc5401.model.dto;
 
 import java.util.Date;
 
+import cl.uchile.dcc.cc5401.util.RolUsuario;
+
 public class HistorialDTO {
 
 	private int id;
@@ -9,17 +11,19 @@ public class HistorialDTO {
 	private String accion;
 	private Date fecha;
 	private String comentario;
+	private RolUsuario roleAutor;
 	
 	public HistorialDTO(){}
 
 	public HistorialDTO(int id, int idPostulacion, String accion, Date fecha,
-			String comentario) {
+			String comentario, RolUsuario autor) {
 		super();
 		this.id = id;
 		this.idPostulacion = idPostulacion;
 		this.accion = accion;
 		this.fecha = fecha;
 		this.comentario = comentario;
+		this.roleAutor = autor;
 	}
 
 	public int getId() {
@@ -61,8 +65,12 @@ public class HistorialDTO {
 	public void setComentario(String comentario) {
 		this.comentario = comentario;
 	}
-	
-	
-	
-	
+
+	public RolUsuario getRolAutor() {
+		return roleAutor;
+	}
+
+	public void setRolAutor(RolUsuario rolAutor) {
+		this.roleAutor = rolAutor;
+	}	
 }

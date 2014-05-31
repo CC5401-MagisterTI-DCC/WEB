@@ -29,6 +29,7 @@ import cl.uchile.dcc.cc5401.model.dto.GradoAcademicoDTO;
 import cl.uchile.dcc.cc5401.model.dto.HistorialDTO;
 import cl.uchile.dcc.cc5401.model.dto.PostulacionDTO;
 import cl.uchile.dcc.cc5401.util.InputHelper;
+import cl.uchile.dcc.cc5401.util.RolUsuario;
 
 @WebServlet("/app/reenvio")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 10, maxRequestSize = 1024 * 1024 * 10 * 10)
@@ -167,7 +168,7 @@ public class ReenvioController extends HttpServlet {
 						0,
 						idPostulacion,
 						"<i class='icon-upload'></i> El postulante subió nuevos documentos",
-						new Date(), ""));
+						new Date(), "", RolUsuario.POSTULANTE));
 
 		session.invalidate();
 		request.setAttribute("reenvio", "reenvio");

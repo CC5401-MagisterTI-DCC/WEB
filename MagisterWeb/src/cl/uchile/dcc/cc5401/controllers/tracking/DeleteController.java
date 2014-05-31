@@ -17,6 +17,7 @@ import cl.uchile.dcc.cc5401.model.dao.impl.factory.HistorialDAOFactory;
 import cl.uchile.dcc.cc5401.model.dao.impl.factory.PostulacionDAOFactory;
 import cl.uchile.dcc.cc5401.model.dto.HistorialDTO;
 import cl.uchile.dcc.cc5401.model.dto.PostulacionDTO;
+import cl.uchile.dcc.cc5401.util.RolUsuario;
 
 @WebServlet("/app/track/delete")
 public class DeleteController extends HttpServlet {
@@ -75,9 +76,10 @@ public class DeleteController extends HttpServlet {
 			// "Eliminamos" la postulación (La dejamos en estado ELIMINADA)
 			postulacionDAO.eliminar(postulacion.getId());
 			// Se agrega el historial
+			// Usuario cero significa que fue el postulante quien realizó la acción.
 			historialDAO.agregar(new HistorialDTO(0, postulacion.getId(),
 					"<i class='icon-remove'></i> Se eliminó la postulación.",
-					new Date(), ""));
+					new Date(), "", RolUsuario.POSTULANTE));
 
 			// se confirma la transacción.
 			// conn.commit();
