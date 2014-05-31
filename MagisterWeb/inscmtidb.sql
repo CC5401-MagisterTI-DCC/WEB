@@ -180,6 +180,7 @@ CREATE TABLE IF NOT EXISTS `historial` (
   `accion` text NOT NULL,
   `fecha` date NOT NULL,
   `comentario` text NOT NULL,
+  `id_usuario_rol` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `historial_postulacion_idx` (`id_postulacion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
