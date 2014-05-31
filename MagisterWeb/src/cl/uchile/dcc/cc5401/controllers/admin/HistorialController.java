@@ -101,10 +101,10 @@ public class HistorialController extends HttpServlet {
 			for (HistorialDTO h: hts) {	
 				rolHito = h.getRolAutor();
 				
-				if (rolHito != RolUsuario.ADMINISTRADOR && 
-					rolHito != RolUsuario.COORDINADOR && 
-					rolHito != RolUsuario.COMISIONADO) {
-					h.setComentario("");	
+				if (rolHito == RolUsuario.ADMINISTRADOR || 
+					rolHito == RolUsuario.COORDINADOR || 
+					rolHito == RolUsuario.COMISIONADO) {
+					h.setComentario("");
 				}
 				nuevaLista.add(h);
 			}
