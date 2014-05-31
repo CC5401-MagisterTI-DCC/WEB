@@ -104,8 +104,9 @@ public class HistorialController extends HttpServlet {
 				if (rolHito != RolUsuario.ADMINISTRADOR && 
 					rolHito != RolUsuario.COORDINADOR && 
 					rolHito != RolUsuario.COMISIONADO) {
-					nuevaLista.add(h);					
+					h.setComentario("");	
 				}
+				nuevaLista.add(h);
 			}
 			
 			return nuevaLista;
