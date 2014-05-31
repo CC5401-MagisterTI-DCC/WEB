@@ -22,9 +22,8 @@ body {
 <script src="${root}/js/bootstrap.js"></script>
 <script src="${root}/js/jquery.validate.js"></script>
 <script src="${root}/js/admin/postulacionview.js"></script>
-<script src="${root}/js/bootstrap-datepicker.js" type="text/javascript"></script>
-<script src="${root}/js/locales/bootstrap-datepicker.es.js"
-	type="text/javascript"></script>
+<script src="${root}/js/bootstrap-datepicker.js"></script>
+<script src="${root}/js/locales/bootstrap-datepicker.es.js"></script>
 
 </head>
 <body>
@@ -96,14 +95,16 @@ body {
 										<address>
 											<strong>Género:</strong><br> ${postulante.genero }
 										</address>
-										<div id="datosEmpresa" ${datosEmpresa==null ? 'hidden' : '' }>
-											<address>
-												<strong>Datos de Empresa:</strong><br> Nombre:
-												${datosEmpresa.nombre}<br> Cargo: ${datosEmpresa.cargo}<br>
-												Dirección: ${datosEmpresa.direccion}<br> Teléfono:
-												${datosEmpresa.telefono}<br>
-											</address>
-										</div>
+										<c:if test="${not empty datosEmpresa}">						
+											<div id="datosEmpresa">
+												<address>
+													<strong>Datos de Empresa:</strong><br> Nombre:
+													${datosEmpresa.nombre}<br> Cargo: ${datosEmpresa.cargo}<br>
+													Dirección: ${datosEmpresa.direccion}<br> Teléfono:
+													${datosEmpresa.telefono}<br>
+												</address>
+											</div>
+										</c:if>	
 									</div>
 									<div class="span6">
 										<address>
@@ -175,18 +176,18 @@ body {
 									<fmt:formatDate type="date" pattern="dd/MM/yyyy"
 										value="${postulacion.fechaIngreso }" />
 								</address>
-								<div ${resolucion!=null ? '' : 'hidden'}>
+								<c:if test="${not empty resolucion}">
 									<address>
 										<Strong>Fecha de Resolución:</Strong><br>
 										<fmt:formatDate type="date" pattern="dd/MM/yyyy"
-											value="${resolucion.fecha }" />
+											value="${resolucion.fecha}" />
 									</address>
-								</div>
-								<div ${postulacion.deadline!=null ? '' : 'hidden' }>
+								</c:if>
+								<c:if test="${not empty postulacion.deadline}">
 									<address>
 										<Strong>Deadline:</Strong><br> ${postulacion.deadline }
 									</address>
-								</div>
+								</c:if>
 								<address>
 									<Strong>Financiamiento:</Strong><br> Tipo:
 									${financiamiento.tipo} <br> Detalle:
@@ -195,91 +196,63 @@ body {
 							</div>
 						</div>
 					</div>
-					<div class="accordion-group" ${docExtras!=null ? '' : 'hidden' }>
-						<div class="accordion-heading">
-							<a class="accordion-toggle" data-toggle="collapse"
-								data-parent="#accordion1" href="#collapseFive"> Documentos
-								Extra </a>
-						</div>
-						<div id="collapseFive" class="accordion-body collapse">
-							<div class="accordion-inner">
-								<c:forEach items="${docExtras}" var="doc" varStatus="status">
-									<a href="documento?id=${doc.id}"><i class="icon-file"></i>Documento
-										Extra N°${status.count}</a>
-									<p>
-										<strong>Descripción: </strong>${doc.comentario}</p>
-									<br>
-								</c:forEach>
+					<c:if test="${not empty docExtras}">
+						<div class="accordion-group">
+							<div class="accordion-heading">
+								<a class="accordion-toggle" data-toggle="collapse"
+									data-parent="#accordion1" href="#collapseFive"> Documentos
+									Extra </a>
+							</div>
+							<div id="collapseFive" class="accordion-body collapse">
+								<div class="accordion-inner">
+									<c:forEach items="${docExtras}" var="doc" varStatus="status">
+										<a href="documento?id=${doc.id}"><i class="icon-file"></i>Documento
+											Extra N°${status.count}</a>
+										<p>
+											<strong>Descripción: </strong>${doc.comentario}</p>
+										<br>
+									</c:forEach>
+								</div>
 							</div>
 						</div>
-					</div>
+					</c:if>
 				</div>
 			</div>
 
-
-			<div class="span6">
-				<div class="well" style="text-align: center;"
-					${param.revision!=null ? '' : 'hidden'}>
-
-
-					<jsp:include page="estadosPostulacion/revision.jsp"></jsp:include>
-
+			<div class="span6">				
+				<div class="well" style="text-align: center;">
+					<c:if test="${not empty param.revision}">
+						<jsp:include page="estadosPostulacion/revision.jsp"></jsp:include>
+					</c:if>
+					<c:if test="${not empty param.validacion}">
+						<jsp:include page="estadosPostulacion/validacion.jsp"></jsp:include>
+					</c:if>
+					<c:if test="${not empty param.consideracion}">
+						<jsp:include page="estadosPostulacion/consideracion.jsp"></jsp:include>
+					</c:if>
+					<c:if test="${not empty param.evaluacion}">
+						<jsp:include page="estadosPostulacion/evaluacion.jsp"></jsp:include>	
+					</c:if>
+					<c:if test="${not empty param.decision}">
+						<jsp:include page="estadosPostulacion/decision.jsp"></jsp:include>
+					</c:if>
+					<c:if test="${not empty param.espera_notificacion}">
+						<jsp:include page="estadosPostulacion/espera_notificacion.jsp"></jsp:include>
+					</c:if>
+					<c:if test="${not empty param.resuelta}">
+						<jsp:include page="estadosPostulacion/resuelta.jsp"></jsp:include>
+					</c:if>
 				</div>
-
-				<div class="well" style="text-align: center;"
-					${param.validacion!=null ? '' : 'hidden' }>
-
-					<jsp:include page="estadosPostulacion/validacion.jsp"></jsp:include>
-
-				</div>
-
-				<div class="well" style="text-align: center;"
-					${param.consideracion!=null ? '' : 'hidden' }>
-
-					<jsp:include page="estadosPostulacion/consideracion.jsp"></jsp:include>
-
-				</div>
-
-				<div class="well" style="text-align: center;"
-					${param.evaluacion!=null ? '' : 'hidden' }>
-
-					<jsp:include page="estadosPostulacion/evaluacion.jsp"></jsp:include>
-
-				</div>
-
-				<div class="well" style="text-align: center;"
-					${param.decision!=null ? '' : 'hidden' }>
-
-					<jsp:include page="estadosPostulacion/decision.jsp"></jsp:include>
-
-				</div>
-				<div class="well" style="text-align: center;"
-					${param.espera_notificacion!=null ? '' : 'hidden' }>
-
-					<jsp:include page="estadosPostulacion/espera_notificacion.jsp"></jsp:include>
-
-				</div>
-				<div class="well" style="text-align: center;"
-					${param.resuelta!=null ? '' : 'hidden' }>
-
-					<jsp:include page="estadosPostulacion/resuelta.jsp"></jsp:include>
-
-				</div>
-
-
 			</div>
-
-
 		</div>
 	</div>
 	<script type="text/javascript">
-		$('.datepicker').datepicker({
+		$('#calendar-embedded').datepicker({
 			weekStart: 1, 
 		    language: "es",
-		    orientation: "bottom auto",
-		    autoclose: true,
-		    todayHighlight: true
-		});
+		}).on('changeDate', function(e){
+		      $('#deadline').val(e.format('dd/mm/yyyy'))
+	    });
 	</script>
 </body>
 </html>

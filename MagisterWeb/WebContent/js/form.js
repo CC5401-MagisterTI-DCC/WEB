@@ -164,7 +164,7 @@ $(document).ready(function() {
 		
 		$("#grados").append(resumen);
 		
-		var fieldWrapper = $("<div class=\"fieldwrapper\" id=\"field" + i + "\"/>");
+		var fieldWrapper = $("<div class=\"fieldwrapper well well-small\" id=\"field" + i + "\"/>");
 		var hr = $('<hr>');
 		var gradoArea = $('<!-- Textarea --><div class="control-group">	<label class="control-label">Grado Académico:</label><div class="controls">');
 		var grado = $('<textarea id="grado' + j + '" name="grado' + j +'" class="" placeholder="Ingrese su grado académico" required=""></textarea>');

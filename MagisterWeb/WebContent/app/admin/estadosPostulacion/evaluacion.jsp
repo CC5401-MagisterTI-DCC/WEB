@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="root" value="${pageContext.request.contextPath}" />
 
 <h3>Deadline:</h3>
@@ -23,14 +23,15 @@
 	</c:otherwise>
 </c:choose>
 <c:if test='${user.hasPermisos("SET_DEADLINE")}'>
-	<form method="get" action="voto">
-		<div class="input-append">
-			<input type="hidden" id="id" name="id" value="${postulacion.id}">
-			<input type="hidden" id="dl" name="dl" value="true"> <input
-				type="text" id="deadline" name="deadline" class="datepicker"
-				placeholder="Ingrese un deadline (dd/mm/aaaa)">
-			<button class="btn btn-primary" type="submit">Ingresar</button>
-		</div>
+	<form method="get" action="voto">		
+		<input type="hidden" id="id" name="id" value="${postulacion.id}"> 
+		<input type="hidden" id="dl" name="dl" value="true"> 
+		
+		<input type="hidden" id="deadline" name="deadline">			
+		<h4>Seleccione un nuevo Deadline</h4>
+		<div class="well well-small" style="width:220px;background:white" id="calendar-embedded"></div>
+		
+		<button class="btn btn-primary" type="submit">Actualizar deadline</button>
 	</form>
 </c:if>
 <hr>

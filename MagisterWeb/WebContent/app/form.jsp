@@ -396,7 +396,6 @@
 												type="file" required="">
 										</div>
 									</div>
-									<hr>
 								</fieldset>
 
 								<!-- Button -->
