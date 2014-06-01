@@ -119,18 +119,19 @@ public abstract class IntegrationTest {
 	    paisgrado.setSelectedAttribute(idPaisGrado, true);
 	    
 	    // Sube los documentos
+	    String absolutePath = "src/cl/uchile/dcc/cc5401/util/integrationtests/" + docPath;
 	    HtmlFileInput certTitulo = (HtmlFileInput)pagePostulante.getElementById("cert_titulo");
-	    certTitulo.setValueAttribute(docPath);
+	    certTitulo.setValueAttribute(absolutePath);
 	    HtmlFileInput certNotas = (HtmlFileInput)pagePostulante.getElementById("cert_notas");
-	    certNotas.setValueAttribute(docPath);
+	    certNotas.setValueAttribute(absolutePath);
 	    HtmlFileInput cv = (HtmlFileInput)pagePostulante.getElementById("cv");
-	    cv.setValueAttribute(docPath);
+	    cv.setValueAttribute(absolutePath);
 	    HtmlFileInput cartaPres = (HtmlFileInput)pagePostulante.getElementById("carta_pres");
-	    cartaPres.setValueAttribute(docPath);
+	    cartaPres.setValueAttribute(absolutePath);
 	    HtmlFileInput cartaRec1 = (HtmlFileInput)pagePostulante.getElementById("carta_rec_1");
-	    cartaRec1.setValueAttribute(docPath);
+	    cartaRec1.setValueAttribute(absolutePath);
 	    HtmlFileInput cartaRec2 = (HtmlFileInput)pagePostulante.getElementById("carta_rec_2");
-	    cartaRec2.setValueAttribute(docPath);
+	    cartaRec2.setValueAttribute(absolutePath);
 	    
 	    // Acepta las condiciones
 	    HtmlCheckBoxInput checkbox = (HtmlCheckBoxInput) pagePostulante.getElementById("checkbox");
