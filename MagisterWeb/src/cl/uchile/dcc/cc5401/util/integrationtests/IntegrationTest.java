@@ -24,8 +24,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 public abstract class IntegrationTest {
 	
 	protected Connection connect = null;
-	String dbUser = "inscmti_user";
-	String dbPwd = "choazaechuah3ashaN9e";
+	String dbUser = "root";
+	String dbPwd = "x963x963";
 	
 	protected void openDBConnection() throws Exception{
 		String driverClassName = "com.mysql.jdbc.Driver";
@@ -223,7 +223,7 @@ public abstract class IntegrationTest {
 	
 		if(decision){
 			webClient.getPage("http://localhost:8080/MagisterWeb/" +
-					"app/admin/estado?action=consideracion&id="+postulacionID+"&comentario=&deadline=");
+					"app/admin/estado?action=consideracion&id="+postulacionID+"&comentario=&deadline=29%2F12%2F3000");
 		}
 		
 		else{
