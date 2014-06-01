@@ -29,9 +29,13 @@ import cl.uchile.dcc.cc5401.util.Algoritmo;
 import cl.uchile.dcc.cc5401.util.Estado;
 import cl.uchile.dcc.cc5401.util.HashHelper;
 import cl.uchile.dcc.cc5401.util.MailHelper;
+import cl.uchile.dcc.cc5401.util.MailHelperFactory;
+import cl.uchile.dcc.cc5401.util.MailHelperFactoryImpl;
+import cl.uchile.dcc.cc5401.util.RolUsuario;
 
 @WebServlet("/app/admin/rechazo")
 public class RechazoController extends HttpServlet {
+	private static MailHelperFactory mailHelperFactory = new MailHelperFactoryImpl();
 	private static final long serialVersionUID = 1L;
 
 	private PostulacionDAO postulacionDAO;
@@ -47,6 +51,10 @@ public class RechazoController extends HttpServlet {
 	private static final String ERROR_PAGE = "/error.jsp";
 	private static final String SUCCESS_PAGE = "/app/operacionExitosa.jsp";
 
+	public static void setMailHelperFactory(MailHelperFactory mailHelperFactory) {
+		RechazoController.mailHelperFactory = mailHelperFactory;
+	}
+
 	public RechazoController() {
 		super();
 	}
@@ -61,7 +69,7 @@ public class RechazoController extends HttpServlet {
 		historialDAO = HistorialDAOFactory.getHistorialDAO();
 		postulanteDAO = PostulanteDAOFactory.getPostulanteDAO();
 
-		mailHelper = new MailHelper(config.getServletContext()
+		mailHelper = mailHelperFactory.makeMailHelper(config.getServletContext()
 				.getInitParameter("usernameMail"), config.getServletContext()
 				.getInitParameter("passwordMail"), config.getServletContext()
 				.getInitParameter("hostMail"), config.getServletContext()
@@ -131,7 +139,7 @@ public class RechazoController extends HttpServlet {
 							"<strong>"
 									+ user.getUsername()
 									+ "</strong>: <i class='icon-exclamation-sign'></i>  Rechazo de documentos",
-							new Date(), ""));
+							new Date(), "", RolUsuario.getValue(user.getIdRol())));
 			postulacionDAO.actualizar(postulacion);
 
 			// Enviamos el mail al postulante

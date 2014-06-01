@@ -30,7 +30,7 @@ public class CP0012 extends IntegrationTest {
 
 		createDBDump();
 		openDBConnection();
-
+		
 		// Ingreso de postulante
 		newPostulante("Jose Tomas", "Pefaur Pumarino", "rut", "6747640-9",
 				"152", true, false, "13/06/2014", "mimail@mail.com", "1234567",
@@ -67,8 +67,8 @@ public class CP0012 extends IntegrationTest {
 		// se obtiene el estado de la postulación
 		estadoPostulacion = getEstadoPostulacion(idPostulacion);
 
-		// avanza al estado siguiente
-		assertEquals(2, estadoPostulacion);
+		// mantiene el estado 
+		assertEquals(1, estadoPostulacion);
 
 		// TODO: validar la llamada para enviar mails.
 	}

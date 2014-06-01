@@ -84,7 +84,7 @@ public abstract class IntegrationTest {
 	    final HtmlPage pagePostulante = webClientPostulante.getPage("http://localhost:8080/MagisterWeb/app/form");
 
 	    
-	    //Voy buscando cada uno de los elementos del formulario que necesito y los voy editando
+	    // Voy buscando cada uno de los elementos del formulario que necesito y los voy editando
 	    HtmlTextInput nombre = (HtmlTextInput) pagePostulante.getElementById("nombre");
 	    nombre.setValueAttribute(nombres);
 	    HtmlTextInput apellido = (HtmlTextInput) pagePostulante.getElementById("apellido");
@@ -118,7 +118,7 @@ public abstract class IntegrationTest {
 	    HtmlSelect paisgrado = (HtmlSelect) pagePostulante.getElementById("pais_grado");
 	    paisgrado.setSelectedAttribute(idPaisGrado, true);
 	    
-	    //Sube los documentos
+	    // Sube los documentos
 	    HtmlFileInput certTitulo = (HtmlFileInput)pagePostulante.getElementById("cert_titulo");
 	    certTitulo.setValueAttribute(docPath);
 	    HtmlFileInput certNotas = (HtmlFileInput)pagePostulante.getElementById("cert_notas");
@@ -132,11 +132,11 @@ public abstract class IntegrationTest {
 	    HtmlFileInput cartaRec2 = (HtmlFileInput)pagePostulante.getElementById("carta_rec_2");
 	    cartaRec2.setValueAttribute(docPath);
 	    
-	    //Acepta las condiciones
+	    // Acepta las condiciones
 	    HtmlCheckBoxInput checkbox = (HtmlCheckBoxInput) pagePostulante.getElementById("checkbox");
 	    checkbox.setChecked(true);
 	    
-	    //Submit
+	    // Submit
 	    HtmlSubmitInput submit = (HtmlSubmitInput)pagePostulante.getElementById("submit_button");
 	    submit.click();
 	}
@@ -146,15 +146,15 @@ public abstract class IntegrationTest {
 	    Statement statement = connect.createStatement();
 		ResultSet idIdentificacion = statement.executeQuery("SELECT id FROM identificacion WHERE identificacion = '"+rut+"'");
 		idIdentificacion.next();
-		
+		System.out.println("paso 1");
 		ResultSet idPostulante = statement.executeQuery("SELECT id FROM postulante WHERE id_identificacion = "+
 		idIdentificacion.getInt("id"));
 		idPostulante.next();
-		
+		System.out.println("paso 2");
 		ResultSet idPostulacion = statement.executeQuery("SELECT id FROM postulacion WHERE " +
 				"id_postulante = "+idPostulante.getInt("id"));
 		idPostulacion.next();
-		
+		System.out.println("paso 3");
 		return idPostulacion.getInt("id");
 		
 		

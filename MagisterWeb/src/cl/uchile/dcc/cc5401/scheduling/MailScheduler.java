@@ -19,9 +19,11 @@ import cl.uchile.dcc.cc5401.model.dao.impl.factory.VotoDAOFactory;
 import cl.uchile.dcc.cc5401.model.dto.PostulacionDTO;
 import cl.uchile.dcc.cc5401.model.dto.UserDTO;
 import cl.uchile.dcc.cc5401.util.MailHelper;
+import cl.uchile.dcc.cc5401.util.MailHelperFactory;
+import cl.uchile.dcc.cc5401.util.MailHelperFactoryImpl;
 
 public class MailScheduler implements Job {
-
+	private static MailHelperFactory mailHelperFactory = new MailHelperFactoryImpl();
 	private PostulacionDAO postulacionDAO;
 	private UserDAO userDAO;
 	private VotoDAO votoDAO;
@@ -33,13 +35,17 @@ public class MailScheduler implements Job {
 	private String[] coordinador;
 	private String[] asistente;
 
+	public static void setMailHelperFactory(MailHelperFactory mailHelperFactory) {
+		MailScheduler.mailHelperFactory = mailHelperFactory;
+	}
+
 	// Función auxiliar encargada de inicializar las variables.
 	private void initDAOs(JobDataMap jdm) {
 		postulacionDAO = PostulacionDAOFactory.getPostulacionDAO();
 		userDAO = UserDAOFactory.getUserDAO();
 		votoDAO = VotoDAOFactory.getVotoDAO();
 
-		mailHelper = new MailHelper(jdm.getString("usernameMail"),
+		mailHelper = mailHelperFactory.makeMailHelper(jdm.getString("usernameMail"),
 				jdm.getString("passwordMail"), jdm.getString("hostMail"),
 				jdm.getString("portMail"), true);
 

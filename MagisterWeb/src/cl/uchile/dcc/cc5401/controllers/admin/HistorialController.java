@@ -1,6 +1,7 @@
 package cl.uchile.dcc.cc5401.controllers.admin;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -11,17 +12,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import cl.uchile.dcc.cc5401.model.dao.HistorialDAO;
 import cl.uchile.dcc.cc5401.model.dao.impl.factory.HistorialDAOFactory;
 import cl.uchile.dcc.cc5401.model.dto.HistorialDTO;
+import cl.uchile.dcc.cc5401.model.dto.UserDTO;
+import cl.uchile.dcc.cc5401.util.RolUsuario;
 
 @WebServlet("/app/admin/historial")
 public class HistorialController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private HistorialDAO historialDAO;
-
+ 
 	private static final String HISTORIAL_PARTICULAR = "/app/admin/historialPostulacion.jsp";
 	private static final String HISTORIAL_GENERAL = "/app/admin/historial.jsp";
 
@@ -48,10 +52,17 @@ public class HistorialController extends HttpServlet {
 		String forward;
 		String idPostulacion = request.getParameter("idPostulacion");
 
+		// Obtenemos el usuario activo en la sesión
+		HttpSession session = request.getSession(true);
+		UserDTO user = (UserDTO) session.getAttribute("user");
+			
 		// Caso historial general
 		if (idPostulacion == null) {
 			List<HistorialDTO> hts = historialDAO.getAll();
-			Collections.reverse(hts);
+			if (hts != null) {
+				hts = quitarComentarios(user, hts);
+				Collections.reverse(hts);				
+			}
 			request.setAttribute("historial", "yes");
 			request.setAttribute("admin", "admin");
 			request.setAttribute("hts", hts);
@@ -61,6 +72,7 @@ public class HistorialController extends HttpServlet {
 		else {
 			int id = Integer.parseInt(idPostulacion);
 			List<HistorialDTO> ht = historialDAO.get(id);
+			ht = quitarComentarios(user, ht);
 			Collections.reverse(ht);
 			request.setAttribute("listaHistorial", ht);
 			request.setAttribute("idPostulacion", idPostulacion);
@@ -69,5 +81,37 @@ public class HistorialController extends HttpServlet {
 		RequestDispatcher view = request.getRequestDispatcher(forward);
 		view.forward(request, response);
 	}
-
+	
+	/**
+	 * Quita los comentarios del comisionado, administrador y coordinador cuando
+	 * quien consulta es una asistente o un jefe de PEC
+	 * 
+	 * @param user usuario que realizar la consulta de historial
+	 * @param hts lista con los hitos (historial)
+	 * */
+	private List<HistorialDTO> quitarComentarios(UserDTO user, List<HistorialDTO> hts) {
+		
+		List<HistorialDTO> nuevaLista = new ArrayList<HistorialDTO>();
+		RolUsuario rolUsuario = RolUsuario.getValue(user.getIdRol());
+		RolUsuario rolHito;
+		
+		if (rolUsuario == RolUsuario.ASISTENTE || 
+			rolUsuario == RolUsuario.JEFE_PEC) {
+			
+			for (HistorialDTO h: hts) {	
+				rolHito = h.getRolAutor();
+				
+				if (rolHito == RolUsuario.ADMINISTRADOR || 
+					rolHito == RolUsuario.COORDINADOR || 
+					rolHito == RolUsuario.COMISIONADO) {
+					h.setComentario("");
+				}
+				nuevaLista.add(h);
+			}
+			
+			return nuevaLista;
+		}
+		
+		return hts;
+	}
 }

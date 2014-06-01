@@ -11,6 +11,7 @@ import java.util.List;
 import cl.uchile.dcc.cc5401.model.dao.HistorialDAO;
 import cl.uchile.dcc.cc5401.model.dto.HistorialDTO;
 import cl.uchile.dcc.cc5401.model.jdbc.ConnectionFactory;
+import cl.uchile.dcc.cc5401.util.RolUsuario;
 
 public class HistorialDAOImpl implements HistorialDAO {
 
@@ -50,6 +51,7 @@ public class HistorialDAOImpl implements HistorialDAO {
 			historialDTO.setAccion(rs.getString("accion"));
 			historialDTO.setFecha(rs.getDate("fecha"));
 			historialDTO.setComentario(rs.getString("comentario"));
+			historialDTO.setRolAutor(RolUsuario.getValue(rs.getInt("id_usuario_rol")));
 			
 			results.add(historialDTO);
 

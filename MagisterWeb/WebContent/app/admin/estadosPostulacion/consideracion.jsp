@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <h3>Comentarios</h3>
-<br>
 <p>
 	<c:forEach var="comentario" items="${comentarios}" varStatus="status">
 		<strong>${usuarios.get(status.index).username } </strong> ${comentario.texto}
@@ -11,18 +10,17 @@
 </p>
 <c:if test='${user.hasPermisos("SET_DEADLINE")}'>
 	<hr>
-
 	<form method="get" action="estado">
-
-
 		<input type="hidden" id="action" name="action" value="consideracion">
 		<input type="hidden" id="id" name="id" value="${postulacion.id}">
 
 		<textarea id="comentario" name="comentario" rows="2"
 			placeholder="Ingrese un comentario para la comision"></textarea>
-		<br> <input type="text" id="deadline" name="deadline"
-			class="datepicker" placeholder="Ingrese un deadline (dd/mm/aaaa)">
-		<br>
+			
+		<input type="hidden" id="deadline" name="deadline">		
+		<h4>Seleccione Deadline</h4>
+		<div class="well well-small" style="width:220px;background:white" id="calendar-embedded"></div>
+		
 		<button type="submit" class="btn btn-large btn-primary">
 			<i class="icon-eye-open icon-white"></i> Pasar a evaluación
 		</button>

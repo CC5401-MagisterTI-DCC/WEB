@@ -27,6 +27,7 @@ import cl.uchile.dcc.cc5401.model.dto.HistorialDTO;
 import cl.uchile.dcc.cc5401.model.dto.PostulacionDTO;
 import cl.uchile.dcc.cc5401.model.dto.UserDTO;
 import cl.uchile.dcc.cc5401.model.dto.VotoDTO;
+import cl.uchile.dcc.cc5401.util.RolUsuario;
 import cl.uchile.dcc.cc5401.util.TipoVoto;
 
 @WebServlet("/app/admin/voto")
@@ -103,7 +104,7 @@ public class VotoController extends HttpServlet {
 				historialDAO.agregar(new HistorialDTO(0, postulacion.getId(),
 						"<strong>" + user.getUsername()
 								+ "</strong>: Votación: Aceptado", new Date(),
-						comentario));
+						comentario, RolUsuario.getValue(user.getIdRol())));
 
 				forward = SUCCESS_PAGE;
 			}
@@ -124,7 +125,7 @@ public class VotoController extends HttpServlet {
 				historialDAO.agregar(new HistorialDTO(0, postulacion.getId(),
 						"<strong>" + user.getUsername()
 								+ "</strong>: Votación: Rechazado", new Date(),
-						comentario));
+						comentario, RolUsuario.getValue(user.getIdRol())));
 
 				forward = SUCCESS_PAGE;
 			} else {
@@ -135,6 +136,16 @@ public class VotoController extends HttpServlet {
 		else {
 			try {
 				Date deadline = sdf.parse(request.getParameter("deadline"));
+				Date currentDate = new Date();
+				
+				// verificamos que el deadline contiene una fecha posterior a la
+				// actual.
+				if (deadline.before(currentDate)) {
+					throw new ServletException(
+							"La fecha ingresada es anterior a hoy "
+									+ currentDate.toString());
+				}
+
 				PostulacionDTO postulacion = postulacionDAO.getPostulacion(id);
 				postulacion.setDeadline(deadline);
 				postulacionDAO.actualizar(postulacion);
@@ -143,7 +154,7 @@ public class VotoController extends HttpServlet {
 						"<strong>" + user.getUsername()
 								+ "</strong>: Se actualiza deadline a "
 								+ request.getParameter("deadline"), new Date(),
-						""));
+						"", RolUsuario.getValue(user.getIdRol())));
 			} catch (ParseException e) {
 				e.printStackTrace();
 				forward = ERROR_PAGE;
