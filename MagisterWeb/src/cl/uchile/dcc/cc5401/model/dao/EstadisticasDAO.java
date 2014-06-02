@@ -1,9 +1,11 @@
 package cl.uchile.dcc.cc5401.model.dao;
 
-import java.util.HashMap;
 
 public interface EstadisticasDAO {
 
+	public String getListaPostulaciones();
+	
+	/*
 	public HashMap<String, Integer> getNacionalVsExtranjeros();
 	
 	public HashMap<String, Integer> getPostulacionesAlMes(int fromMonth, int fromYear);
@@ -15,4 +17,5 @@ public interface EstadisticasDAO {
 	public HashMap<String, Integer> getEstadisticaFinanciamiento();
 	
 	public double getPromedioResolucion();
+	*/
 }

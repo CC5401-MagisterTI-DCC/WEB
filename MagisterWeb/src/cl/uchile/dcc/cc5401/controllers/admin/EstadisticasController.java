@@ -1,9 +1,6 @@
 package cl.uchile.dcc.cc5401.controllers.admin;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -43,23 +40,9 @@ public class EstadisticasController extends HttpServlet {
 
 		try {
 			// Seteamos los atributos en el request
-			request.setAttribute("mapGenero",
-					estadisticasDAO.getEstadisticaGenero());
-			request.setAttribute("mapResoluciones",
-					estadisticasDAO.getEstadisticaResolucion());
-			request.setAttribute("mapFinanciamiento",
-					estadisticasDAO.getEstadisticaFinanciamiento());
-			request.setAttribute("mapNacionalidad",
-					estadisticasDAO.getNacionalVsExtranjeros());
-
-			HashMap<String, Integer> mapPPM = estadisticasDAO
-					.getPostulacionesAlMes(9, 2013);
-
-			// Ordenamos las llaves en un TreeMap
-			Map<String, Integer> treeMap = new TreeMap<String, Integer>(mapPPM);
-			// TODO: Fecha de inicio seteada con respecto a la primera
-			// postulación o otro criterio.
-			request.setAttribute("mapPPM", treeMap);
+			request.setAttribute("listaPostulaciones",
+					estadisticasDAO.getListaPostulaciones());
+			
 			forward = ESTADISTICAS_PAGE;
 		} catch (Exception e) {
 			e.printStackTrace();

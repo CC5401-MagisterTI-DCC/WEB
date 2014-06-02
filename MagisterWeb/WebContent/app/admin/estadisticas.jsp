@@ -51,10 +51,10 @@
 							<div class="navbar navbar-inner block-header">
 								<h4>Filtro : </h4> 
 								<form class="form-inline">
-									<input type="text" class="input-small datepicker" placeholder="Desde">
-								    <input type="text" class="input-small datepicker" placeholder="Hasta">
+									<input id="from" type="text" class="input-small datepicker" placeholder="Desde">
+								    <input id="to" type="text" class="input-small datepicker" placeholder="Hasta">
 								    
-									<button type="button" class="btn" style="margin-top:0px"><i class="icon-refresh"></i> Actualizar</button>
+									<button id="update" type="button" class="btn" style="margin-top:0px"><i class="icon-refresh"></i> Actualizar</button>
 								</form>							
 							</div>
 						</div>
@@ -161,113 +161,135 @@
 	<script src="${root}/js/raphael-min.js"></script>
 	<script src="${root}/js/morris.min.js"></script>
 	<script src="${root}/js/bootstrap-datepicker.js"></script>
+	<script src="${root}/js/locales/bootstrap-datepicker.es.js"></script>
 
 	<script type="text/javascript">	
 	
 	$('.datepicker').datepicker({
 		weekStart: 1,
 		startView: 1,
+		format: "dd/mm/yyyy",
 	    language: "es",
 	    orientation: "auto",
 	    autoclose: true,
 	    todayHighlight: true
 	});
 	
-	// cantidad de postulaciones según sexo.
-	var mujeres = '${mapGenero.get("Mujeres")}';
-	var hombres = '${mapGenero.get("Hombres")}';
+	// lista con la información necesaria para graficar
+	var listaPostulaciones = ${requestScope.listaPostulaciones};
+		
+	$('#update').click(function() {
+		
+		var fromSplit = $("#from").val().split('/');
+		var toSplit = $("#to").val().split('/');
+		
+		var desde = new Date(fromSplit[2],fromSplit[1]-1,fromSplit[0]);
+		var hasta = new Date(toSplit[2],toSplit[1]-1,toSplit[0]);
+		
+		// lista filtrada por fecha
+		listaFiltrada = $.grep(listaPostulaciones, function(elem){
+			var fechaSplit = elem.fecha_ingreso.split("-");
+			var fecha = new Date(fechaSplit[0],fechaSplit[1]-1,fechaSplit[2]);
+			
+			if (desde.getTime() <= fecha.getTime() && fecha.getTime() <= hasta.getTime())
+				return true;
+			
+			return false;
+		});
+		
+		// cantidad de postulaciones según sexo.
+		var mujeres = $.grep(listaFiltrada, function(elem){ return elem.genero==='FEMENINO';}).length;
+		var hombres = $.grep(listaFiltrada, function(elem){ return elem.genero==='MASCULINO';}).length;
+			
+		var totalGenero = mujeres+hombres;
 	
-	var totalGenero = mujeres*1+hombres*1;
+		// cantidad de postulaciones aceptadas, rechazadas y aceptadas condicionalmente.
+		var aceptados = $.grep(listaFiltrada, function(elem){ return elem.resolucion==='ACEPTADA';}).length;
+		var rechazados = $.grep(listaFiltrada, function(elem){ return elem.resolucion==='RECHAZADA';}).length;
+		var aceptados_cond = $.grep(listaFiltrada, function(elem){ return elem.resolucion==='ACEPTADA_CONDICIONAL';}).length;
 	
-	// cantidad de postulaciones aceptadas, rechazadas y aceptadas condicionalmente.
-	var aceptados = '${mapResoluciones.get("Aceptados")}';
-	var rechazados = '${mapResoluciones.get("Rechazados")}';
-	var aceptados_cond = '${mapResoluciones.get("Aceptados Condicional")}';
+		// cantidad de postulaciones por tipo de financiamiento (beca, empresa, particular)
+		var particular = $.grep(listaFiltrada, function(elem){ return elem.financiamiento==='PARTICULAR';}).length;
+		var beca = $.grep(listaFiltrada, function(elem){ return elem.resolucion==='BECA';}).length;
+		var empresa = $.grep(listaFiltrada, function(elem){ return elem.resolucion==='EMPRESA';}).length;
+		
+		var totalFinanciamiento = particular+beca+empresa;
+		
+		// cantidad de postulaciones por nacionalidad.
+		var nacionales = $.grep(listaFiltrada, function(elem){ return elem.resolucion==='Chile';}).length;
+		var extranjeros = totalGenero - nacionales;
+		var totalNacionalidad = nacionales+extranjeros;
+		
+		// Morris Bar Chart
+	    Morris.Bar({
+	        element: 'resoluciones',
+	        data: [
+	            {desicion: 'Aceptadas', nPostulaciones: aceptados},
+	            {desicion: 'Rechazadas', nPostulaciones: rechazados},
+	            {desicion: 'Aceptadas Condicionalmente', nPostulaciones: aceptados_cond},
+	        ],
+	        xkey: 'desicion',
+	        ykeys: ['nPostulaciones'],
+	        barColors: ["#8ac368"],
+	        labels: ['N° Postulaciones'],
+	        barRatio: 0.8,
+	        xLabelMargin: 10,
+	        hideHover: 'auto'
+	       
+	    });
 	
-	// cantidad de postulaciones por tipo de financiamiento (beca, empresa, particular)
-	var particular = '${mapFinanciamiento.get("Particular")}';
-	var beca = '${mapFinanciamiento.get("Beca")}';
-	var empresa = '${mapFinanciamiento.get("Empresa")}';
-	var totalFinanciamiento = particular*1+beca*1+empresa*1;
 	
-	// cantidad de postulaciones por nacionalidad.
-	var nacionales = '${mapNacionalidad.get("Nacionales")}';
-	var extranjeros = '${mapNacionalidad.get("Extranjeros")}';
-	var totalNacionalidad = nacionales*1+extranjeros*1;
-	
-	// Morris Bar Chart
-    Morris.Bar({
-        element: 'resoluciones',
-        data: [
-            {desicion: 'Aceptadas', nPostulaciones: aceptados},
-            {desicion: 'Rechazadas', nPostulaciones: rechazados},
-            {desicion: 'Aceptadas Condicionalmente', nPostulaciones: aceptados_cond},
-        ],
-        xkey: 'desicion',
-        ykeys: ['nPostulaciones'],
-        barColors: ["#8ac368"],
-        labels: ['N° Postulaciones'],
-        barRatio: 0.8,
-        xLabelMargin: 10,
-        hideHover: 'auto'
-       
-    });
-
-
-    // Morris Donut Chart
-    Morris.Donut({
-        element: 'HvsM',
-        data: [
-            {label: 'Mujeres', value: mujeres },
-            {label: 'Hombres', value: hombres }
-        ],
-        colors: ["#EAAAED", "#76bdee"],
-        formatter: function (y) { return y +' - '+ (y/totalGenero).toFixed(2)*100+'%';}
-    });
-    
-    // Morris Donut Chart
-    Morris.Donut({
-        element: 'financiamiento',
-        data: [
-            {label: 'Particular', value: particular },
-            {label: 'Beca', value: beca },
-            {label: 'Empresa', value: empresa }
-        ],
-        colors: ["#30a1ec", "#7CED72", "#EDAAAA"],
-        formatter: function (y) { return y +' - '+ (y/totalFinanciamiento).toFixed(2)*100+'%';}
-    });
-    
-    // Morris Donut Chart
-    Morris.Donut({
-        element: 'nacionalidad',
-        data: [
-            {label: 'Nacionales', value: nacionales },
-            {label: 'Extranjeros', value: extranjeros }
-        ],
-        colors: ["#ED7272", "#EDD772"],
-        formatter: function (y) { return y +' - '+ (y/totalNacionalidad).toFixed(2)*100+'%';}
-    });
-    
-    // Morris Line Chart
-    var mNames = "<c:out value='${mapPPM.keySet()}'/>";  
-	var mValues = "<c:out value='${mapPPM.values()}'/>";  
-	var periodNames = mNames.replace("[","").replace("]","").split(", ");
-	var periodValues =  mValues.replace("[","").replace("]","").split(", ");
-	var data_ppm = new Array();
-	
-    for (var i=0;i<periodNames.length;i++){
-    	data_ppm[i] = {"periodo": periodNames[i], "postulaciones" : periodValues[i]*1};
-    }
-    
-    Morris.Line({
-        element: 'ppm',
-        data: data_ppm,
-        xkey: 'periodo',
-        xLabels: "Mes",
-        ykeys: ['postulaciones'],
-        labels: ['N° Postulaciones']
-    });
-    
+	    // Morris Donut Chart
+	    Morris.Donut({
+	        element: 'HvsM',
+	        data: [
+	            {label: 'Mujeres', value: mujeres },
+	            {label: 'Hombres', value: hombres }
+	        ],
+	        colors: ["#EAAAED", "#76bdee"],
+	        formatter: function (y) { return y +' - '+ (y/totalGenero).toFixed(2)*100+'%';}
+	    });
+	    
+	    // Morris Donut Chart
+	    Morris.Donut({
+	        element: 'financiamiento',
+	        data: [
+	            {label: 'Particular', value: particular },
+	            {label: 'Beca', value: beca },
+	            {label: 'Empresa', value: empresa }
+	        ],
+	        colors: ["#30a1ec", "#7CED72", "#EDAAAA"],
+	        formatter: function (y) { return y +' - '+ (y/totalFinanciamiento).toFixed(2)*100+'%';}
+	    });
+	    
+	    // Morris Donut Chart
+	    Morris.Donut({
+	        element: 'nacionalidad',
+	        data: [
+	            {label: 'Nacionales', value: nacionales },
+	            {label: 'Extranjeros', value: extranjeros }
+	        ],
+	        colors: ["#ED7272", "#EDD772"],
+	        formatter: function (y) { return y +' - '+ (y/totalNacionalidad).toFixed(2)*100+'%';}
+	    });
+	    
+	    // Morris Line Chart
+	    //TODO: Mejorar.
+		var data_ppm = new Array();
+		
+	    for (var i=0;i<listaFiltrada.length;i++){
+	    	data_ppm[i] = {"periodo": listaFiltrada[i].fecha_ingreso, "postulaciones" : 1};
+	    }
+	    
+	    Morris.Line({
+	        element: 'ppm',
+	        data: data_ppm,
+	        xkey: 'periodo',
+	        xLabels: "Mes",
+	        ykeys: ['postulaciones'],
+	        labels: ['N° Postulaciones']
+	    });
+	});
 	</script>
 
 </body>
