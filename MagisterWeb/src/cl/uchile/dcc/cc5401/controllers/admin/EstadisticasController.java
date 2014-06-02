@@ -55,7 +55,7 @@ public class EstadisticasController extends HttpServlet {
 			HashMap<String, Integer> mapPPM = estadisticasDAO
 					.getPostulacionesAlMes(9, 2013);
 
-			// Ordenamos las llaves un un TreeMap
+			// Ordenamos las llaves en un TreeMap
 			Map<String, Integer> treeMap = new TreeMap<String, Integer>(mapPPM);
 			// TODO: Fecha de inicio seteada con respecto a la primera
 			// postulación o otro criterio.

@@ -8,29 +8,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Estadísticas - Magister en TI</title>
-<link rel="shortcut icon"
-	href="${root}/favicon.ico" />
+<link rel="shortcut icon" href="${root}/favicon.ico" />
 <!-- Bootstrap -->
-<link href="${root}/css/bootstrap.min.css"
-	rel="stylesheet" media="screen">
-<link href="${root}/css/bootstrap-responsive.css"
-	rel="stylesheet" media="screen">
-<link href="${root}/css/header.css"
-	rel="stylesheet" media="screen">
-<link href="${root}/css/footer.css"
-	rel="stylesheet" media="screen">
-<link href="${root}/css/admin/styles.css"
-	rel="stylesheet" media="screen">
+<link href="${root}/css/bootstrap.min.css" rel="stylesheet"
+	media="screen">
+<link href="${root}/css/bootstrap-responsive.css" rel="stylesheet"
+	media="screen">
+<link href="${root}/css/header.css" rel="stylesheet" media="screen">
+<link href="${root}/css/footer.css" rel="stylesheet" media="screen">
+<link href="${root}/css/admin/styles.css" rel="stylesheet"
+	media="screen">
 <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="vendors/flot/excanvas.min.js"></script><![endif]-->
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
             <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
 
-
-
-<link rel="stylesheet"
-	href="${root}/css/morris.css">
+<link rel="stylesheet" href="${root}/css/morris.css">
+<link rel="stylesheet" href="${root}/css/datepicker.css">
 
 </head>
 <body>
@@ -47,6 +42,24 @@
 					<h1>
 						Estadísticas <small>Magister en TI</small>
 					</h1>
+				</div>
+
+				<div class="row-fluid">
+					<div class="span12">
+						<!-- block -->
+						<div class="block">
+							<div class="navbar navbar-inner block-header">
+								<h4>Filtro : </h4> 
+								<form class="form-inline">
+									<input type="text" class="input-small datepicker" placeholder="Desde">
+								    <input type="text" class="input-small datepicker" placeholder="Hasta">
+								    
+									<button type="button" class="btn" style="margin-top:0px"><i class="icon-refresh"></i> Actualizar</button>
+								</form>							
+							</div>
+						</div>
+						<!-- /block -->
+					</div>
 				</div>
 
 				<div class="row-fluid">
@@ -143,31 +156,41 @@
 	<script src="${root}/js/bootstrap.js"></script>
 	<script src="${root}/js/header.js"></script>
 	<script src="${root}/js/DT_bootstrap.js"></script>
-	<script
-		src="${root}/js/jquery.dataTables.columnFilter.js"></script>
+	<script src="${root}/js/jquery.dataTables.columnFilter.js"></script>
 	<script src="${root}/js/admin/scripts.js"></script>
 	<script src="${root}/js/raphael-min.js"></script>
 	<script src="${root}/js/morris.min.js"></script>
+	<script src="${root}/js/bootstrap-datepicker.js"></script>
 
-	<script type="text/javascript">
+	<script type="text/javascript">	
 	
+	$('.datepicker').datepicker({
+		weekStart: 1,
+		startView: 1,
+	    language: "es",
+	    orientation: "auto",
+	    autoclose: true,
+	    todayHighlight: true
+	});
 	
-	
+	// cantidad de postulaciones según sexo.
 	var mujeres = '${mapGenero.get("Mujeres")}';
 	var hombres = '${mapGenero.get("Hombres")}';
 	
 	var totalGenero = mujeres*1+hombres*1;
 	
+	// cantidad de postulaciones aceptadas, rechazadas y aceptadas condicionalmente.
 	var aceptados = '${mapResoluciones.get("Aceptados")}';
 	var rechazados = '${mapResoluciones.get("Rechazados")}';
 	var aceptados_cond = '${mapResoluciones.get("Aceptados Condicional")}';
 	
+	// cantidad de postulaciones por tipo de financiamiento (beca, empresa, particular)
 	var particular = '${mapFinanciamiento.get("Particular")}';
 	var beca = '${mapFinanciamiento.get("Beca")}';
 	var empresa = '${mapFinanciamiento.get("Empresa")}';
 	var totalFinanciamiento = particular*1+beca*1+empresa*1;
 	
-	
+	// cantidad de postulaciones por nacionalidad.
 	var nacionales = '${mapNacionalidad.get("Nacionales")}';
 	var extranjeros = '${mapNacionalidad.get("Extranjeros")}';
 	var totalNacionalidad = nacionales*1+extranjeros*1;
@@ -226,8 +249,8 @@
     });
     
     // Morris Line Chart
-    var mNames = "<c:out value="${mapPPM.keySet()}"/>";  
-	var mValues = "<c:out value="${mapPPM.values()}"/>";  
+    var mNames = "<c:out value='${mapPPM.keySet()}'/>";  
+	var mValues = "<c:out value='${mapPPM.values()}'/>";  
 	var periodNames = mNames.replace("[","").replace("]","").split(", ");
 	var periodValues =  mValues.replace("[","").replace("]","").split(", ");
 	var data_ppm = new Array();
@@ -236,16 +259,6 @@
     	data_ppm[i] = {"periodo": periodNames[i], "postulaciones" : periodValues[i]*1};
     }
     
-    var tax_data = [
-        {"period": "2013-04", "visits": 2407, "signups": 660},
-        {"period": "2013-03", "visits": 3351, "signups": 729},
-        {"period": "2013-02", "visits": 2469, "signups": 1318},
-        {"period": "2013-01", "visits": 2246, "signups": 461},
-        {"period": "2012-12", "visits": 3171, "signups": 1676},
-        {"period": "2012-11", "visits": 2155, "signups": 681},
-        {"period": "2012-10", "visits": 1226, "signups": 620},
-        {"period": "2012-09", "visits": 2245, "signups": 500}
-    ];
     Morris.Line({
         element: 'ppm',
         data: data_ppm,
@@ -254,7 +267,6 @@
         ykeys: ['postulaciones'],
         labels: ['N° Postulaciones']
     });
-
     
 	</script>
 

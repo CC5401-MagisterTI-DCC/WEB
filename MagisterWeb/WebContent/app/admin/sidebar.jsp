@@ -4,7 +4,7 @@
 	<li ${postulaciones!=null ? 'class="active"' : '' }><a
 		href="postulaciones"><i class="icon-chevron-right"></i>Postulaciones
 			<c:if test="${nPendientes>0 }">
-				<span class="badge badge-warning pull-right">${nPendientes }</span>
+				<span class="badge badge-warning pull-right">${nPendientes}</span>
 			</c:if></a></li>
 	<li ${historial!=null ? 'class="active"' : '' }><a
 		href="historial"><i class="icon-chevron-right"></i> Historial</a></li>

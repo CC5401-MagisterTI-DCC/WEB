@@ -25,7 +25,7 @@ public abstract class IntegrationTest {
 	
 	protected Connection connect = null;
 	String dbUser = "root";
-	String dbPwd = "x963x963";
+	String dbPwd = "";
 	
 	protected void openDBConnection() throws Exception{
 		String driverClassName = "com.mysql.jdbc.Driver";
