@@ -68,7 +68,7 @@ public class EstadisticasDAOImpl implements EstadisticasDAO {
 	public String getListaPostulaciones() {
 		
 		try {
-			String lista = "[";
+			String lista = "[  ";
 			
 			connection = getConnection();
 			ptmt = connection.prepareStatement(SQL_LISTA_POSTULACIONES);
