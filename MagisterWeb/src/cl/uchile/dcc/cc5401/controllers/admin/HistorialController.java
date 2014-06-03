@@ -72,8 +72,10 @@ public class HistorialController extends HttpServlet {
 		else {
 			int id = Integer.parseInt(idPostulacion);
 			List<HistorialDTO> ht = historialDAO.get(id);
-			ht = quitarComentarios(user, ht);
-			Collections.reverse(ht);
+			if (ht != null) {
+				ht = quitarComentarios(user, ht);
+				Collections.reverse(ht);
+			}
 			request.setAttribute("listaHistorial", ht);
 			request.setAttribute("idPostulacion", idPostulacion);
 			forward = HISTORIAL_PARTICULAR;
