@@ -30,8 +30,8 @@ public class HistorialDAOImpl implements HistorialDAO {
 	
 	private static final String SQL_INSERT =
 			"INSERT INTO historial ("
-					+ " id_postulacion, accion, fecha, comentario"
-					+ ") VALUES (?,?,?,?)";
+					+ " id_postulacion, accion, fecha, comentario, id_usuario_rol"
+					+ ") VALUES (?,?,?,?,?)";
 
 	private static final String SQL_LAST_ID = 
 			"SELECT MAX(id) AS id FROM historial";
@@ -134,6 +134,7 @@ public class HistorialDAOImpl implements HistorialDAO {
 			ptmt.setString(2, historial.getAccion());
 			ptmt.setDate(3, new Date(historial.getFecha().getTime()));
 			ptmt.setString(4, historial.getComentario());
+			ptmt.setInt(5, historial.getRolAutor().getId());
 
 			ptmt.executeUpdate();
 			ptmt = connection.prepareStatement(SQL_LAST_ID);
