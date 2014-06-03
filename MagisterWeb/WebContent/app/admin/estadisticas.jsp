@@ -63,7 +63,7 @@
 				</div>
 
 				<div class="row-fluid">
-					<div class="span6">
+					<div class="span5">
 						<!-- block -->
 						<div class="block">
 							<div class="navbar navbar-inner block-header">
@@ -77,7 +77,7 @@
 						</div>
 						<!-- /block -->
 					</div>
-					<div class="span6">
+					<div class="span7">
 						<!-- block -->
 						<div class="block">
 							<div class="navbar navbar-inner block-header">
@@ -93,6 +93,22 @@
 					</div>
 				</div>
 
+				<!-- morris graph chart -->
+				<div class="row-fluid section">
+					<!-- block -->
+					<div class="block">
+						<div class="navbar navbar-inner block-header">
+							<div class="muted pull-left">Postulaciones por país</div>
+						</div>
+						<div class="block-content collapse in">
+							<div class="span12">
+								<div id="postulaciones_por_pais" style="height: 250px;"></div>
+							</div>
+						</div>
+					</div>
+					<!-- /block -->
+				</div>
+				
 				<!-- morris graph chart -->
 				<div class="row-fluid section">
 					<!-- block -->
@@ -238,7 +254,32 @@
 	       
 	    });
 	
-	
+		// arreglo de datos
+		var datos_por_pais = [];
+		var numero_por_pais = 0;
+		
+		for(var i in listaFiltrada) {			
+			
+			numero_por_pais = $.grep(listaFiltrada, function(elem){ return elem.pais===listaFiltrada[i].pais;}).length;
+			
+			// si no existe se agrega
+			if($.grep(datos_por_pais, function(elem){ return elem.pais===listaFiltrada[i].pais;}).length===0)
+				datos_por_pais.push({pais: listaFiltrada[i].pais, cantidad: numero_por_pais,});
+		}
+		
+	 	// Morris Bar Chart
+	    Morris.Bar({
+	        element: 'postulaciones_por_pais',
+	        data: datos_por_pais,
+	        xkey: 'pais',
+	        ykeys: ['cantidad'],
+	        barColors: ["#8ac368"],
+	        labels: ['N° Postulaciones'],
+	        barRatio: 0.8,
+	        xLabelMargin: 10,
+	        hideHover: 'auto'	       
+	    });
+		
 	    // Morris Donut Chart
 	    Morris.Donut({
 	        element: 'HvsM',
