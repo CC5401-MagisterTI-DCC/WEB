@@ -55,10 +55,17 @@
 								    <input id="to" type="text" class="input-small datepicker" placeholder="Hasta">
 								    
 									<button id="update" type="button" class="btn" style="margin-top:0px"><i class="icon-refresh"></i> Actualizar</button>
-								</form>							
+								</form>	
+								<p>
+									<span class="label label-warning">Nota:</span>&nbsp;Los gráficos mostrados son construidos en base a 
+									las postulaciones ingresadas en el rango de fechas indicado en el filtro (incluyendo las mostradas).
+								</p>
 							</div>
 						</div>
 						<!-- /block -->
+					</div>
+					<div class="span7">
+					
 					</div>
 				</div>
 
@@ -241,12 +248,12 @@
 	        element: 'resoluciones',
 	        data: [
 	            {desicion: 'Aceptadas', nPostulaciones: aceptados},
-	            {desicion: 'Rechazadas', nPostulaciones: rechazados},
 	            {desicion: 'Aceptadas Condicionalmente', nPostulaciones: aceptados_cond},
+	            {desicion: 'Rechazadas', nPostulaciones: rechazados},
 	        ],
 	        xkey: 'desicion',
 	        ykeys: ['nPostulaciones'],
-	        barColors: ["#8ac368"],
+	        barColors: ["#8ac368", "#e5ff00" ,"#ff0000"],
 	        labels: ['N° Postulaciones'],
 	        barRatio: 0.8,
 	        xLabelMargin: 10,
@@ -273,7 +280,7 @@
 	        data: datos_por_pais,
 	        xkey: 'pais',
 	        ykeys: ['cantidad'],
-	        barColors: ["#8ac368"],
+	        barColors: ["#3ec3df","#37afc8", "#319cb2", "#2b889c", "#257585", "#1f616f", "#184e59", "#123a42"],
 	        labels: ['N° Postulaciones'],
 	        barRatio: 0.8,
 	        xLabelMargin: 10,
