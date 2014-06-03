@@ -322,13 +322,34 @@
 	    });
 	    
 	    // Morris Line Chart
-	    //TODO: Mejorar.
-		var data_ppm = new Array();
-		
-	    for (var i=0;i<listaFiltrada.length;i++){
-	    	data_ppm[i] = {"periodo": listaFiltrada[i].fecha_ingreso, "postulaciones" : 1};
-	    }
 	    
+	    /**
+	     * Recibe una string con formato yyyy-mm-dd y devuelve string con formato yyy-mm
+	     */
+	    function formatDate(fecha) {
+	    	return fecha.substring(0, fecha.lastIndexOf('-'));
+	    };
+	    
+		var data_ppm = [];		
+		/*
+		var cantidad_ppm;
+		// No es necesario agrupar por mes, morris.js lo hace automaticamente a medida que la cantidad de datos es mayor.
+		for(var i in listaFiltrada) {			
+			
+			cantidad_ppm = $.grep(listaFiltrada, function(elem){ 
+				return formatDate(elem.fecha_ingreso)===formatDate(listaFiltrada[i].fecha_ingreso);}).length;
+			
+			// si no existe se agrega
+			if($.grep(data_ppm, function(elem){ 
+				return formatDate(elem.periodo)===formatDate(listaFiltrada[i].fecha_ingreso);}).length===0)
+				data_ppm.push({"periodo": listaFiltrada[i].fecha_ingreso, "postulaciones": cantidad_ppm,});
+		}
+	    
+		data_ppm = [];*/
+		for(var i in listaFiltrada){
+			data_ppm.push({"periodo": listaFiltrada[i].fecha_ingreso, "postulaciones": 1,});
+		}
+		
 	    Morris.Line({
 	        element: 'ppm',
 	        data: data_ppm,
