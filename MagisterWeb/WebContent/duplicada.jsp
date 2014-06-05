@@ -10,17 +10,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Postulación Duplicada - Magister TI DCC</title>
 <link rel="shortcut icon"
-	href="${root}>/favicon.ico" />
+	href="${root}/favicon.ico" />
 <link rel="stylesheet"
-	href="${root}>/css/header.css">
+	href="${root}/css/header.css">
 <link rel="stylesheet"
-	href="${root}>/css/footer.css">
+	href="${root}/css/footer.css">
 <link rel="stylesheet"
-	href="${root}>/css/bootstrap.min.css">
+	href="${root}/css/bootstrap.min.css">
 <link rel="stylesheet"
-	href="${root}>/css/bootstrap-responsive.css">
-<script src="${root}>/js/jquery.js"></script>
-<script src="${root}>/js/bootstrap.min.js"></script>
+	href="${root}/css/bootstrap-responsive.css">
+<script src="${root}/js/jquery.js"></script>
+<script src="${root}/js/bootstrap.min.js"></script>
 
 <style>
 .center {
