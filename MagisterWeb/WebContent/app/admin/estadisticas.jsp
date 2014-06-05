@@ -286,11 +286,11 @@
 			    Morris.Bar({
 			        element: 'resoluciones',
 			        data: [
-			            {desicion: 'Aceptadas', nPostulaciones: aceptados},
-			            {desicion: 'Aceptadas Condicionalmente', nPostulaciones: aceptados_cond},
-			            {desicion: 'Rechazadas', nPostulaciones: rechazados},
+			            {decision: 'Aceptadas', nPostulaciones: aceptados},
+			            {decision: 'Aceptadas Condicionalmente', nPostulaciones: aceptados_cond},
+			            {decision: 'Rechazadas', nPostulaciones: rechazados},
 			        ],
-			        xkey: 'desicion',
+			        xkey: 'decision',
 			        ykeys: ['nPostulaciones'],
 			        barColors: ["#8ac368", "#e5ff00" ,"#ff0000"],
 			        labels: ['N° Postulaciones'],
