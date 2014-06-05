@@ -36,7 +36,7 @@
 </c:if>
 <hr>
 <c:if test='${user.hasPermisos("DECIDIR")}'>
-	<form action="estado" method="get">
+	<form action="estado" method="get" onsubmit="return confirm('¿Está seguro que desea poner fin a la etapa de evaluación?');">
 		<input type="hidden" id="action" name="action" value="evaluacion">
 		<input type="hidden" id="id" name="id" value="${postulacion.id}">
 
@@ -136,7 +136,7 @@
 		</c:choose>
 	</div>
 	<hr>
-	<form action="voto" method="get">
+	<form action="voto" method="get" onsubmit="return confirm('¿Está seguro de su elección?');">
 		<input type="hidden" id="id" name="id" value="${postulacion.id}">
 
 		<textarea id="comentario" name="comentario" rows="4" class="span8"

@@ -21,11 +21,11 @@
 	<hr>
 </c:if>
 <c:if test='${user.hasPermisos("VALIDAR")}'>
-	<form method="get" action="estado">
+	<form method="get" action="estado" onsubmit="return confirm('¿Está seguro de su decisión?');">
 
 		<input type="hidden" id="action" name="action" value="validacion">
-
 		<input type="hidden" id="id" name="id" value="${postulacion.id}">
+		
 		<textarea id="comentario" name="comentario" rows="2"
 			placeholder="Ingrese un comentario para el coordinador"></textarea>
 		<br>

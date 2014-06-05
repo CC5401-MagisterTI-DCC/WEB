@@ -10,7 +10,7 @@
 </p>
 <c:if test='${user.hasPermisos("SET_DEADLINE")}'>
 	<hr>
-	<form method="get" action="estado">
+	<form method="get" action="estado" onsubmit="return confirm('¿Está seguro de pasar la postulación a la etapa de evaluación?');">
 		<input type="hidden" id="action" name="action" value="consideracion">
 		<input type="hidden" id="id" name="id" value="${postulacion.id}">
 
@@ -35,7 +35,7 @@
 		opción se saltará el criterio de la comisión. Esto quedará registrado.
 	</p>
 	<form action="estado" method="get" 
-		onsubmit="return confirm('Tenga en cuenta que esta desición elimina toda participación del comité. \n\n -------------------------------------------------------- \n Significado \n -------------------------------------------------------- \n\n Aceptar: finaliza proceso con postulante aceptado al magister. \n\n Rechazar: finaliza proceso con postulante rechazado. \n\n Aceptar Condicionalmente: finaliza proceso con postulante aceptado bajo las condiciones indicadas en el cuadro de texto. \n\n ¿Desea continuar?')">
+		onsubmit="return (function(){ if($('#detalles').val()===''){alert('Debe dejar un comentario.');return false;}; return confirm('Tenga en cuenta que esta decisión elimina toda participación del comité. \n\n -------------------------------------------------------- \n Significado \n -------------------------------------------------------- \n\n Aceptar: finaliza proceso con postulante aceptado al magister. \n\n Rechazar: finaliza proceso con postulante rechazado. \n\n Aceptar Condicionalmente: finaliza proceso con postulante aceptado bajo las condiciones indicadas en el cuadro de texto. \n\n ¿Desea continuar?')})()">
 		<input type="hidden" id="id" name="id" value="${postulacion.id}">
 		<input type="hidden" id="action" name="action" value="decision">
 
