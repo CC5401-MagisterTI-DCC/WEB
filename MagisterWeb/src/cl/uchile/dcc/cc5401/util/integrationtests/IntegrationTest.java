@@ -41,15 +41,29 @@ public abstract class IntegrationTest {
 	
 	protected void createDBDump() throws InterruptedException, IOException{
 		
+		String passwd;
+		if (dbPwd.equalsIgnoreCase("")){
+			passwd = "";
+		} else {
+			passwd = "-p" + dbPwd;
+		}
+		
 		//Dump para poder deshacer de todos los cambios
-		String[] cmd = { "/bin/sh", "-c", "mysqldump -u"+dbUser+" -p"+dbPwd+" inscmtiDB > ~/backup1.sql"};
+		String[] cmd = { "/bin/sh", "-c", "mysqldump -u"+dbUser+" "+passwd+" inscmtiDB > ~/backup1.sql"};
 		Runtime.getRuntime().exec(cmd).waitFor();
 	}
 	
 	protected void importDBDump() throws InterruptedException, IOException{
+
+		String passwd;
+		if (dbPwd.equalsIgnoreCase("")){
+			passwd = "";
+		} else {
+			passwd = "-p" + dbPwd;
+		}
 		
 		//Deshacer los cambios
-		String[] cmd = { "/bin/sh", "-c", "mysql -u"+dbUser+" -p"+dbPwd+" inscmtiDB < ~/backup1.sql"};
+		String[] cmd = { "/bin/sh", "-c", "mysql -u"+dbUser+" "+passwd+" inscmtiDB < ~/backup1.sql"};
 		Runtime.getRuntime().exec(cmd).waitFor();
 	}
 	
