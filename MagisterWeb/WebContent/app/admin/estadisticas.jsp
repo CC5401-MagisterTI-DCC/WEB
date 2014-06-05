@@ -51,10 +51,11 @@
 							<div class="navbar navbar-inner block-header">
 								<h4>Filtro : </h4> 
 								<form class="form-inline">
+									<label for="from">Fecha : </label>
 									<input id="from" type="text" class="input-small datepicker" placeholder="Desde">
 								    <input id="to" type="text" class="input-small datepicker" placeholder="Hasta">
 								    
-									<button id="update" type="button" class="btn" style="margin-top:0px"><i class="icon-refresh"></i> Actualizar</button>
+									<button id="update" type="button" class="btn" style="margin-top:0px"><i class="icon-refresh"></i> Graficar</button>
 								</form>	
 								<p>
 									<span class="label label-warning">Nota:</span>&nbsp;Los gráficos mostrados son construidos en base a 
