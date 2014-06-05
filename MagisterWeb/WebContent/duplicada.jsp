@@ -46,7 +46,7 @@
 		<p>Si cree que existe algún error, no dude en comunicarse con
 			nosotros</p>
 		<br /> <a class="btn btn-success btn-large"
-			href="${root}>/index.jsp"><i
+			href="${root}/index.jsp"><i
 			class="icon-home icon-white"></i> Ir Al Inicio</a>
 	</div>
 
