@@ -286,6 +286,10 @@ public class PostulacionController extends HttpServlet {
 					request.setAttribute("usuariosVotos", usuariosVotos);
 					request.setAttribute("comentariosVotos", comentariosVotos);
 				}
+				// mostrar checkbox para marcar documento solo en revision y validacion 
+				if(request.getParameter("revision") != null || request.getParameter("validacion") != null) {
+					request.setAttribute("mostrarCheck", true);
+				}
 				if (comentarios != null) {
 					for (ComentarioDTO comentario : comentarios) {
 						usuarios.add(userDAO.getUser(comentario.getIdUsuario()));
