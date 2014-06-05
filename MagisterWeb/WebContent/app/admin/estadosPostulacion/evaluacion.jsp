@@ -29,7 +29,7 @@
 		
 		<input type="hidden" id="deadline" name="deadline">			
 		<h4>Seleccione un nuevo Deadline</h4>
-		<div class="well well-small" style="width:220px;background:white" id="calendar-embedded"></div>
+		<div class="well well-small" style="width:220px;background:white;margin-left:auto;margin-right:auto" id="calendar-embedded"></div>
 		
 		<button class="btn btn-primary" type="submit">Actualizar deadline</button>
 	</form>
