@@ -22,7 +22,7 @@
 </c:if>
 <c:if test='${user.hasPermisos("REVISAR")}'>
 	<a href="estado?action=revision&id=${postulacion.id}"
-		class="btn btn-large btn-success"> <i
+		class="btn btn-large btn-success" onclick="return confirm('¿Está seguro de su decisión?');"> <i
 		class="icon-ok-sign icon-white"></i> Validar Documentos
 	</a>
 </c:if>

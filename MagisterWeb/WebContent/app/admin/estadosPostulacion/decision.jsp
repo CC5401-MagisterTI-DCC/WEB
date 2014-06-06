@@ -56,7 +56,7 @@
 </c:if>
 <c:if test='${user.hasPermisos("DECIDIR")}'>
 	<hr>
-	<form action="estado" method="get">
+	<form action="estado" method="get" onsubmit="return confirm('¿Está seguro de la decisión que ha tomado?');">
 		<input type="hidden" id="id" name="id" value="${postulacion.id}">
 		<input type="hidden" id="action" name="action" value="decision">
 
@@ -76,7 +76,7 @@
 		<br>
 		<br>
 		<button class="btn btn-large btn-warning" name="decision"
-			value="aceptado_condicional" type="submit">
+			value="aceptado_condicional" type="submit" onclick="if($('#detalles').val()===''){alert('*Debe específicar las condiciones.');return false;}">
 			<i class="icon-warning-sign icon-white"></i> Aceptar Condicionalmente
 		</button>
 	</form>

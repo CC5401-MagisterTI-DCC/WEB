@@ -314,86 +314,88 @@
 								</div>
 
 								<fieldset id="addEstudio">
-									<!-- Textarea -->
-									<div class="control-group">
-										<label class="control-label" for="grado">Grado
-											Académico<a href="#" data-toggle="tooltip"
-											data-placement="right" title="(*) = Obligatorio"
-											style="color: rgb(185, 74, 72);">*</a>:
-										</label>
-										<div class="controls">
-											<textarea id="grado" name="grado" class=""
-												placeholder="Ingrese su grado académico" required=""></textarea>
+									<div class="fieldwrapper well well-small" style="background: #dfdfdf">
+										<!-- Textarea -->
+										<div class="control-group">
+											<label class="control-label" for="grado">Grado
+												Académico<a href="#" data-toggle="tooltip"
+												data-placement="right" title="(*) = Obligatorio"
+												style="color: rgb(185, 74, 72);">*</a>:
+											</label>
+											<div class="controls">
+												<textarea id="grado" name="grado" class=""
+													placeholder="Ingrese su grado académico" required=""></textarea>
+											</div>
 										</div>
-									</div>
-
-									<!-- Textarea -->
-									<div class="control-group">
-										<label class="control-label" for="institucion">Institución<a
-											href="#" data-toggle="tooltip" data-placement="right"
-											title="(*) = Obligatorio" style="color: rgb(185, 74, 72);">*</a>:
-										</label>
-										<div class="controls">
-											<textarea id="institucion" name="institucion" class=" "
-												placeholder="Ingrese la institución de la cual obtuvo el grado académico"
-												required=""></textarea>
+	
+										<!-- Textarea -->
+										<div class="control-group">
+											<label class="control-label" for="institucion">Institución<a
+												href="#" data-toggle="tooltip" data-placement="right"
+												title="(*) = Obligatorio" style="color: rgb(185, 74, 72);">*</a>:
+											</label>
+											<div class="controls">
+												<textarea id="institucion" name="institucion" class=" "
+													placeholder="Ingrese la institución de la cual obtuvo el grado académico"
+													required=""></textarea>
+											</div>
 										</div>
-									</div>
-
-									<!-- Text input-->
-									<div class="control-group">
-										<label class="control-label" for="fecha_ob">Fecha de
-											Obtención<a href="#" data-toggle="tooltip"
-											data-placement="right" title="(*) = Obligatorio"
-											style="color: rgb(185, 74, 72);">*</a>:
-										</label>
-										<div class="controls">
-											<input id="fecha_ob" name="fecha_ob" class="datepicker"
-												type="text" required="">
-
+	
+										<!-- Text input-->
+										<div class="control-group">
+											<label class="control-label" for="fecha_ob">Fecha de
+												Obtención<a href="#" data-toggle="tooltip"
+												data-placement="right" title="(*) = Obligatorio"
+												style="color: rgb(185, 74, 72);">*</a>:
+											</label>
+											<div class="controls">
+												<input id="fecha_ob" name="fecha_ob" class="datepicker"
+													type="text" required="">
+	
+											</div>
 										</div>
-									</div>
-
-									<!-- Select Basic -->
-									<div class="control-group">
-										<label class="control-label" for="pais_grado">Pais de
-											la Institución<a href="#" data-toggle="tooltip"
-											data-placement="right" title="(*) = Obligatorio"
-											style="color: rgb(185, 74, 72);">*</a>:
-										</label>
-										<div class="controls">
-											<select id="pais_grado" name="pais_grado"
-												class="input-xlarge">
-												<c:forEach var="pais" items="${paises}">
-													<option value="${pais.id}">${pais.nombre}</option>
-												</c:forEach>
-											</select>
+	
+										<!-- Select Basic -->
+										<div class="control-group">
+											<label class="control-label" for="pais_grado">Pais de
+												la Institución<a href="#" data-toggle="tooltip"
+												data-placement="right" title="(*) = Obligatorio"
+												style="color: rgb(185, 74, 72);">*</a>:
+											</label>
+											<div class="controls">
+												<select id="pais_grado" name="pais_grado"
+													class="input-xlarge">
+													<c:forEach var="pais" items="${paises}">
+														<option value="${pais.id}">${pais.nombre}</option>
+													</c:forEach>
+												</select>
+											</div>
 										</div>
-									</div>
-
-									<!-- File Button -->
-									<div class="control-group">
-										<label class="control-label" for="cert_titulo">Certificado
-											de Título o Grado<a href="#" data-toggle="tooltip"
-											data-placement="right" title="(*) = Obligatorio"
-											style="color: rgb(185, 74, 72);">*</a>:
-										</label>
-										<div class="controls">
-											<input id="cert_titulo" name="cert_titulo"
-												class="  input-file" type="file" required="">
+	
+										<!-- File Button -->
+										<div class="control-group">
+											<label class="control-label" for="cert_titulo">Certificado
+												de Título o Grado<a href="#" data-toggle="tooltip"
+												data-placement="right" title="(*) = Obligatorio"
+												style="color: rgb(185, 74, 72);">*</a>:
+											</label>
+											<div class="controls">
+												<input id="cert_titulo" name="cert_titulo"
+													class="  input-file" type="file" required="">
+											</div>
 										</div>
-									</div>
-
-									<!-- File Button -->
-									<div class="control-group">
-										<label class="control-label" for="cert_notas">Certificado
-											de Notas<a href="#" data-toggle="tooltip"
-											data-placement="right" title="(*) = Obligatorio"
-											style="color: rgb(185, 74, 72);">*</a>:
-										</label>
-										<div class="controls">
-											<input id="cert_notas" name="cert_notas" class="  input-file"
-												type="file" required="">
+	
+										<!-- File Button -->
+										<div class="control-group">
+											<label class="control-label" for="cert_notas">Certificado
+												de Notas<a href="#" data-toggle="tooltip"
+												data-placement="right" title="(*) = Obligatorio"
+												style="color: rgb(185, 74, 72);">*</a>:
+											</label>
+											<div class="controls">
+												<input id="cert_notas" name="cert_notas" class="  input-file"
+													type="file" required="">
+											</div>
 										</div>
 									</div>
 								</fieldset>
@@ -402,10 +404,10 @@
 								<div class="control-group">
 									<label class="control-label" for="agregar_otro"></label>
 									<div class="controls">
-										<a href="#" id="agregar_otro" name="agregar_otro"
+										<button id="agregar_otro" name="agregar_otro"
 											class="btn agregar_otro btn-primary"> <i
 											class="icon-plus icon-white"></i> Agregar Otros Estudios
-										</a>
+										</button>
 									</div>
 								</div>
 

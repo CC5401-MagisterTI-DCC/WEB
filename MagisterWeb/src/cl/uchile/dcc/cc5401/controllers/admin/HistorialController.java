@@ -99,7 +99,7 @@ public class HistorialController extends HttpServlet {
 		
 		if (rolUsuario == RolUsuario.ASISTENTE || 
 			rolUsuario == RolUsuario.JEFE_PEC) {
-			
+						
 			for (HistorialDTO h: hts) {	
 				rolHito = h.getRolAutor();
 				
@@ -107,6 +107,8 @@ public class HistorialController extends HttpServlet {
 					rolHito == RolUsuario.COORDINADOR || 
 					rolHito == RolUsuario.COMISIONADO) {
 					h.setComentario("");
+					h.setAccion(h.getAccion().replace("Votación: Aceptado", "Votación: *****"));
+					h.setAccion(h.getAccion().replace("Votación: Rechazado", "Votación: *****"));
 				}
 				nuevaLista.add(h);
 			}

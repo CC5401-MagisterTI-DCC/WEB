@@ -73,7 +73,7 @@
 		</p>
 		<c:choose>
 			<c:when test="${resolucion.resultado.id==1}">
-				<textarea id="contenido" name="contenido" rows="4"
+				<textarea id="contenido" name="contenido" rows="15"
 					class="field span12"
 					placeholder="Redacte aquí el correo formal de notificación al postulante.">
 Estimado (a) ${postulante.primerNombre} ${ postulante.segundoNombre } ${postulante.apellidoPaterno } ${postulante.apellidoMaterno } :

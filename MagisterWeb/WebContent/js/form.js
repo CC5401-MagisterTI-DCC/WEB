@@ -164,8 +164,7 @@ $(document).ready(function() {
 		
 		$("#grados").append(resumen);
 		
-		var fieldWrapper = $("<div class=\"fieldwrapper well well-small\" id=\"field" + i + "\"/>");
-		var hr = $('<hr>');
+		var fieldWrapper = $("<div class=\"fieldwrapper well well-small\" style=\"background: #dfdfdf\" id=\"field" + i + "\"/>");
 		var gradoArea = $('<!-- Textarea --><div class="control-group">	<label class="control-label">Grado Académico:</label><div class="controls">');
 		var grado = $('<textarea id="grado' + j + '" name="grado' + j +'" class="" placeholder="Ingrese su grado académico" required=""></textarea>');
 		grado.change(function(){
@@ -224,7 +223,6 @@ $(document).ready(function() {
 		fieldWrapper.append(cTitulo);
 		fieldWrapper.append(cNotas);
 		fieldWrapper.append(removeButton);
-		fieldWrapper.append(hr);
 		$("#addEstudio").append(fieldWrapper);
 
 		$("#grado" + j).rules("add",{
@@ -254,15 +252,13 @@ $(document).ready(function() {
 		});
 		
 		$('.datepicker').datepicker({
-			 weekStart: 1,
+			weekStart: 1,
 		    language: "es",
 		    orientation: "bottom auto",
 		    autoclose: true,
 		    todayHighlight: true
 		});
 		i++;
-
-
 	});
 
 
