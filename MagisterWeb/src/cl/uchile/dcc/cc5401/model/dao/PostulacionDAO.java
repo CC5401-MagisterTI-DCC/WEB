@@ -2,6 +2,7 @@ package cl.uchile.dcc.cc5401.model.dao;
 
 import java.util.List;
 
+import cl.uchile.dcc.cc5401.model.dto.HistorialDTO;
 import cl.uchile.dcc.cc5401.model.dto.IdentificacionDTO;
 import cl.uchile.dcc.cc5401.model.dto.PostulacionDTO;
 
@@ -22,5 +23,7 @@ public interface PostulacionDAO {
 	public PostulacionDTO getPostulacionActiva(IdentificacionDTO identificacion);
 	
 	public PostulacionDTO getPostulacion(String track, String email);
+	
+	public List<HistorialDTO> getHistorialPostulacionesResueltas(IdentificacionDTO identificacion);
 	
 }

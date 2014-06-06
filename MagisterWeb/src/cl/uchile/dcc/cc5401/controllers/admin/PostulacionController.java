@@ -38,6 +38,7 @@ import cl.uchile.dcc.cc5401.model.dto.DatosEmpresaDTO;
 import cl.uchile.dcc.cc5401.model.dto.DocumentoDTO;
 import cl.uchile.dcc.cc5401.model.dto.FinanciamientoDTO;
 import cl.uchile.dcc.cc5401.model.dto.GradoAcademicoDTO;
+import cl.uchile.dcc.cc5401.model.dto.HistorialDTO;
 import cl.uchile.dcc.cc5401.model.dto.PostulacionDTO;
 import cl.uchile.dcc.cc5401.model.dto.PostulanteDTO;
 import cl.uchile.dcc.cc5401.model.dto.ResolucionDTO;
@@ -249,6 +250,7 @@ public class PostulacionController extends HttpServlet {
 				PostulacionDTO postulacion = postulacionDAO.getPostulacion(id);
 				PostulanteDTO postulante = postulanteDAO.get(postulacion
 						.getIdPostulante());
+				List<HistorialDTO> historialPostulacionesResueltas = postulacionDAO.getHistorialPostulacionesResueltas(postulante.getIdentificacion());
 				DatosEmpresaDTO datosEmpresa = datosEmpresaDAO.get(postulante
 						.getId());
 				FinanciamientoDTO financiamiento = financiamientoDAO
@@ -314,6 +316,13 @@ public class PostulacionController extends HttpServlet {
 					docGrados.add(documentoDAO.get(gradosAcademicos.get(i)
 							.getIdCertificadoTitulo()));
 				}
+				
+				for (int i = 0; i < gradosAcademicos.size(); i++) {
+					docGrados.add(documentoDAO.get(gradosAcademicos.get(i)
+							.getIdCertificadoNotas()));
+					docGrados.add(documentoDAO.get(gradosAcademicos.get(i)
+							.getIdCertificadoTitulo()));
+				}
 
 				request.setAttribute("docGrados", docGrados);
 
@@ -324,6 +333,7 @@ public class PostulacionController extends HttpServlet {
 				request.setAttribute("gradosAcademicos", gradosAcademicos);
 				request.setAttribute("comentarios", comentarios);
 				request.setAttribute("usuarios", usuarios);
+				request.setAttribute("historialPostulacionesResueltas", historialPostulacionesResueltas);
 
 				if (request.getParameter("general") != null)
 					forward = POSTULACION_GENERAL_VIEW;

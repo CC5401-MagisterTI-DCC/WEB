@@ -9,10 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cl.uchile.dcc.cc5401.model.dao.PostulacionDAO;
+import cl.uchile.dcc.cc5401.model.dto.HistorialDTO;
 import cl.uchile.dcc.cc5401.model.dto.IdentificacionDTO;
 import cl.uchile.dcc.cc5401.model.dto.PostulacionDTO;
 import cl.uchile.dcc.cc5401.model.jdbc.ConnectionFactory;
 import cl.uchile.dcc.cc5401.util.Estado;
+import cl.uchile.dcc.cc5401.util.RolUsuario;
 
 public class PostulacionDAOImpl implements PostulacionDAO {
 
@@ -74,6 +76,14 @@ public class PostulacionDAOImpl implements PostulacionDAO {
 			"WHERE r.id IS NULL AND p.id_estado != ? " +
 			"AND identificacion = ? AND pais = ? AND esrut = 0";
 	
+	private static final String SQL_RESUELTA = "SELECT p.*, po.* FROM postulacion p " +
+			"JOIN postulante po ON p.id_postulante = po.id " +
+			"JOIN identificacion i ON po.id_identificacion = i.id " +
+			"AND i.identificacion = ?";
+	
+	private static final String SQL_HISTORIAL_ID = "SELECT * FROM historial WHERE id_postulacion = ? AND " +
+			"(accion LIKE '%Postulación Rechazada%' OR accion LIKE '%Postulación Aceptada%')";
+	
 	private Connection getConnection() throws SQLException {
 		Connection conn;
 		conn = ConnectionFactory.getInstance().getConnection();
@@ -105,6 +115,23 @@ public class PostulacionDAOImpl implements PostulacionDAO {
 				nombrePostulante += " " + rs.getString("apellido_paterno") +  " "+ rs.getString("apellido_materno");
 			postulacionDTO.setNombrePostulante(nombrePostulante);
 			results.add(postulacionDTO);
+
+		}
+		return results;
+	}
+	
+	private List<HistorialDTO> getResultsHistorial(ResultSet rs) throws SQLException {
+		List<HistorialDTO> results = new ArrayList<HistorialDTO>();
+		while (rs.next()) {
+			HistorialDTO historialDTO= new HistorialDTO();
+			historialDTO.setId(rs.getInt("id"));
+			historialDTO.setIdPostulacion(rs.getInt("id_postulacion"));
+			historialDTO.setAccion(rs.getString("accion"));
+			historialDTO.setFecha(rs.getDate("fecha"));
+			historialDTO.setComentario(rs.getString("comentario"));
+			historialDTO.setRolAutor(RolUsuario.getValue(rs.getInt("id_usuario_rol")));
+			
+			results.add(historialDTO);
 
 		}
 		return results;
@@ -351,6 +378,76 @@ public class PostulacionDAOImpl implements PostulacionDAO {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}
+		return null;
+	}
+	
+	private List<PostulacionDTO> getPostulacionesResueltas(IdentificacionDTO identificacion){
+		try {
+			connection = getConnection();
+			ptmt = connection.prepareStatement(SQL_RESUELTA);
+			ptmt.setString(1, identificacion.getIdentificacion());
+		
+			resultSet = ptmt.executeQuery();
+			List<PostulacionDTO> results = getResults(resultSet);
+			if (results.size() > 0) {
+				return results;
+			} else {
+				return null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (resultSet != null)
+					resultSet.close();
+				if (ptmt != null)
+					ptmt.close();
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
+	public List<HistorialDTO> getHistorialPostulacionesResueltas(IdentificacionDTO identificacion){
+		List<PostulacionDTO> postulaciones = getPostulacionesResueltas(identificacion);
+		if(postulaciones != null){
+			try {
+				List<HistorialDTO> historialPostulaciones = new ArrayList<HistorialDTO>();
+				connection = getConnection();
+				for(PostulacionDTO p : postulaciones){
+					ptmt = connection.prepareStatement(SQL_HISTORIAL_ID);
+					ptmt.setInt(1, p.getId());
+					resultSet = ptmt.executeQuery();
+					historialPostulaciones.addAll(getResultsHistorial(resultSet));
+				}
+				if (historialPostulaciones.size() > 0) {
+					return historialPostulaciones;
+				} else {
+					return null;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (resultSet != null)
+						resultSet.close();
+					if (ptmt != null)
+						ptmt.close();
+					if (connection != null)
+						connection.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			return null;
 		}
 		return null;
 	}
