@@ -226,14 +226,14 @@ body {
 							<c:if test="${not empty historialPostulacionesResueltas}">
 							<c:forEach items="${historialPostulacionesResueltas}" var="hist" varStatus="status">
 								<address>
-										<Strong><fmt:formatDate type="date" pattern="dd/MM/yyyy"
+										<p><Strong><fmt:formatDate type="date" pattern="dd/MM/yyyy"
 											value="${hist.fecha}" /></Strong>
-											<br>${hist.accion.substring(24)}: ${hist.comentario}
+											<br>${hist.accion.substring(24)}: ${hist.comentario}</p>
 									</address>
 							</c:forEach>
 							</c:if>
 							<c:if test="${empty historialPostulacionesResueltas}">
-								No hay postulaciones anteriores
+								<p><Strong>No hay postulaciones anteriores</Strong></p>
 							</c:if>
 							</div>
 						</div>
