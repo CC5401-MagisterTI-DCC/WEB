@@ -55,7 +55,7 @@
 									<input id="from" type="text" class="input-small datepicker" placeholder="Desde">
 								    <input id="to" type="text" class="input-small datepicker" placeholder="Hasta">
 								    
-									<button id="update" type="button" class="btn" style="margin-top:0px"><i class="icon-refresh"></i> Graficar</button>
+									<button id="update" type="button" class="btn" style="margin-top:0px"><i class="icon-signal"></i> Graficar</button>
 								</form>	
 								<p>
 									<span class="label label-warning">Nota:</span>&nbsp;Los gráficos mostrados son construidos en base a 
@@ -411,6 +411,14 @@
 		    	spinner6.stop();
 		  	});	
 	});
+	
+	// se cargan graficos del año actual.
+	var currentYear = new Date().getFullYear();
+	$("#from").attr("value", "01/01/"+currentYear);		
+	$("#to").attr("value", "31/12/"+currentYear);
+	
+	$('#update').trigger("click");
+	
 	</script>
 
 </body>
