@@ -190,6 +190,8 @@ $(document).ready(function() {
 		var cTitulo = $('<!-- File Button --><div class="control-group"><label class="control-label">Certificado de Título o Grado:</label><div class="controls"><input id="cert_titulo' + j + '" name="cert_titulo' + j + '" class="  input-file" type="file" required=""></div></div>');
 		var cNotas = $('<!-- File Button --><div class="control-group"><label class="control-label">Certificado de Notas:</label><div class="controls"><input id="cert_notas' + j + '" name="cert_notas' + j + '" class="  input-file" type="file" required=""></div></div>');
 		var removeButton = $('<div class="control-group"><label class="control-label" for=""></label> <div class="controls"><a class="remove btn btn-danger" href="#"><i class="icon-remove icon-white"></i> Eliminar Estudio</a></div></div>');
+		removeButton.attr("onClick","return confirm('¿Está seguro que desea eliminar el grado académico seleccionado?');");
+		
 		removeButton.click(function() {
 			$(this).parent().remove();
 			$("#grado" + j).remove();
