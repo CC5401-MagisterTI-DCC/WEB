@@ -219,18 +219,22 @@ body {
 					<div class="accordion-group">
 						<div class="accordion-heading">
 							<a class="accordion-toggle" data-toggle="collapse"
-								data-parent="#accordion1" href="#collapseSix"> Postulaciones Anteriores </a>
+								data-parent="#accordion1" href="#collapseSix"> Resolución postulación anterior </a>
 						</div>
 						<div id="collapseSix" class="accordion-body collapse">
 							<div class="accordion-inner">
 							<c:if test="${not empty historialPostulacionesResueltas}">
-							<c:forEach items="${historialPostulacionesResueltas}" var="hist" varStatus="status">
 								<address>
-										<p><Strong><fmt:formatDate type="date" pattern="dd/MM/yyyy"
-											value="${hist.fecha}" /></Strong>
-											<br>${hist.accion.substring(24)}: ${hist.comentario}</p>
-									</address>
-							</c:forEach>
+									<p><Strong><fmt:formatDate type="date" pattern="dd/MM/yyyy"
+													value="${historialPostulacionesResueltas.get(0).fecha}" /> 
+													${historialPostulacionesResueltas.get(0).accion.substring(24)}</Strong></p>
+									<c:forEach items="${historialPostulacionesResueltas}" var="hist" begin="1" varStatus="status">
+									<div class="well well-small" style="width:320px;background:white">
+										${hist.accion.replaceFirst(":", "<br>")}<br>
+										Comentario: <i>${hist.comentario}</i><br>
+									</div>
+									</c:forEach>
+								</address>
 							</c:if>
 							<c:if test="${empty historialPostulacionesResueltas}">
 								<p><Strong>No hay postulaciones anteriores</Strong></p>
