@@ -196,10 +196,19 @@ $(document).ready(function() {
 			i--;
 		});
 
-
+		// para ingreso de postulación
 		$.ajax({
 			type: "GET",
 			url: "../DropPaises",
+			success: function(html){
+				paisSelect.html(html);
+			}
+		});
+		
+		// para edición de postulación
+		$.ajax({
+			type: "GET",
+			url: "../../DropPaises",
 			success: function(html){
 				paisSelect.html(html);
 			}
@@ -209,7 +218,7 @@ $(document).ready(function() {
 			var value = $(this).find(':selected').text();
 			$("#pais_grado" + j + "_resumen").text(value);
 		});
-		fieldWrapper.append(hr);
+		
 		gradoArea.append(grado);
 		fieldWrapper.append(gradoArea);	
 		institucionArea.append(institucion);

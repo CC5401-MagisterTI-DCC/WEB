@@ -241,98 +241,98 @@
 				<div class="well  ">
 					<fieldset id="addEstudio">
 						<c:forEach var="grado" items="${gradosAcademicos}">
-
-							<input type="hidden" value="${grado.id}" name="idGrado">
-							<!-- Textarea -->
-							<div class="control-group">
-								<label class="control-label" for="grado">Grado
-									Académico:</label>
-								<div class="controls">
-									<input id="grado" name="grado" class="input-xlarge"
-										value="${grado.nombre }" type="text"
-										placeholder="Ingrese su grado académico">
+							<div class="fieldwrapper well well-small" style="background: #dfdfdf">
+								<input type="hidden" value="${grado.id}" name="idGrado">
+								<!-- Textarea -->
+								<div class="control-group">
+									<label class="control-label" for="grado">Grado
+										Académico:</label>
+									<div class="controls">
+										<input id="grado" name="grado" class="input-xlarge"
+											value="${grado.nombre }" type="text"
+											placeholder="Ingrese su grado académico">
+									</div>
+								</div>
+	
+								<!-- Textarea -->
+								<div class="control-group">
+									<label class="control-label" for="institucion">Institución:</label>
+									<div class="controls">
+										<input id="institucion" name="institucion"
+											class="input-xlarge " value="${grado.institucion }"
+											type="text"
+											placeholder="Ingrese la institución de la cual obtuvo el grado académico">
+									</div>
+								</div>
+	
+								<!-- Text input-->
+								<div class="control-group">
+									<label class="control-label" for="fecha_ob">Fecha de
+										Obtención:</label>
+									<div class="controls">
+										<input id="fecha_nac" name="fecha_ob" class="datepicker"
+											type="text" value="${sdf.format(grado.fechaObtencion) }"
+											required="">
+									</div>
+								</div>
+	
+								<!-- Select Basic -->
+								<div class="control-group">
+									<label class="control-label" for="pais_grado">Pais de la
+										Institución:</label>
+									<div class="controls">
+										<select id="pais_grado" name="pais_grado" class="input-xlarge">
+											<c:forEach var="pais" items="${paises}">
+												<option value="${pais.id}"
+													${grado.pais.id==pais.id ? 'selected' : ''}>${pais.nombre}</option>
+											</c:forEach>
+										</select>
+									</div>
+								</div>
+	
+								<input type="hidden" value="${grado.idCertificadoNotas}"
+									name="idCertificadoNotas">
+								<input type="hidden" value="${grado.idCertificadoTitulo}"
+									name="idCertificadoTitulo">
+	
+								<div class="control-group">
+									<label class="control-label" for="cert_titulo">Archivos
+										Originales:</label>
+									<div class="controls">
+										<a href="documento?id=${grado.idCertificadoNotas}"><i
+											class="icon-file"></i> Certificado de Notas </a> <a
+											href="documento?id=${grado.idCertificadoTitulo}"><i
+											class="icon-file"></i> Certificado de Título </a>
+									</div>
+								</div>
+	
+								<div class="control-group">
+									<div class="controls">
+										<span class="label label-warning">Nota:</span>&nbsp;Para
+										reemplazar un archivo sólo suba ese en particular.
+									</div>
+								</div>
+	
+								<!-- File Button -->
+								<div class="control-group">
+									<label class="control-label" for="cert_titulo">Certificado
+										de Título o Grado:</label>
+									<div class="controls">
+										<input id="cert_titulo" name="cert_titulo" class="  input-file"
+											type="file">
+									</div>
+								</div>
+	
+								<!-- File Button -->
+								<div class="control-group">
+									<label class="control-label" for="cert_notas">Certificado
+										de Notas:</label>
+									<div class="controls">
+										<input id="cert_notas" name="cert_notas" class="  input-file"
+											type="file">
+									</div>
 								</div>
 							</div>
-
-							<!-- Textarea -->
-							<div class="control-group">
-								<label class="control-label" for="institucion">Institución:</label>
-								<div class="controls">
-									<input id="institucion" name="institucion"
-										class="input-xlarge " value="${grado.institucion }"
-										type="text"
-										placeholder="Ingrese la institución de la cual obtuvo el grado académico">
-								</div>
-							</div>
-
-							<!-- Text input-->
-							<div class="control-group">
-								<label class="control-label" for="fecha_ob">Fecha de
-									Obtención:</label>
-								<div class="controls">
-									<input id="fecha_nac" name="fecha_ob" class="datepicker"
-										type="text" value="${sdf.format(grado.fechaObtencion) }"
-										required="">
-								</div>
-							</div>
-
-							<!-- Select Basic -->
-							<div class="control-group">
-								<label class="control-label" for="pais_grado">Pais de la
-									Institución:</label>
-								<div class="controls">
-									<select id="pais_grado" name="pais_grado" class="input-xlarge">
-										<c:forEach var="pais" items="${paises}">
-											<option value="${pais.id}"
-												${grado.pais.id==pais.id ? 'selected' : ''}>${pais.nombre}</option>
-										</c:forEach>
-									</select>
-								</div>
-							</div>
-
-							<input type="hidden" value="${grado.idCertificadoNotas}"
-								name="idCertificadoNotas">
-							<input type="hidden" value="${grado.idCertificadoTitulo}"
-								name="idCertificadoTitulo">
-
-							<div class="control-group">
-								<label class="control-label" for="cert_titulo">Archivos
-									Originales:</label>
-								<div class="controls">
-									<a href="documento?id=${grado.idCertificadoNotas}"><i
-										class="icon-file"></i> Certificado de Notas </a> <a
-										href="documento?id=${grado.idCertificadoTitulo}"><i
-										class="icon-file"></i> Certificado de Título </a>
-								</div>
-							</div>
-
-							<div class="control-group">
-								<div class="controls">
-									<span class="label label-warning">Nota:</span>&nbsp;Para
-									reemplazar un archivo sólo suba ese en particular.
-								</div>
-							</div>
-
-							<!-- File Button -->
-							<div class="control-group">
-								<label class="control-label" for="cert_titulo">Certificado
-									de Título o Grado:</label>
-								<div class="controls">
-									<input id="cert_titulo" name="cert_titulo" class="  input-file"
-										type="file">
-								</div>
-							</div>
-
-							<!-- File Button -->
-							<div class="control-group">
-								<label class="control-label" for="cert_notas">Certificado
-									de Notas:</label>
-								<div class="controls">
-									<input id="cert_notas" name="cert_notas" class="  input-file"
-										type="file">
-								</div>
-							</div>
-							<hr>
 						</c:forEach>
 					</fieldset>
 
