@@ -9,12 +9,11 @@
 	enctype="multipart/form-data" class="form-horizontal">
 	<!-- Hidden values -->
 	<input type="hidden" value="${postulacion.id}" name="idPostulacion">
-	<input type="hidden" value="${financiamiento.id}"
-		name="idFinanciamiento"> <input type="hidden"
-		value="${postulante.id}" name="idPostulante"> <input
-		type="hidden" value="${datosEmpresa.id}" name="idDatosEmpresa">
-	<input type="hidden" value="${identificacion.id}"
-		name="idIdentificacion">
+	<input type="hidden" value="${financiamiento.id}" name="idFinanciamiento"> 
+	<input type="hidden" value="${postulante.id}" name="idPostulante"> 
+	<input type="hidden" value="${datosEmpresa.id}" name="idDatosEmpresa">
+	<input type="hidden" value="${identificacion.id}" name="idIdentificacion">
+	
 	<div id="rootwizardEdit">
 		<div class="navbar">
 			<div class="navbar-inner">
@@ -366,7 +365,7 @@
 						<label class="control-label" for="empresa">Empresa Actual:</label>
 						<div class="controls">
 							<input id="empresa" name="empresa" type="text"
-								value="${datosEmpresa.nombre }"
+								value="${datosEmpresa.nombre}"
 								placeholder="Ingrese su empresa actual (opcional)"
 								class="input-xlarge">
 
@@ -377,8 +376,8 @@
 					<div class="control-group">
 						<label class="control-label" for="cargo">Cargo:</label>
 						<div class="controls">
-							<input id="cargo" name="cargo" type="text"
-								value="${datosEmpresa.cargo }"
+							<input id="cargo" name="cargo" type="text" 
+								value="${datosEmpresa.cargo}" 
 								placeholder="Ingrese sus cargo en la empresa"
 								class="input-xlarge">
 
@@ -389,7 +388,7 @@
 					<div class="control-group">
 						<label class="control-label" for="dir_empr">Dirección:</label>
 						<div class="controls">
-							<input id="dir_empr" name="dir_empr" type="text"
+							<input id="dir_empr" name="dir_empr" type="text" 
 								value="${datosEmpresa.direccion}"
 								placeholder="Ingrese la dirección de su empresa actual"
 								class="input-xlarge">
@@ -402,7 +401,7 @@
 						<label class="control-label" for="fono_empr">Teléfono:</label>
 						<div class="controls">
 							<input id="fono_empr" name="fono_empr" type="text"
-								value="${datosEmpresa.telefono }" placeholder="Ej: 99988877"
+								value="${datosEmpresa.telefono}" placeholder="Ej: 99988877"
 								class="input-xlarge">
 
 						</div>
