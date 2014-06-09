@@ -5,8 +5,7 @@
 	<h1>Edición de Postulación N°${postulacion.id}</h1>
 </div>
 
-<form id="postulacionForm" method="post"
-	action="${root}/app/admin/edit"
+<form id="postulacionForm" method="post" action="${root}/app/admin/edit"
 	enctype="multipart/form-data" class="form-horizontal">
 	<!-- Hidden values -->
 	<input type="hidden" value="${postulacion.id}" name="idPostulacion">
@@ -310,7 +309,7 @@
 							<div class="control-group">
 								<div class="controls">
 									<span class="label label-warning">Nota:</span>&nbsp;Para
-									reemplazar un arvchivo sólo suba ese en particular.
+									reemplazar un archivo sólo suba ese en particular.
 								</div>
 							</div>
 
@@ -441,9 +440,11 @@
 						<!-- Multiple Radios -->
 						<div class="control-group">
 							<div class="controls">
-								<label class="radio"><input type="radio"
-									name="tipo_beca" id="radioAsignada" value="asignada"
-									checked="checked"> Asignada </label> <label class="radio">
+								<label class="radio">
+									<input type="radio"	name="tipo_beca" id="radioAsignada" value="asignada"
+									checked="checked"> Asignada 
+								</label> 
+								<label class="radio">
 									<input type="radio" name="tipo_beca" id="radioPostulacion"
 									value=""> En proceso de postulación
 								</label>
@@ -456,7 +457,7 @@
 							<div class="controls">
 								<input id="comentario_beca" name="comentario_beca"
 									class="input-xlarge" type="text"
-									placeholder="Ingrese un comentario (opcional)"></input>
+									placeholder="Ingrese un comentario (opcional)" value="${financiamiento.detalle}"></input>
 							</div>
 						</div>
 
@@ -499,7 +500,7 @@
 					<div class="control-group">
 						<div class="controls">
 							<span class="label label-warning">Nota:</span>&nbsp;Para
-							reemplazar un arvchivo sólo suba ese en particular.
+							reemplazar un archivo sólo suba ese en particular.
 						</div>
 					</div>
 
@@ -550,30 +551,17 @@
 					</div>
 				</div>
 			</div>
-
-
-
-
-
-
 		</div>
 	</div>
 </form>
 
-
 <!-- Scripts -->
 <script src="${root}/js/jquery.js"></script>
 <script src="${root}/js/jquery.validate.js"></script>
-<script src="${root}/js/prettify.js"
-	type="text/javascript"></script>
-<script
-	src="${root}/js/jquery.bootstrap.wizard.min.js"
-	type="text/javascript"></script>
-<script src="${root}/js/bootstrap.js"
-	type="text/javascript"></script>
-<script src="${root}/js/form.js"
-	type="text/javascript"></script>
-<script src="${root}/js/bootstrap-datepicker.js"
-	type="text/javascript"></script>
+<script src="${root}/js/jquery.bootstrap.wizard.min.js"></script>
+<script src="${root}/js/bootstrap.js"></script>
+<script src="${root}/js/form.js"></script>
+<script src="${root}/js/bootstrap-datepicker.js"></script>
+<script src="${root}/js/locales/bootstrap-datepicker.es.js"></script>
 </body>
 </html>

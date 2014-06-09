@@ -34,14 +34,6 @@
             <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
 
-<!-- FancyBox -->
-<link rel="stylesheet"
-	href="${root}/fancybox/source/jquery.fancybox.css?v=2.1.5"
-	type="text/css" media="screen" />
-<script type="text/javascript"
-	src="${root}/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
-<script type="text/javascript"
-	src="${root}/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 </head>
 
 <body data-spy="scroll" data-target=".postulacion-nav">

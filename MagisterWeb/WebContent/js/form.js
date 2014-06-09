@@ -252,6 +252,7 @@ $(document).ready(function() {
 		});
 		
 		$('.datepicker').datepicker({
+			format: "dd/mm/yyyy",
 			weekStart: 1,
 		    language: "es",
 		    orientation: "bottom auto",
@@ -348,11 +349,27 @@ $(document).ready(function() {
 
 	});
 
-	$("#rut-div").hide();
-	$("#pasaporte-div").hide();
-	$("#rut-resumen-div").hide();
-	$("#pasaporte-resumen-div").hide();
-	$("#beca-div").hide();
+	if ($("#tipoDoc option:selected").text()==='RUT') {
+		$("#rut-div").show();
+		$("#rut-resumen-div").show();		
+		$("#pasaporte-div").hide();
+		$("#pasaporte-resumen-div").hide();
+	} else if ($("#tipoDoc option:selected").text()==='Pasaporte') {	
+		console.log("sadasd");
+		$("#pasaporte-div").show();
+		$("#pasaporte-resumen-div").show();
+		$("#rut-div").hide();
+		$("#rut-resumen-div").hide();
+	} else {		
+		$("#pasaporte-div").hide();
+		$("#pasaporte-resumen-div").hide();
+		$("#rut-div").hide();
+		$("#rut-resumen-div").hide();		
+	}
+	
+	if ($('#financiamiento option:selected').text()!='Beca') {
+		$("#beca-div").hide();
+	}
 
 	$("#nombre").focusout(function () {
 		var value = $(this).val();
@@ -450,6 +467,7 @@ $(document).ready(function() {
 	}).mouseup();
 
 	$('.datepicker').datepicker({
+		format: "dd/mm/yyyy",
 		weekStart: 1,
 		startView: 1,
 	    language: "es",
