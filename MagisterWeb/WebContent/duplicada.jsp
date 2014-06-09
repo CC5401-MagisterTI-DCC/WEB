@@ -41,7 +41,7 @@
 		<p>Existe ya una postulción en trámite bajo su nombre en el
 			sistema por lo que los datos no han sido procesados</p>
 		<p>
-			Recuerde puede hacer un seguimiento de su postulación en curso en <strong>www.página.dcc.uchile.cl</strong>
+			Recuerde puede hacer un seguimiento de su postulación en curso en <strong>inscripcion-mti.dcc.uchile.cl</strong>
 		</p>
 		<p>Si cree que existe algún error, no dude en comunicarse con
 			nosotros</p>
