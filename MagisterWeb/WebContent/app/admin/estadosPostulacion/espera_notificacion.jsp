@@ -129,13 +129,13 @@ Programa de Educación Continua
 		<br>
 
 		<button class="btn btn-large btn-block btn-success" name="decision"
-			value="notificar" type="submit">
+			value="notificar" type="submit" onclick="return confirm('¿Está seguro que desea notificar al postulante?');">
 			<i class="icon-envelope icon-white"></i> Enviar Correo Formal al
 			Postulante
 		</button>
 		<br>
 		<button class="btn btn-small btn-danger" name="decision"
-			value="no_notificar" type="submit">
+			value="no_notificar" type="submit" onclick="return confirm('¿Está seguro que desea no notificar al postulante?');">
 			<i class="icon-exclamation-sign icon-white"></i> No Notificar
 		</button>
 	</form>
