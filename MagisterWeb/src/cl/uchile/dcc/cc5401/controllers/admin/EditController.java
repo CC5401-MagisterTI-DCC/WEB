@@ -150,29 +150,26 @@ public class EditController extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		UserDTO user = (UserDTO) session.getAttribute("user");
 
-		try {
-			// parse
-			// postulante
-			int idPostulacion = Integer.parseInt(request
-					.getParameter("idPostulacion"));
-			int idFinanciamiento = Integer.parseInt(request
-					.getParameter("idFinanciamiento"));
-			int idPostulante = Integer.parseInt(request
-					.getParameter("idPostulante"));
-			String idEmpresa = request.getParameter("idDatosEmpresa");
+		try {			
+			// identificadores de postulación
+			int idPostulacion = Integer.parseInt(request.getParameter("idPostulacion"));
+			int idFinanciamiento = Integer.parseInt(request.getParameter("idFinanciamiento"));
+			int idPostulante = Integer.parseInt(request.getParameter("idPostulante"));
+			int idIdentificacion = Integer.parseInt(request.getParameter("idIdentificacion"));
+			
+			String idEmpresa = request.getParameter("idDatosEmpresa");			
 			int idDatosEmpresa = 0;
+			
+			// si no está vacío
 			if (!idEmpresa.equals(""))
 				idDatosEmpresa = Integer.parseInt(idEmpresa);
-			int idIdentificacion = Integer.parseInt(request
-					.getParameter("idIdentificacion"));
-
+			
 			PostulanteDTO postulante = postulanteDAO.get(idPostulante);
 			
 			String nombre = request.getParameter("nombre");
 			String apellido = request.getParameter("apellido");
 			String nacionalidad = request.getParameter("nacionalidad");
-			PaisDTO paisNacionalidad = paisDAO.get(Integer
-					.parseInt(nacionalidad));
+			PaisDTO paisNacionalidad = paisDAO.get(Integer.parseInt(nacionalidad));
 			String genero = request.getParameter("genero");
 			Genero gender = Genero.FEMENINO;
 
@@ -232,20 +229,6 @@ public class EditController extends HttpServlet {
 						.getParameter("nacionalidadPasaporte"))));
 			}
 
-			// grados academicos
-			String[] idGrado = request.getParameterValues("idGrado");
-			String[] grado = request.getParameterValues("grado");
-			String[] institucion = request.getParameterValues("institucion");
-			String[] fechaObtencion = request.getParameterValues("fecha_ob");
-			String[] paisGrado = request.getParameterValues("pais_grado");
-			GradoAcademicoDTO[] gradosAcademicos = new GradoAcademicoDTO[grado.length];
-
-			// TODO: Ver cuando se agregan grados
-			for (int i = 0; i < grado.length; i++) {
-				gradosAcademicos[i] = gradoAcademicoDAO.getFromId(Integer
-						.parseInt(idGrado[i]));
-			}
-
 			// financiamiento
 			String financiamiento = request.getParameter("financiamiento");
 			FinanciamientoDTO finance = new FinanciamientoDTO();
@@ -275,7 +258,7 @@ public class EditController extends HttpServlet {
 
 			// empresa
 			String empresa = request.getParameter("empresa");
-			DatosEmpresaDTO datosEmpresa = null;
+			DatosEmpresaDTO datosEmpresa;
 			if (empresa != null && !empresa.equals("")) {
 				// Insertar datos empresa
 				String cargo = request.getParameter("cargo");
@@ -284,9 +267,35 @@ public class EditController extends HttpServlet {
 				datosEmpresa = new DatosEmpresaDTO(idDatosEmpresa,
 						postulante.getId(), empresa, cargo, direccionEmpresa,
 						fonoEmpresa);
-				datosEmpresaDAO.actualizar(datosEmpresa);
+				// si no existen datos de la empresa, se agregan, de lo contrario se actualizan.
+				if (datosEmpresaDAO.get(postulante.getId()) == null) {
+					datosEmpresaDAO.agregar(datosEmpresa);
+				} else {					
+					datosEmpresaDAO.actualizar(datosEmpresa);
+				}
 			}
 
+			// grados academicos
+			String[] idGrado = request.getParameterValues("idGrado");
+			String[] grado = request.getParameterValues("grado");
+			String[] institucion = request.getParameterValues("institucion");
+			String[] fechaObtencion = request.getParameterValues("fecha_ob");
+			String[] paisGrado = request.getParameterValues("pais_grado");
+			GradoAcademicoDTO[] gradosAcademicos = new GradoAcademicoDTO[grado.length];
+			GradoAcademicoDTO gradoAcademico;
+			
+			for (int i = 0; i < grado.length; i++) {
+				gradoAcademico = gradoAcademicoDAO.getFromId(Integer.parseInt(idGrado[i]));
+				
+				// se ha agregado un nuevo grado
+				if (gradoAcademico == null) {
+					//TODO: agregar nuevo grado académico.
+					gradosAcademicos[i] = gradoAcademico;
+				} else {
+					gradosAcademicos[i] = gradoAcademico;
+				}
+			}
+			
 			// TODO:ver la forma de identificar indice mejor(primer archivo
 			// primer grado)
 			Collection<Part> parts = request.getParts();
@@ -307,52 +316,45 @@ public class EditController extends HttpServlet {
 				// TODO: definir nombres de los archivos tomando en cuenta
 				// diferencia de pasaporte y rut
 				// TODO: ver caso de otros archivos
-				if (part.getContentType() != null
-						&& part.getContentType().equalsIgnoreCase(
-								"application/pdf")) {
+				if (part.getContentType() != null && part.getContentType().equalsIgnoreCase("application/pdf")) {
 					// BD no se actualiza, solo archivo
-					CG.setNombre(identificacion.getIdentificacion() + "CG"
-							+ (i + 1) + ".pdf");
+					CG.setNombre(identificacion.getIdentificacion() + "CG" + (i + 1) + ".pdf");
 					CG.setDireccion(ruta + "/" + CG.getNombre());
 					part.write(CG.getDireccion());
-					CG.setId(Integer.parseInt(request
-							.getParameter("idCertificadoTitulo")));
+					CG.setId(Integer.parseInt(request.getParameter("idCertificadoTitulo")));
 					documentoDAO.actualizar(CG);
+					
 					gradosAcademicos[i].setIdCertificadoTitulo(CG.getId());
 				}
 				// certificado de notas
 				DocumentoDTO CN = new DocumentoDTO();
 				part = iter.next();
-				if (part.getContentType() != null
-						&& part.getContentType().equalsIgnoreCase(
-								"application/pdf")) {
-					CN.setNombre(identificacion.getIdentificacion() + "CN"
-							+ (i + 1) + ".pdf");
+				if (part.getContentType() != null && part.getContentType().equalsIgnoreCase("application/pdf")) {
+					CN.setNombre(identificacion.getIdentificacion() + "CN" + (i + 1) + ".pdf");
 					CN.setDireccion(ruta + "/" + CN.getNombre());
 					part.write(ruta + "/" + CN.getNombre());
-					CN.setId(Integer.parseInt(request
-							.getParameter("idCertificadoNotas")));
+					CN.setId(Integer.parseInt(request.getParameter("idCertificadoNotas")));
 					documentoDAO.actualizar(CN);
+					
 					gradosAcademicos[i].setIdCertificadoNotas(CN.getId());
 				}
 
 				gradosAcademicos[i].setIdPostulante(idPostulante);
+				gradosAcademicos[i].setNombre(grado[i]);
 				gradosAcademicos[i].setInstitucion(institucion[i]);
-				gradosAcademicos[i].setPais(paisDAO.get(Integer
-						.parseInt(paisGrado[i])));
-				gradosAcademicos[i].setFechaObtencion(sdf
-						.parse(fechaObtencion[i]));
+				gradosAcademicos[i].setPais(paisDAO.get(Integer.parseInt(paisGrado[i])));
+				gradosAcademicos[i].setFechaObtencion(sdf.parse(fechaObtencion[i]));
 
 				gradoAcademicoDAO.actualizar(gradosAcademicos[i]);
 			}
+			
 			for (int i = 0; i < 7; i++)
 				iter.next();
+			
 			// curriculum vitae
 			part = request.getPart("cv");
 			DocumentoDTO CV = new DocumentoDTO();
-			if (part.getContentType() != null
-					&& part.getContentType()
-							.equalsIgnoreCase("application/pdf")) {
+			if (part.getContentType() != null && part.getContentType().equalsIgnoreCase("application/pdf")) {
 				CV.setNombre(identificacion.getIdentificacion() + "CV" + ".pdf");
 				CV.setDireccion(ruta + "/" + CV.getNombre());
 				part.write(CV.getDireccion());
@@ -364,9 +366,7 @@ public class EditController extends HttpServlet {
 			// carta presentacion
 			part = request.getPart("carta_pres");
 			DocumentoDTO CP = new DocumentoDTO();
-			if (part.getContentType() != null
-					&& part.getContentType()
-							.equalsIgnoreCase("application/pdf")) {
+			if (part.getContentType() != null && part.getContentType().equalsIgnoreCase("application/pdf")) {
 				CP.setNombre(identificacion.getIdentificacion() + "CP" + ".pdf");
 				CP.setDireccion(ruta + "/" + CP.getNombre());
 				part.write(CP.getDireccion());
@@ -379,9 +379,7 @@ public class EditController extends HttpServlet {
 			// carta recomendacion 1
 			part = request.getPart("carta_rec_1");
 			DocumentoDTO CR1 = new DocumentoDTO();
-			if (part.getContentType() != null
-					&& part.getContentType()
-							.equalsIgnoreCase("application/pdf")) {
+			if (part.getContentType() != null && part.getContentType().equalsIgnoreCase("application/pdf")) {
 				CR1.setNombre(identificacion.getIdentificacion() + "CR1"
 						+ ".pdf");
 				CR1.setDireccion(ruta + "/" + CR1.getNombre());
@@ -394,9 +392,7 @@ public class EditController extends HttpServlet {
 			// carta recomendacion 2
 			part = request.getPart("carta_rec_2");
 			DocumentoDTO CR2 = new DocumentoDTO();
-			if (part.getContentType() != null
-					&& part.getContentType()
-							.equalsIgnoreCase("application/pdf")) {
+			if (part.getContentType() != null && part.getContentType().equalsIgnoreCase("application/pdf")) {
 				CR2.setNombre(identificacion.getIdentificacion() + "CR2"
 						+ ".pdf");
 				CR2.setDireccion(ruta + "/" + CR2.getNombre());

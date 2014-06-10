@@ -5,17 +5,15 @@
 	<h1>Edición de Postulación N°${postulacion.id}</h1>
 </div>
 
-<form id="postulacionForm" method="post"
-	action="${root}/app/admin/edit"
+<form id="postulacionForm" method="post" action="${root}/app/admin/edit"
 	enctype="multipart/form-data" class="form-horizontal">
 	<!-- Hidden values -->
 	<input type="hidden" value="${postulacion.id}" name="idPostulacion">
-	<input type="hidden" value="${financiamiento.id}"
-		name="idFinanciamiento"> <input type="hidden"
-		value="${postulante.id}" name="idPostulante"> <input
-		type="hidden" value="${datosEmpresa.id}" name="idDatosEmpresa">
-	<input type="hidden" value="${identificacion.id}"
-		name="idIdentificacion">
+	<input type="hidden" value="${financiamiento.id}" name="idFinanciamiento"> 
+	<input type="hidden" value="${postulante.id}" name="idPostulante"> 
+	<input type="hidden" value="${datosEmpresa.id}" name="idDatosEmpresa">
+	<input type="hidden" value="${identificacion.id}" name="idIdentificacion">
+	
 	<div id="rootwizardEdit">
 		<div class="navbar">
 			<div class="navbar-inner">
@@ -242,98 +240,98 @@
 				<div class="well  ">
 					<fieldset id="addEstudio">
 						<c:forEach var="grado" items="${gradosAcademicos}">
-
-							<input type="hidden" value="${grado.id}" name="idGrado">
-							<!-- Textarea -->
-							<div class="control-group">
-								<label class="control-label" for="grado">Grado
-									Académico:</label>
-								<div class="controls">
-									<input id="grado" name="grado" class="input-xlarge"
-										value="${grado.nombre }" type="text"
-										placeholder="Ingrese su grado académico">
+							<div class="fieldwrapper well well-small" style="background: #dfdfdf">
+								<input type="hidden" value="${grado.id}" name="idGrado">
+								<!-- Textarea -->
+								<div class="control-group">
+									<label class="control-label" for="grado">Grado
+										Académico:</label>
+									<div class="controls">
+										<input id="grado" name="grado" class="input-xlarge"
+											value="${grado.nombre }" type="text"
+											placeholder="Ingrese su grado académico">
+									</div>
+								</div>
+	
+								<!-- Textarea -->
+								<div class="control-group">
+									<label class="control-label" for="institucion">Institución:</label>
+									<div class="controls">
+										<input id="institucion" name="institucion"
+											class="input-xlarge " value="${grado.institucion }"
+											type="text"
+											placeholder="Ingrese la institución de la cual obtuvo el grado académico">
+									</div>
+								</div>
+	
+								<!-- Text input-->
+								<div class="control-group">
+									<label class="control-label" for="fecha_ob">Fecha de
+										Obtención:</label>
+									<div class="controls">
+										<input id="fecha_nac" name="fecha_ob" class="datepicker"
+											type="text" value="${sdf.format(grado.fechaObtencion) }"
+											required="">
+									</div>
+								</div>
+	
+								<!-- Select Basic -->
+								<div class="control-group">
+									<label class="control-label" for="pais_grado">Pais de la
+										Institución:</label>
+									<div class="controls">
+										<select id="pais_grado" name="pais_grado" class="input-xlarge">
+											<c:forEach var="pais" items="${paises}">
+												<option value="${pais.id}"
+													${grado.pais.id==pais.id ? 'selected' : ''}>${pais.nombre}</option>
+											</c:forEach>
+										</select>
+									</div>
+								</div>
+	
+								<input type="hidden" value="${grado.idCertificadoNotas}"
+									name="idCertificadoNotas">
+								<input type="hidden" value="${grado.idCertificadoTitulo}"
+									name="idCertificadoTitulo">
+	
+								<div class="control-group">
+									<label class="control-label" for="cert_titulo">Archivos
+										Originales:</label>
+									<div class="controls">
+										<a href="documento?id=${grado.idCertificadoNotas}"><i
+											class="icon-file"></i> Certificado de Notas </a> <a
+											href="documento?id=${grado.idCertificadoTitulo}"><i
+											class="icon-file"></i> Certificado de Título </a>
+									</div>
+								</div>
+	
+								<div class="control-group">
+									<div class="controls">
+										<span class="label label-warning">Nota:</span>&nbsp;Para
+										reemplazar un archivo sólo suba ese en particular.
+									</div>
+								</div>
+	
+								<!-- File Button -->
+								<div class="control-group">
+									<label class="control-label" for="cert_titulo">Certificado
+										de Título o Grado:</label>
+									<div class="controls">
+										<input id="cert_titulo" name="cert_titulo" class="  input-file"
+											type="file">
+									</div>
+								</div>
+	
+								<!-- File Button -->
+								<div class="control-group">
+									<label class="control-label" for="cert_notas">Certificado
+										de Notas:</label>
+									<div class="controls">
+										<input id="cert_notas" name="cert_notas" class="  input-file"
+											type="file">
+									</div>
 								</div>
 							</div>
-
-							<!-- Textarea -->
-							<div class="control-group">
-								<label class="control-label" for="institucion">Institución:</label>
-								<div class="controls">
-									<input id="institucion" name="institucion"
-										class="input-xlarge " value="${grado.institucion }"
-										type="text"
-										placeholder="Ingrese la institución de la cual obtuvo el grado académico">
-								</div>
-							</div>
-
-							<!-- Text input-->
-							<div class="control-group">
-								<label class="control-label" for="fecha_ob">Fecha de
-									Obtención:</label>
-								<div class="controls">
-									<input id="fecha_nac" name="fecha_ob" class="datepicker"
-										type="text" value="${sdf.format(grado.fechaObtencion) }"
-										required="">
-								</div>
-							</div>
-
-							<!-- Select Basic -->
-							<div class="control-group">
-								<label class="control-label" for="pais_grado">Pais de la
-									Institución:</label>
-								<div class="controls">
-									<select id="pais_grado" name="pais_grado" class="input-xlarge">
-										<c:forEach var="pais" items="${paises}">
-											<option value="${pais.id}"
-												${grado.pais.id==pais.id ? 'selected' : ''}>${pais.nombre}</option>
-										</c:forEach>
-									</select>
-								</div>
-							</div>
-
-							<input type="hidden" value="${grado.idCertificadoNotas}"
-								name="idCertificadoNotas">
-							<input type="hidden" value="${grado.idCertificadoTitulo}"
-								name="idCertificadoTitulo">
-
-							<div class="control-group">
-								<label class="control-label" for="cert_titulo">Archivos
-									Originales:</label>
-								<div class="controls">
-									<a href="documento?id=${grado.idCertificadoNotas}"><i
-										class="icon-file"></i> Certificado de Notas </a> <a
-										href="documento?id=${grado.idCertificadoTitulo}"><i
-										class="icon-file"></i> Certificado de Título </a>
-								</div>
-							</div>
-
-							<div class="control-group">
-								<div class="controls">
-									<span class="label label-warning">Nota:</span>&nbsp;Para
-									reemplazar un arvchivo sólo suba ese en particular.
-								</div>
-							</div>
-
-							<!-- File Button -->
-							<div class="control-group">
-								<label class="control-label" for="cert_titulo">Certificado
-									de Título o Grado:</label>
-								<div class="controls">
-									<input id="cert_titulo" name="cert_titulo" class="  input-file"
-										type="file">
-								</div>
-							</div>
-
-							<!-- File Button -->
-							<div class="control-group">
-								<label class="control-label" for="cert_notas">Certificado
-									de Notas:</label>
-								<div class="controls">
-									<input id="cert_notas" name="cert_notas" class="  input-file"
-										type="file">
-								</div>
-							</div>
-							<hr>
 						</c:forEach>
 					</fieldset>
 
@@ -367,7 +365,7 @@
 						<label class="control-label" for="empresa">Empresa Actual:</label>
 						<div class="controls">
 							<input id="empresa" name="empresa" type="text"
-								value="${datosEmpresa.nombre }"
+								value="${datosEmpresa.nombre}"
 								placeholder="Ingrese su empresa actual (opcional)"
 								class="input-xlarge">
 
@@ -378,8 +376,8 @@
 					<div class="control-group">
 						<label class="control-label" for="cargo">Cargo:</label>
 						<div class="controls">
-							<input id="cargo" name="cargo" type="text"
-								value="${datosEmpresa.cargo }"
+							<input id="cargo" name="cargo" type="text" 
+								value="${datosEmpresa.cargo}" 
 								placeholder="Ingrese sus cargo en la empresa"
 								class="input-xlarge">
 
@@ -390,7 +388,7 @@
 					<div class="control-group">
 						<label class="control-label" for="dir_empr">Dirección:</label>
 						<div class="controls">
-							<input id="dir_empr" name="dir_empr" type="text"
+							<input id="dir_empr" name="dir_empr" type="text" 
 								value="${datosEmpresa.direccion}"
 								placeholder="Ingrese la dirección de su empresa actual"
 								class="input-xlarge">
@@ -403,7 +401,7 @@
 						<label class="control-label" for="fono_empr">Teléfono:</label>
 						<div class="controls">
 							<input id="fono_empr" name="fono_empr" type="text"
-								value="${datosEmpresa.telefono }" placeholder="Ej: 99988877"
+								value="${datosEmpresa.telefono}" placeholder="Ej: 99988877"
 								class="input-xlarge">
 
 						</div>
@@ -441,9 +439,11 @@
 						<!-- Multiple Radios -->
 						<div class="control-group">
 							<div class="controls">
-								<label class="radio"><input type="radio"
-									name="tipo_beca" id="radioAsignada" value="asignada"
-									checked="checked"> Asignada </label> <label class="radio">
+								<label class="radio">
+									<input type="radio"	name="tipo_beca" id="radioAsignada" value="asignada"
+									checked="checked"> Asignada 
+								</label> 
+								<label class="radio">
 									<input type="radio" name="tipo_beca" id="radioPostulacion"
 									value=""> En proceso de postulación
 								</label>
@@ -456,7 +456,7 @@
 							<div class="controls">
 								<input id="comentario_beca" name="comentario_beca"
 									class="input-xlarge" type="text"
-									placeholder="Ingrese un comentario (opcional)"></input>
+									placeholder="Ingrese un comentario (opcional)" value="${financiamiento.detalle}"></input>
 							</div>
 						</div>
 
@@ -499,7 +499,7 @@
 					<div class="control-group">
 						<div class="controls">
 							<span class="label label-warning">Nota:</span>&nbsp;Para
-							reemplazar un arvchivo sólo suba ese en particular.
+							reemplazar un archivo sólo suba ese en particular.
 						</div>
 					</div>
 
@@ -550,30 +550,17 @@
 					</div>
 				</div>
 			</div>
-
-
-
-
-
-
 		</div>
 	</div>
 </form>
 
-
 <!-- Scripts -->
 <script src="${root}/js/jquery.js"></script>
 <script src="${root}/js/jquery.validate.js"></script>
-<script src="${root}/js/prettify.js"
-	type="text/javascript"></script>
-<script
-	src="${root}/js/jquery.bootstrap.wizard.min.js"
-	type="text/javascript"></script>
-<script src="${root}/js/bootstrap.js"
-	type="text/javascript"></script>
-<script src="${root}/js/form.js"
-	type="text/javascript"></script>
-<script src="${root}/js/bootstrap-datepicker.js"
-	type="text/javascript"></script>
+<script src="${root}/js/jquery.bootstrap.wizard.min.js"></script>
+<script src="${root}/js/bootstrap.js"></script>
+<script src="${root}/js/form.js"></script>
+<script src="${root}/js/bootstrap-datepicker.js"></script>
+<script src="${root}/js/locales/bootstrap-datepicker.es.js"></script>
 </body>
 </html>

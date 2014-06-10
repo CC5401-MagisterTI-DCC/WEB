@@ -190,16 +190,27 @@ $(document).ready(function() {
 		var cTitulo = $('<!-- File Button --><div class="control-group"><label class="control-label">Certificado de Título o Grado:</label><div class="controls"><input id="cert_titulo' + j + '" name="cert_titulo' + j + '" class="  input-file" type="file" required=""></div></div>');
 		var cNotas = $('<!-- File Button --><div class="control-group"><label class="control-label">Certificado de Notas:</label><div class="controls"><input id="cert_notas' + j + '" name="cert_notas' + j + '" class="  input-file" type="file" required=""></div></div>');
 		var removeButton = $('<div class="control-group"><label class="control-label" for=""></label> <div class="controls"><a class="remove btn btn-danger" href="#"><i class="icon-remove icon-white"></i> Eliminar Estudio</a></div></div>');
+		removeButton.attr("onClick","return confirm('¿Está seguro que desea eliminar el grado académico seleccionado?');");
+		
 		removeButton.click(function() {
 			$(this).parent().remove();
 			$("#grado" + j).remove();
 			i--;
 		});
 
-
+		// para ingreso de postulación
 		$.ajax({
 			type: "GET",
 			url: "../DropPaises",
+			success: function(html){
+				paisSelect.html(html);
+			}
+		});
+		
+		// para edición de postulación
+		$.ajax({
+			type: "GET",
+			url: "../../DropPaises",
 			success: function(html){
 				paisSelect.html(html);
 			}
@@ -209,7 +220,7 @@ $(document).ready(function() {
 			var value = $(this).find(':selected').text();
 			$("#pais_grado" + j + "_resumen").text(value);
 		});
-		fieldWrapper.append(hr);
+		
 		gradoArea.append(grado);
 		fieldWrapper.append(gradoArea);	
 		institucionArea.append(institucion);
@@ -252,6 +263,7 @@ $(document).ready(function() {
 		});
 		
 		$('.datepicker').datepicker({
+			format: "dd/mm/yyyy",
 			weekStart: 1,
 		    language: "es",
 		    orientation: "bottom auto",
@@ -348,11 +360,27 @@ $(document).ready(function() {
 
 	});
 
-	$("#rut-div").hide();
-	$("#pasaporte-div").hide();
-	$("#rut-resumen-div").hide();
-	$("#pasaporte-resumen-div").hide();
-	$("#beca-div").hide();
+	if ($("#tipoDoc option:selected").text()==='RUT') {
+		$("#rut-div").show();
+		$("#rut-resumen-div").show();		
+		$("#pasaporte-div").hide();
+		$("#pasaporte-resumen-div").hide();
+	} else if ($("#tipoDoc option:selected").text()==='Pasaporte') {	
+		console.log("sadasd");
+		$("#pasaporte-div").show();
+		$("#pasaporte-resumen-div").show();
+		$("#rut-div").hide();
+		$("#rut-resumen-div").hide();
+	} else {		
+		$("#pasaporte-div").hide();
+		$("#pasaporte-resumen-div").hide();
+		$("#rut-div").hide();
+		$("#rut-resumen-div").hide();		
+	}
+	
+	if ($('#financiamiento option:selected').text()!='Beca') {
+		$("#beca-div").hide();
+	}
 
 	$("#nombre").focusout(function () {
 		var value = $(this).val();
@@ -450,6 +478,7 @@ $(document).ready(function() {
 	}).mouseup();
 
 	$('.datepicker').datepicker({
+		format: "dd/mm/yyyy",
 		weekStart: 1,
 		startView: 1,
 	    language: "es",

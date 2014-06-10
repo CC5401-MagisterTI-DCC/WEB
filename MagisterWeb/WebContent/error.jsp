@@ -14,7 +14,7 @@
 <link rel="stylesheet"
 	href="${root}/css/bootstrap.min.css">
 <script src="${root}/js/jquery.js"></script>
-<script src="${root}/js/bootstrap.min.js"></script>
+<script src="${root}/js/bootstrap.js"></script>
 
 <style>
 .center {
