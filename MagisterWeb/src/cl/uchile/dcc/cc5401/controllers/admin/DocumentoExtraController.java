@@ -22,7 +22,6 @@ import cl.uchile.dcc.cc5401.model.dao.impl.factory.HistorialDAOFactory;
 import cl.uchile.dcc.cc5401.model.dto.DocumentoDTO;
 import cl.uchile.dcc.cc5401.model.dto.HistorialDTO;
 import cl.uchile.dcc.cc5401.model.dto.UserDTO;
-import cl.uchile.dcc.cc5401.util.RolUsuario;
 
 @WebServlet("/app/admin/docExtra")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 10, maxRequestSize = 1024 * 1024 * 10 * 10)
@@ -94,7 +93,7 @@ public class DocumentoExtraController extends HttpServlet {
 						"<strong>"
 								+ user.getUsername()
 								+ ":</strong> <i class='icon-plus'></i> Se agregó un documento extra",
-						new Date(), comentario, RolUsuario.getValue(user.getIdRol())));
+						new Date(), comentario, user.getRol()));
 
 		forward = SUCCESS;
 		RequestDispatcher view = request.getRequestDispatcher(forward);

@@ -46,7 +46,6 @@ import cl.uchile.dcc.cc5401.model.dto.PostulacionDTO;
 import cl.uchile.dcc.cc5401.model.dto.PostulanteDTO;
 import cl.uchile.dcc.cc5401.model.dto.UserDTO;
 import cl.uchile.dcc.cc5401.util.Genero;
-import cl.uchile.dcc.cc5401.util.RolUsuario;
 import cl.uchile.dcc.cc5401.util.TipoFinanciamiento;
 
 /**
@@ -410,7 +409,7 @@ public class EditController extends HttpServlet {
 							"<strong>"
 									+ user.getUsername()
 									+ ":<strong> <i class='icon-edit'></i> Se editó la postulación",
-							new Date(), "", RolUsuario.getValue(user.getIdRol())));
+							new Date(), "", user.getRol()));
 			request.setAttribute("email", postulante.getEmail());
 
 			response.sendRedirect(request.getContextPath() + SUCCESS

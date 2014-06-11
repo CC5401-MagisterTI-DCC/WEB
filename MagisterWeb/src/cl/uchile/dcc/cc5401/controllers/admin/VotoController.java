@@ -27,7 +27,6 @@ import cl.uchile.dcc.cc5401.model.dto.HistorialDTO;
 import cl.uchile.dcc.cc5401.model.dto.PostulacionDTO;
 import cl.uchile.dcc.cc5401.model.dto.UserDTO;
 import cl.uchile.dcc.cc5401.model.dto.VotoDTO;
-import cl.uchile.dcc.cc5401.util.RolUsuario;
 import cl.uchile.dcc.cc5401.util.TipoVoto;
 
 @WebServlet("/app/admin/voto")
@@ -104,7 +103,7 @@ public class VotoController extends HttpServlet {
 				historialDAO.agregar(new HistorialDTO(0, postulacion.getId(),
 						"<strong>" + user.getUsername()
 								+ "</strong>: Votación: Aceptado", new Date(),
-						comentario, RolUsuario.getValue(user.getIdRol())));
+						comentario, user.getRol()));
 
 				forward = SUCCESS_PAGE;
 			}
@@ -125,7 +124,7 @@ public class VotoController extends HttpServlet {
 				historialDAO.agregar(new HistorialDTO(0, postulacion.getId(),
 						"<strong>" + user.getUsername()
 								+ "</strong>: Votación: Rechazado", new Date(),
-						comentario, RolUsuario.getValue(user.getIdRol())));
+						comentario, user.getRol()));
 
 				forward = SUCCESS_PAGE;
 			} else {
@@ -154,7 +153,7 @@ public class VotoController extends HttpServlet {
 						"<strong>" + user.getUsername()
 								+ "</strong>: Se actualiza deadline a "
 								+ request.getParameter("deadline"), new Date(),
-						"", RolUsuario.getValue(user.getIdRol())));
+						"", user.getRol()));
 			} catch (ParseException e) {
 				e.printStackTrace();
 				forward = ERROR_PAGE;

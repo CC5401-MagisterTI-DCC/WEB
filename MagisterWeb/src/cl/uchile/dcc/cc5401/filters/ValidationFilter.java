@@ -31,8 +31,6 @@ import cl.uchile.dcc.cc5401.util.Validacion;
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 10, maxRequestSize = 1024 * 1024 * 10 * 10)
 public class ValidationFilter implements Filter {
 
-	private static final int maxSize = 1024 * 1024 * 10;
-
 	private static final String ERROR_PAGE = "/error.jsp";
 	private static final String ERROR_DUPLICADA = "/duplicada.jsp";
 

@@ -2,28 +2,28 @@ package cl.uchile.dcc.cc5401.model.dto;
 
 import java.util.List;
 
+import cl.uchile.dcc.cc5401.util.RolUsuario;
+
 public class UserDTO {
 
 	private int id;
 	private String username;
 	private String password;
 	private String email;
-	private String rol;
-	private int idRol;
+	private RolUsuario rol;
 	private List<String> permisos;
 	
 	public UserDTO(){
 		
 	}
 	
-	public UserDTO(int id, String username, String password, String email, String rol, int idRol,
+	public UserDTO(int id, String username, String password, String email, RolUsuario rol,
 			List<String> permisos) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.email = email;
-		this.idRol = idRol;
 		this.rol = rol;
 		this.permisos = permisos;
 	}
@@ -60,24 +60,16 @@ public class UserDTO {
 		this.email = email;
 	}
 
-	public String getRol() {
-		return rol;
-	}
-
-	public void setRol(String rol) {
-		this.rol = rol;
-	}
-
 	public List<String> getPermisos() {
 		return permisos;
 	}
 	
-	public int getIdRol() {
-		return idRol;
+	public RolUsuario getRol() {
+		return rol;
 	}
 
-	public void setIdRol(int idRol) {
-		this.idRol = idRol;
+	public void setRol(RolUsuario rol) {
+		this.rol = rol;
 	}
 
 	

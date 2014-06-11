@@ -15,6 +15,7 @@ import cl.uchile.dcc.cc5401.model.dao.impl.factory.UserDAOFactory;
 import cl.uchile.dcc.cc5401.model.dto.UserDTO;
 import cl.uchile.dcc.cc5401.util.Algoritmo;
 import cl.uchile.dcc.cc5401.util.HashHelper;
+import cl.uchile.dcc.cc5401.util.RolUsuario;
 
 @WebServlet("/app/admin/userAdmin")
 public class UserController extends HttpServlet {
@@ -94,7 +95,7 @@ public class UserController extends HttpServlet {
 
 			System.out.println("idRol:" + idRol);
 
-			UserDTO user = new UserDTO(0, username, password, mail, "", idRol,
+			UserDTO user = new UserDTO(0, username, password, mail, RolUsuario.getValue(idRol),
 					null);
 			userDAO.agregar(user);
 			forward = SUCCESS;
@@ -107,7 +108,7 @@ public class UserController extends HttpServlet {
 			UserDTO user = userDAO.getUser(id);
 			user.setUsername(username);
 			user.setEmail(mail);
-			user.setIdRol(idRol);
+			user.setRol(RolUsuario.getValue(idRol));
 			userDAO.actualizar(user);
 
 			forward = SUCCESS;

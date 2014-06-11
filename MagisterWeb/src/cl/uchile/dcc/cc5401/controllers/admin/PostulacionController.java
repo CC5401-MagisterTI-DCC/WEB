@@ -254,7 +254,7 @@ public class PostulacionController extends HttpServlet {
 				List<HistorialDTO> historialPostulacionesResueltas = postulacionDAO.getHistorialPostulacionesResueltas(postulante.getIdentificacion());
 				
 				//Si no tiene permisos para ver los comentarios solo dejar la resolucion
-				RolUsuario rol = RolUsuario.getValue(user.getIdRol());
+				RolUsuario rol = user.getRol();
 				if ((rol == RolUsuario.ASISTENTE || rol == RolUsuario.JEFE_PEC) && null != historialPostulacionesResueltas)
 				{
 					HistorialDTO resolucionUltimaPostulacion = historialPostulacionesResueltas.get(0);

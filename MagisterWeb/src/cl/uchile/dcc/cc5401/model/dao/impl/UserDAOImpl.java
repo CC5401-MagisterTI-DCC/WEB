@@ -10,6 +10,7 @@ import java.util.List;
 import cl.uchile.dcc.cc5401.model.dao.UserDAO;
 import cl.uchile.dcc.cc5401.model.dto.UserDTO;
 import cl.uchile.dcc.cc5401.model.jdbc.ConnectionFactory;
+import cl.uchile.dcc.cc5401.util.RolUsuario;
 
 public class UserDAOImpl implements UserDAO {
 
@@ -22,8 +23,7 @@ public class UserDAOImpl implements UserDAO {
 
 	private static final String SQL_SELECT_ID = "SELECT *"
 			+ " FROM usuario us "
-			+ " JOIN rol ON us.id_rol= rol.id"
-			+ " JOIN rol_permiso rp ON rol.id = rp.id_rol"
+			+ " JOIN rol_permiso rp ON us.id_rol = rp.id_rol"
 			+ " JOIN permiso pe ON rp.id_permiso = pe.id" + " WHERE us.id=?";
 
 	private static final String SQL_SELECT_ALL_ID = "SELECT id"
@@ -33,8 +33,8 @@ public class UserDAOImpl implements UserDAO {
 			+ " FROM usuario" + " WHERE id_rol=3 OR id_rol=2";
 
 	private static final String SQL_SELECT_USERNAME = "SELECT *"
-			+ " FROM usuario us " + " JOIN rol ON us.id_rol= rol.id"
-			+ " JOIN rol_permiso rp ON rol.id = rp.id_rol"
+			+ " FROM usuario us " 
+			+ " JOIN rol_permiso rp ON us.id_rol = rp.id_rol"
 			+ " JOIN permiso pe ON rp.id_permiso = pe.id"
 			+ " WHERE us.username=?";
 
@@ -64,10 +64,8 @@ public class UserDAOImpl implements UserDAO {
 			userDTO.setEmail(rs.getString("mail"));
 			userDTO.setUsername(rs.getString("username"));
 			userDTO.setPassword(rs.getString("password"));
-			userDTO.setRol(rs.getString("nombre"));
-			userDTO.setIdRol(rs.getInt("id_rol"));
+			userDTO.setRol(RolUsuario.getValue(rs.getInt("id_rol")));
 			permisos.add(rs.getString("permiso"));
-
 		}
 		if (empty)
 			return null;
@@ -147,7 +145,7 @@ public class UserDAOImpl implements UserDAO {
 			ptmt.setString(1, user.getUsername());
 			ptmt.setString(2, user.getPassword());
 			ptmt.setString(3, user.getEmail());
-			ptmt.setInt(4, user.getIdRol());
+			ptmt.setInt(4, user.getRol().getId());
 			ptmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -294,7 +292,7 @@ public class UserDAOImpl implements UserDAO {
 			ptmt.setString(1, user.getUsername());
 			ptmt.setString(2, user.getPassword());
 			ptmt.setString(3, user.getEmail());
-			ptmt.setInt(4, user.getIdRol());
+			ptmt.setInt(4, user.getRol().getId());
 			ptmt.setInt(5, user.getId());
 			ptmt.executeUpdate();
 		} catch (SQLException e) {

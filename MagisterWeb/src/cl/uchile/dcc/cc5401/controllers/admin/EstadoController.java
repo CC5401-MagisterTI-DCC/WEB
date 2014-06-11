@@ -35,7 +35,6 @@ import cl.uchile.dcc.cc5401.util.MailHelper;
 import cl.uchile.dcc.cc5401.util.MailHelperFactory;
 import cl.uchile.dcc.cc5401.util.MailHelperFactoryImpl;
 import cl.uchile.dcc.cc5401.util.ResultadoPostulacion;
-import cl.uchile.dcc.cc5401.util.RolUsuario;
 
 @WebServlet("/app/admin/estado")
 public class EstadoController extends HttpServlet {
@@ -107,7 +106,7 @@ public class EstadoController extends HttpServlet {
 								"<strong>"
 										+ user.getUsername()
 										+ "</strong>: Cambio de Estado: En Revisión <i class='icon-arrow-right'></i> En Validación",
-								new Date(), "", RolUsuario.getValue(user.getIdRol())));
+								new Date(), "", user.getRol()));
 				forward = SUCCESS_PAGE;
 			}
 
@@ -127,7 +126,7 @@ public class EstadoController extends HttpServlet {
 								"<strong>"
 										+ user.getUsername()
 										+ "</strong>: Cambio de Estado: En Validación <i class='icon-arrow-right'></i> En Consideración",
-								new Date(), comentarioDTO.getTexto(), RolUsuario.getValue(user.getIdRol())));
+								new Date(), comentarioDTO.getTexto(), user.getRol()));
 				postulacionDAO.actualizar(postulacion);
 				forward = SUCCESS_PAGE;
 			}
@@ -169,7 +168,7 @@ public class EstadoController extends HttpServlet {
 								"<strong>"
 										+ user.getUsername()
 										+ "</strong>: Cambio de Estado: En Consideración <i class='icon-arrow-right'></i> En Evaluación",
-								new Date(), comentarioDTO.getTexto(), RolUsuario.getValue(user.getIdRol())));
+								new Date(), comentarioDTO.getTexto(), user.getRol()));
 				postulacionDAO.actualizar(postulacion);
 				forward = SUCCESS_PAGE;
 
@@ -188,7 +187,7 @@ public class EstadoController extends HttpServlet {
 								"<strong>"
 										+ user.getUsername()
 										+ "</strong>: Cambio de Estado: En Evaluación <i class='icon-arrow-right'></i> En Decisión",
-								new Date(), "", RolUsuario.getValue(user.getIdRol())));
+								new Date(), "", user.getRol()));
 				forward = SUCCESS_PAGE;
 			}
 
@@ -206,7 +205,7 @@ public class EstadoController extends HttpServlet {
 					historialDAO.agregar(new HistorialDTO(0, postulacion
 							.getId(), "<strong>" + user.getUsername()
 							+ "</strong>: Postulación Aceptada", new Date(),
-							detalles, RolUsuario.getValue(user.getIdRol())));
+							detalles, user.getRol()));
 				} else if (decision.equalsIgnoreCase("aceptado_condicional")) {
 					resolucion = new ResolucionDTO(0, id, detalles,
 							ResultadoPostulacion.ACEPTADO_CONDICIONAL,
@@ -218,14 +217,14 @@ public class EstadoController extends HttpServlet {
 									"<strong>"
 											+ user.getUsername()
 											+ "</strong>: Postulación Aceptada Condicionalmente",
-									new Date(), detalles, RolUsuario.getValue(user.getIdRol())));
+									new Date(), detalles, user.getRol()));
 				} else {
 					resolucion = new ResolucionDTO(0, id, detalles,
 							ResultadoPostulacion.RECHAZADO, new Date());
 					historialDAO.agregar(new HistorialDTO(0, postulacion
 							.getId(), "<strong>" + user.getUsername()
 							+ "</strong>: Postulación Rechazada", new Date(),
-							detalles, RolUsuario.getValue(user.getIdRol())));
+							detalles, user.getRol()));
 				}
 
 				historialDAO
@@ -235,7 +234,7 @@ public class EstadoController extends HttpServlet {
 								"<strong>"
 										+ user.getUsername()
 										+ "</strong>: Cambio de Estado: En Decisión <i class='icon-arrow-right'></i> En Espera de Notificación",
-								new Date(), "", RolUsuario.getValue(user.getIdRol())));
+								new Date(), "", user.getRol()));
 				postulacionDAO.actualizar(postulacion);
 				resolucionDAO.agregar(resolucion);
 				forward = SUCCESS_PAGE;
@@ -273,7 +272,7 @@ public class EstadoController extends HttpServlet {
 												+ user.getUsername()
 												+ "</strong>: Cambio de Estado: En Espera de Notificación <i class='icon-arrow-right'></i> Resuelta",
 										new Date(),
-										"Se notificó formalmente al postulante", RolUsuario.getValue(user.getIdRol())));
+										"Se notificó formalmente al postulante", user.getRol()));
 					}
 				}
 				// Si se decidió no notificar
@@ -288,7 +287,7 @@ public class EstadoController extends HttpServlet {
 											+ user.getUsername()
 											+ "</strong>: Cambio de Estado: En Espera de Notificación <i class='icon-arrow-right'></i> Resuelta",
 									new Date(),
-									"No se notificó formalmente al postulante", RolUsuario.getValue(user.getIdRol())));
+									"No se notificó formalmente al postulante", user.getRol()));
 				}
 				forward = SUCCESS_PAGE;
 			}

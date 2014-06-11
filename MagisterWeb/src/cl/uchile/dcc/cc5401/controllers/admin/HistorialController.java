@@ -94,7 +94,7 @@ public class HistorialController extends HttpServlet {
 	private List<HistorialDTO> quitarComentarios(UserDTO user, List<HistorialDTO> hts) {
 		
 		List<HistorialDTO> nuevaLista = new ArrayList<HistorialDTO>();
-		RolUsuario rolUsuario = RolUsuario.getValue(user.getIdRol());
+		RolUsuario rolUsuario = user.getRol();
 		RolUsuario rolHito;
 		
 		if (rolUsuario == RolUsuario.ASISTENTE || 
