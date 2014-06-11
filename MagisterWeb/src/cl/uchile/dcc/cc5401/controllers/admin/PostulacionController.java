@@ -1,4 +1,5 @@
 package cl.uchile.dcc.cc5401.controllers.admin;
+import cl.uchile.dcc.cc5401.util.RolUsuario;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -251,6 +252,15 @@ public class PostulacionController extends HttpServlet {
 				PostulanteDTO postulante = postulanteDAO.get(postulacion
 						.getIdPostulante());
 				List<HistorialDTO> historialPostulacionesResueltas = postulacionDAO.getHistorialPostulacionesResueltas(postulante.getIdentificacion());
+				
+				//Si no tiene permisos para ver los comentarios solo dejar la resolucion
+				RolUsuario rol = RolUsuario.getValue(user.getIdRol());
+				if ((rol == RolUsuario.ASISTENTE || rol == RolUsuario.JEFE_PEC) && null != historialPostulacionesResueltas)
+				{
+					HistorialDTO resolucionUltimaPostulacion = historialPostulacionesResueltas.get(0);
+					historialPostulacionesResueltas = new ArrayList<HistorialDTO>();
+					historialPostulacionesResueltas.add(resolucionUltimaPostulacion);
+				}
 				DatosEmpresaDTO datosEmpresa = datosEmpresaDAO.get(postulante
 						.getId());
 				FinanciamientoDTO financiamiento = financiamientoDAO
@@ -259,7 +269,10 @@ public class PostulacionController extends HttpServlet {
 						.get(postulante.getId());
 				List<ComentarioDTO> comentarios = comentarioDAO.get(id);
 				List<UserDTO> usuarios = new ArrayList<UserDTO>();
+				
+				
 
+				
 				// Caso en el que se involucran votos
 				if (request.getParameter("evaluacion") != null
 						|| request.getParameter("decision") != null
