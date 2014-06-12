@@ -78,12 +78,9 @@ public class PostulacionDAOImpl implements PostulacionDAO {
 	
 	private static final String SQL_RESUELTA = "SELECT p.*, po.* FROM postulacion p " +
 			"JOIN postulante po ON p.id_postulante = po.id " +
-			"JOIN identificacion i ON po.id_identificacion = i.id " +
-			"AND i.identificacion = ? ORDER BY fecha_ingreso DESC LIMIT 1 OFFSET 1";
+			"JOIN identificacion i ON po.id_identificacion = i.id WHERE p.id_estado = 7 " +
+			"AND i.identificacion = ? ORDER BY fecha_ingreso DESC LIMIT 1";
 	
-	// Cambiar el LIKE.Me interesa lo que se pide actualmente para sacar la fecha
-	//de rechazo/aceptacion, pero tb necesito los comentarios de votacion. Ojo que ahi va a salir directo quien hizo el comentario
-	//la accion la puedo sacar tal cual y el comentario lo puedo poner en italica
 	private static final String SQL_HISTORIAL_ID = "SELECT * FROM historial WHERE id_postulacion = ? AND " +
 			"(accion LIKE '%Postulación Rechazada%' OR accion LIKE '%Postulación Aceptada%' OR accion LIKE '%: Votación:%') ORDER BY id DESC";
 	
