@@ -205,7 +205,7 @@ public class PostulacionController extends HttpServlet {
 					nAsistente += esperaNotificacion.size();
 				}
 
-				if (user.getRol().equals("Coordinador")) {
+				if (user.getRol() == RolUsuario.COORDINADOR) {
 					int nPendientes = nCoordinador;
 					int nPendientesVoto = nComision;
 					// Caso en que ya haya votado
@@ -219,13 +219,13 @@ public class PostulacionController extends HttpServlet {
 					session.setAttribute("nPendientes", nPendientes);
 					session.setAttribute("nPendientesVoto", nPendientesVoto);
 				}
-				if (user.getRol().equals("Jefe del PEC")) {
+				if (user.getRol() == RolUsuario.JEFE_PEC) {
 					session.setAttribute("nPendientes", nJefePEC);
 				}
-				if (user.getRol().equals("Asistente")) {
+				if (user.getRol() == RolUsuario.ASISTENTE) {
 					session.setAttribute("nPendientes", nAsistente);
 				}
-				if (user.getRol().equals("Comisionado")) {
+				if (user.getRol() == RolUsuario.COMISIONADO) {
 					int nPendientes = nComision;
 					// Caso en que ya haya votado
 					for (PostulacionPostulante pp : evaluacion) {
@@ -242,121 +242,112 @@ public class PostulacionController extends HttpServlet {
 			request.setAttribute("postulaciones", "yes");
 			request.setAttribute("admin", "admin");
 			forward = LIST_POSTULACIONES;
+			
+		// Caso de vista particular de postulación
+		} else if (action.equalsIgnoreCase("revisar")) {
 
-		} else {
-			// Caso de vista particular de postulación
-			if (action.equalsIgnoreCase("revisar")) {
-
-				int id = Integer.parseInt(request.getParameter("id"));
-				PostulacionDTO postulacion = postulacionDAO.getPostulacion(id);
-				PostulanteDTO postulante = postulanteDAO.get(postulacion
-						.getIdPostulante());
-				List<HistorialDTO> historialPostulacionesResueltas = postulacionDAO.getHistorialPostulacionesResueltas(postulante.getIdentificacion());
-				
-				//Si no tiene permisos para ver los comentarios solo dejar la resolucion
-				RolUsuario rol = user.getRol();
-				if ((rol == RolUsuario.ASISTENTE || rol == RolUsuario.JEFE_PEC) && null != historialPostulacionesResueltas)
-				{
-					HistorialDTO resolucionUltimaPostulacion = historialPostulacionesResueltas.get(0);
-					historialPostulacionesResueltas = new ArrayList<HistorialDTO>();
-					historialPostulacionesResueltas.add(resolucionUltimaPostulacion);
-				}
-				DatosEmpresaDTO datosEmpresa = datosEmpresaDAO.get(postulante
-						.getId());
-				FinanciamientoDTO financiamiento = financiamientoDAO
-						.get(postulacion.getIdFinanciamiento());
-				List<GradoAcademicoDTO> gradosAcademicos = gradoAcademicoDAO
-						.get(postulante.getId());
-				List<ComentarioDTO> comentarios = comentarioDAO.get(id);
-				List<UserDTO> usuarios = new ArrayList<UserDTO>();
-				
-				
-
-				
-				// Caso en el que se involucran votos
-				if (request.getParameter("evaluacion") != null
-						|| request.getParameter("decision") != null
-						|| request.getParameter("espera_notificacion") != null
-						|| request.getParameter("resuelta") != null) {
-
-					List<Integer> comIds = userDAO.getComisionIds();
-					List<ComentarioDTO> comentariosVotos = new ArrayList<ComentarioDTO>();
-					List<VotoDTO> votos = new ArrayList<VotoDTO>();
-					List<UserDTO> usuariosVotos = new ArrayList<UserDTO>();
-					for (Integer i : comIds) {
-						VotoDTO voto = votoDAO.get(id, i);
-						votos.add(voto);
-						List<ComentarioDTO> cs = comentarioDAO.get(id, i);
-						if (cs != null)
-							comentariosVotos.add(cs.get(cs.size() - 1));
-						else
-							comentariosVotos.add(null);
-						usuariosVotos.add(userDAO.getUser(i));
-
-					}
-					if (votoDAO.get(id, user.getId()) != null) {
-						request.setAttribute("userVoto", true);
-					}
-					request.setAttribute("votos", votos);
-					request.setAttribute("usuariosVotos", usuariosVotos);
-					request.setAttribute("comentariosVotos", comentariosVotos);
-				}
-				// mostrar checkbox para marcar documento solo en revision y validacion 
-				if(request.getParameter("revision") != null || request.getParameter("validacion") != null) {
-					request.setAttribute("mostrarCheck", true);
-				}
-				if (comentarios != null) {
-					for (ComentarioDTO comentario : comentarios) {
-						usuarios.add(userDAO.getUser(comentario.getIdUsuario()));
-					}
-				}
-
-				if (request.getParameter("resuelta") != null
-						|| request.getParameter("espera_notificacion") != null) {
-					ResolucionDTO resolucion = resolucionDAO.get(id);
-					request.setAttribute("resolucion", resolucion);
-				}
-
-				request.setAttribute("docExtras", documentoDAO.getExtras(id));
-				request.setAttribute("CV",
-						documentoDAO.get(postulacion.getIdCV()));
-				request.setAttribute("CartaPresentacion",
-						documentoDAO.get(postulacion.getIdCartaPresentacion()));
-				request.setAttribute("Carta1",
-						documentoDAO.get(postulacion.getIdCarta1()));
-				request.setAttribute("Carta2",
-						documentoDAO.get(postulacion.getIdCarta2()));
-				List<DocumentoDTO> docGrados = new ArrayList<DocumentoDTO>();
-				for (int i = 0; i < gradosAcademicos.size(); i++) {
-					docGrados.add(documentoDAO.get(gradosAcademicos.get(i)
-							.getIdCertificadoNotas()));
-					docGrados.add(documentoDAO.get(gradosAcademicos.get(i)
-							.getIdCertificadoTitulo()));
-				}
-				
-				for (int i = 0; i < gradosAcademicos.size(); i++) {
-					docGrados.add(documentoDAO.get(gradosAcademicos.get(i)
-							.getIdCertificadoNotas()));
-					docGrados.add(documentoDAO.get(gradosAcademicos.get(i)
-							.getIdCertificadoTitulo()));
-				}
-
-				request.setAttribute("docGrados", docGrados);
-
-				request.setAttribute("postulacion", postulacion);
-				request.setAttribute("postulante", postulante);
-				request.setAttribute("datosEmpresa", datosEmpresa);
-				request.setAttribute("financiamiento", financiamiento);
-				request.setAttribute("gradosAcademicos", gradosAcademicos);
-				request.setAttribute("comentarios", comentarios);
-				request.setAttribute("usuarios", usuarios);
-				request.setAttribute("historialPostulacionesResueltas", historialPostulacionesResueltas);
-
-				if (request.getParameter("general") != null)
-					forward = POSTULACION_GENERAL_VIEW;
-				else
-					forward = POSTULACION_VIEW;
+			int id = Integer.parseInt(request.getParameter("id"));
+			PostulacionDTO postulacion = postulacionDAO.getPostulacion(id);
+			PostulanteDTO postulante = postulanteDAO.get(postulacion.getIdPostulante());
+			List<HistorialDTO> historialPostulacionesResueltas = postulacionDAO.getHistorialPostulacionesResueltas(postulante.getIdentificacion());
+			
+			//Si no tiene permisos para ver los comentarios solo dejar la resolucion
+			RolUsuario rol = user.getRol();
+			if ((rol == RolUsuario.ASISTENTE || rol == RolUsuario.JEFE_PEC) && null != historialPostulacionesResueltas)
+			{
+				HistorialDTO resolucionUltimaPostulacion = historialPostulacionesResueltas.get(0);
+				historialPostulacionesResueltas = new ArrayList<HistorialDTO>();
+				historialPostulacionesResueltas.add(resolucionUltimaPostulacion);
 			}
+			DatosEmpresaDTO datosEmpresa = datosEmpresaDAO.get(postulante.getId());
+			FinanciamientoDTO financiamiento = financiamientoDAO.get(postulacion.getIdFinanciamiento());
+			List<GradoAcademicoDTO> gradosAcademicos = gradoAcademicoDAO.get(postulante.getId());
+			List<ComentarioDTO> comentarios = comentarioDAO.get(id);
+			List<UserDTO> usuarios = new ArrayList<UserDTO>();
+			
+			// Caso en el que se involucran votos
+			if (request.getParameter("evaluacion") != null
+					|| request.getParameter("decision") != null
+					|| request.getParameter("espera_notificacion") != null
+					|| request.getParameter("resuelta") != null) {
+
+				List<Integer> comIds = userDAO.getComisionIds();
+				List<ComentarioDTO> comentariosVotos = new ArrayList<ComentarioDTO>();
+				List<VotoDTO> votos = new ArrayList<VotoDTO>();
+				List<UserDTO> usuariosVotos = new ArrayList<UserDTO>();
+				for (Integer i : comIds) {
+					VotoDTO voto = votoDAO.get(id, i);
+					votos.add(voto);
+					List<ComentarioDTO> cs = comentarioDAO.get(id, i);
+					if (cs != null)
+						comentariosVotos.add(cs.get(cs.size() - 1));
+					else
+						comentariosVotos.add(null);
+					usuariosVotos.add(userDAO.getUser(i));
+
+				}
+				if (votoDAO.get(id, user.getId()) != null) {
+					request.setAttribute("userVoto", true);
+				}
+				request.setAttribute("votos", votos);
+				request.setAttribute("usuariosVotos", usuariosVotos);
+				request.setAttribute("comentariosVotos", comentariosVotos);
+			}
+			// mostrar checkbox para marcar documento solo en revision y validacion 
+			if(request.getParameter("revision") != null || request.getParameter("validacion") != null) {
+				request.setAttribute("mostrarCheck", true);
+			}
+			if (comentarios != null) {
+				for (ComentarioDTO comentario : comentarios) {
+					usuarios.add(userDAO.getUser(comentario.getIdUsuario()));
+				}
+			}
+
+			if (request.getParameter("resuelta") != null
+					|| request.getParameter("espera_notificacion") != null) {
+				ResolucionDTO resolucion = resolucionDAO.get(id);
+				request.setAttribute("resolucion", resolucion);
+			}
+
+			request.setAttribute("docExtras", documentoDAO.getExtras(id));
+			request.setAttribute("CV",
+					documentoDAO.get(postulacion.getIdCV()));
+			request.setAttribute("CartaPresentacion",
+					documentoDAO.get(postulacion.getIdCartaPresentacion()));
+			request.setAttribute("Carta1",
+					documentoDAO.get(postulacion.getIdCarta1()));
+			request.setAttribute("Carta2",
+					documentoDAO.get(postulacion.getIdCarta2()));
+			List<DocumentoDTO> docGrados = new ArrayList<DocumentoDTO>();
+			for (int i = 0; i < gradosAcademicos.size(); i++) {
+				docGrados.add(documentoDAO.get(gradosAcademicos.get(i)
+						.getIdCertificadoNotas()));
+				docGrados.add(documentoDAO.get(gradosAcademicos.get(i)
+						.getIdCertificadoTitulo()));
+			}
+			
+			for (int i = 0; i < gradosAcademicos.size(); i++) {
+				docGrados.add(documentoDAO.get(gradosAcademicos.get(i)
+						.getIdCertificadoNotas()));
+				docGrados.add(documentoDAO.get(gradosAcademicos.get(i)
+						.getIdCertificadoTitulo()));
+			}
+
+			request.setAttribute("docGrados", docGrados);
+
+			request.setAttribute("postulacion", postulacion);
+			request.setAttribute("postulante", postulante);
+			request.setAttribute("datosEmpresa", datosEmpresa);
+			request.setAttribute("financiamiento", financiamiento);
+			request.setAttribute("gradosAcademicos", gradosAcademicos);
+			request.setAttribute("comentarios", comentarios);
+			request.setAttribute("usuarios", usuarios);
+			request.setAttribute("historialPostulacionesResueltas", historialPostulacionesResueltas);
+
+			if (request.getParameter("general") != null)
+				forward = POSTULACION_GENERAL_VIEW;
+			else
+				forward = POSTULACION_VIEW;
 		}
 
 		RequestDispatcher view = request.getRequestDispatcher(forward);
