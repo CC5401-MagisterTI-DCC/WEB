@@ -68,23 +68,25 @@
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach items="${usuarios }" var="usuario">
-										<c:if test='${!usuario.rol.equalsIgnoreCase("Administrador")}'>
+									<c:forEach items="${usuarios}" var="usuario">
+										<c:if test="${usuario.rol ne 'ADMINISTRADOR'}">
 											<tr>
-												<td>${usuario.username }</td>
-												<td>${usuario.email }</td>
-												<td>${usuario.rol }</td>
+												<td>${usuario.username}</td>
+												<td>${usuario.email}</td>
+												<td>${usuario.rol}</td>
 												<td>
 													<div id="acciones" class="btn-group"
 														style="text-align: center;">
-														<a
-															href="userAdmin?action=edit&username=${usuario.username}"
-															data-fancybox-type="iframe" class="btn fancy"><i
-															class="icon-edit"></i></a> <a
-															href="userAdmin?action=delete&username=${usuario.username}"
-															data-fancybox-type="iframe" class="btn btn-danger fancy"
-															${user.username.equals(usuario.username) ? 'style="visibility:hidden;"' : '' }><i
-															class="icon-trash icon-white"></i></a>
+														<a href="userAdmin?action=edit&username=${usuario.username}"
+															data-fancybox-type="iframe" class="btn fancy">
+															<i class="icon-edit"></i>
+														</a> 
+														<c:if test="${not user.username.equals(usuario.username)}">
+															<a href="userAdmin?action=delete&username=${usuario.username}"
+																data-fancybox-type="iframe" class="btn btn-danger fancy">
+																<i class="icon-trash icon-white"></i>
+															</a>
+														</c:if>
 													</div>
 												</td>
 											</tr>

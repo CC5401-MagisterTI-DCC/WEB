@@ -55,11 +55,10 @@ body {
 				<label class="control-label" for="rol">Rol:</label>
 				<div class="controls">
 					<select id="rol" name="rol" class="input-xlarge">
-						<option ${usuario.idRol==2 ? 'selected' : ''} value="2">Coordinador</option>
-						<option ${usuario.idRol==3 ? 'selected' : ''} value="3">Comisionado</option>
-						<option ${usuario.idRol==4 ? 'selected' : ''} value="4">Asistente</option>
-						<option ${usuario.idRol==5 ? 'selected' : ''} value="5">Jefe
-							del PEC</option>
+						<option ${usuario.rol=='COORDINADOR' ? 'selected' : ''} value="2">Coordinador</option>
+						<option ${usuario.rol=='COMISIONADO' ? 'selected' : ''} value="3">Comisionado</option>
+						<option ${usuario.rol=='ASISTENTE' ? 'selected' : ''} value="4">Asistente</option>
+						<option ${usuario.rol=='JEFE_PEC' ? 'selected' : ''} value="5">Jefe del PEC</option>
 					</select>
 				</div>
 			</div>
