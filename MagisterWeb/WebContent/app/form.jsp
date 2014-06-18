@@ -97,7 +97,7 @@
 									<div class="controls">
 										<input id="nombre" name="nombre" type="text"
 											placeholder="Ingrese su(s) nombre(s)" class="input-xlarge"
-											required="">
+											required>
 
 									</div>
 								</div>
@@ -111,7 +111,7 @@
 									<div class="controls">
 										<input id="apellido" name="apellido" type="text"
 											placeholder="Ingrese su(s) apellido(s)" class=" input-xlarge"
-											required="">
+											required>
 
 									</div>
 								</div>
@@ -165,8 +165,7 @@
 									<div class="control-group">
 										<label class="control-label" for="nacionalidadPasaporte">Pais:</label>
 										<div class="controls">
-											<select id="nacionalidadPasaporte"
-												name="nacionalidadPasaporte" class="input-xlarge">
+											<select id="nacionalidadPasaporte" name="nacionalidadPasaporte" class="input-xlarge">
 												<c:forEach var="pais" items="${paises}">
 													<option value="${pais.id}">${pais.nombre}</option>
 												</c:forEach>
@@ -181,10 +180,9 @@
 								<div class="control-group">
 									<label class="control-label" for="nacionalidad">Nacionalidad:</label>
 									<div class="controls">
-										<select id="nacionalidad" name="nacionalidad"
-											class="input-xlarge">
+										<select id="nacionalidad" name="nacionalidad" class="input-xlarge">
 											<c:forEach var="pais" items="${paises}">
-												<option value="${pais.id}">${pais.nombre}</option>
+												<option value="${pais.id}" ${pais.nombre=='Chile' ? 'Selected':''}>${pais.nombre}</option>
 											</c:forEach>
 										</select>
 									</div>
@@ -212,9 +210,7 @@
 										style="color: rgb(185, 74, 72);">*</a>:
 									</label>
 									<div class="controls">
-										<input id="fecha_nac" name="fecha_nac" class="datepicker"
-											type="text" required="">
-
+										<input id="fecha_nac" name="fecha_nac" type="text" required placeholder="dd/mm/aaaa">
 									</div>
 								</div>
 							</div>
@@ -233,7 +229,7 @@
 									<div class="controls">
 										<input type="text" id="emailfield"
 											placeholder="Ej: nombre@dominio.com" name="emailfield"
-											class="email" required="">
+											class="email" required>
 									</div>
 
 								</div>
@@ -260,7 +256,7 @@
 									<div class="controls">
 										<input type="text" id="telefono_p"
 											placeholder="Ej: +56999988877" name="telefono_p"
-											class="input-xlarge" required="">
+											class="input-xlarge" required>
 									</div>
 								</div>
 
@@ -280,7 +276,7 @@
 									<div class="controls">
 										<select id="residencia" name="residencia" class="input-xlarge">
 											<c:forEach var="pais" items="${paises}">
-												<option value="${pais.id}">${pais.nombre}</option>
+												<option value="${pais.id}" ${pais.nombre=='Chile' ? 'Selected':''}>${pais.nombre}</option>
 											</c:forEach>
 										</select>
 									</div>
@@ -293,8 +289,8 @@
 										title="(*) = Obligatorio" style="color: rgb(185, 74, 72);">*</a>:
 									</label>
 									<div class="controls">
-										<textarea id="direccion" name="direccion" class="" required=""
-											placeholder="Ingrese su dirección en su pais de residencia"></textarea>
+										<textarea id="direccion" name="direccion"
+											placeholder="Ingrese su dirección en su pais de residencia" required></textarea>
 									</div>
 								</div>
 							</div>
@@ -324,7 +320,7 @@
 											</label>
 											<div class="controls">
 												<textarea id="grado" name="grado" class=""
-													placeholder="Ingrese su grado académico" required=""></textarea>
+													placeholder="Ingrese su grado académico" required></textarea>
 											</div>
 										</div>
 	
@@ -337,7 +333,7 @@
 											<div class="controls">
 												<textarea id="institucion" name="institucion" class=" "
 													placeholder="Ingrese la institución de la cual obtuvo el grado académico"
-													required=""></textarea>
+													required></textarea>
 											</div>
 										</div>
 	
@@ -349,9 +345,7 @@
 												style="color: rgb(185, 74, 72);">*</a>:
 											</label>
 											<div class="controls">
-												<input id="fecha_ob" name="fecha_ob" class="datepicker"
-													type="text" required="">
-	
+												<input id="fecha_ob" name="fecha_ob" type="text" placeholder="dd/mm/aaaa" required>	
 											</div>
 										</div>
 	
@@ -366,7 +360,7 @@
 												<select id="pais_grado" name="pais_grado"
 													class="input-xlarge">
 													<c:forEach var="pais" items="${paises}">
-														<option value="${pais.id}">${pais.nombre}</option>
+														<option value="${pais.id}" ${pais.nombre=='Chile' ? 'Selected':''}>${pais.nombre}</option>
 													</c:forEach>
 												</select>
 											</div>
@@ -381,7 +375,7 @@
 											</label>
 											<div class="controls">
 												<input id="cert_titulo" name="cert_titulo"
-													class="  input-file" type="file" required="">
+													class="  input-file" type="file" required>
 											</div>
 										</div>
 	
@@ -394,7 +388,7 @@
 											</label>
 											<div class="controls">
 												<input id="cert_notas" name="cert_notas" class="  input-file"
-													type="file" required="">
+													type="file" required>
 											</div>
 										</div>
 									</div>
@@ -533,7 +527,7 @@
 									</label>
 									<div class="controls">
 										<input id="cv" name="cv" class="input-file" type="file"
-											required="">
+											required>
 									</div>
 								</div>
 
@@ -546,7 +540,7 @@
 									</label>
 									<div class="controls">
 										<input id="carta_pres" name="carta_pres" class="input-file"
-											type="file" required="">
+											type="file" required>
 									</div>
 								</div>
 
@@ -559,7 +553,7 @@
 									</label>
 									<div class="controls">
 										<input id="carta_rec_1" name="carta_rec_1"
-											class="  input-file" type="file" required="">
+											class="  input-file" type="file" required>
 									</div>
 								</div>
 
@@ -572,7 +566,7 @@
 									</label>
 									<div class="controls">
 										<input id="carta_rec_2" name="carta_rec_2" class="input-file"
-											type="file" required="">
+											type="file" required>
 									</div>
 								</div>
 							</div>
@@ -592,80 +586,81 @@
 									<div class="span6">
 										<div id="rut-resumen-div">
 											<address>
-												<strong>Rut:</strong><br> <span id="rut_resumen"></span>
+												<strong>Rut:</strong><br> 
+												<span id="rut_resumen"></span>
 											</address>
 										</div>
 
 										<div id="pasaporte-resumen-div">
 											<address>
-												<strong>Pasaporte:</strong><br> <span
-													id="pasaporte_resumen"></span><br> <span
-													id="nacionalidad_pasaporte_resumen"></span>
+												<strong>Pasaporte:</strong><br> 
+												<span id="pasaporte_resumen"></span><br> 
+												<span id="nacionalidad_pasaporte_resumen"></span>
 											</address>
-
 										</div>
 
 										<address>
-											<strong>Nombre:</strong><br> <span id="nombre_resumen"></span><br>
+											<strong>Nombre:</strong><br> 
+											<span id="nombre_resumen"></span><br>
 											<span id="apellido_resumen"></span>
 										</address>
+										
 										<address>
-											<strong>Género:</strong><br> <span id="genero_resumen"></span>
+											<strong>Género:</strong><br> 
+											<span id="genero_resumen"></span>
 										</address>
+										
 										<address>
-											<strong>Fecha de Nacimiento:</strong><br> <span
-												id="fecha_nac_resumen"></span>
-										</address>
-
-										<address>
-											<strong>Nacionalidad:</strong><br> <span
-												id="nacionalidad_resumen"></span>
+											<strong>Fecha de Nacimiento:</strong><br> 
+											<span id="fecha_nac_resumen"></span>
 										</address>
 
 										<address>
-											<strong>E-mail:</strong><br> <span id="email_resumen"></span>
+											<strong>Nacionalidad:</strong><br> 
+											<span id="nacionalidad_resumen"></span>
 										</address>
 
 										<address>
-											<strong>Teléfono de Contacto:</strong><br> <span
-												id="fono_resumen"></span>
+											<strong>E-mail:</strong><br> 
+											<span id="email_resumen"></span>
+										</address>
+
+										<address>
+											<strong>Teléfono de Contacto:</strong><br> 
+											<span id="fono_resumen"></span>
 										</address>
 									</div>
 									<div class="span6">
 										<address>
-											<strong>Dirección:</strong><br> <span
-												id="direccion_p_resumen"></span><br> <span
-												id="residencia_resumen"></span>
+											<strong>Dirección:</strong><br> 
+											<span id="direccion_p_resumen"></span><br> 
+											<span id="residencia_resumen"></span>
 										</address>
 
 										<address>
-											<strong>Empresa:</strong><br> <span
-												id="empresa_actual_resumen"></span><br> <span
-												id="cargo_resumen"></span> <span
-												id="direccion_empresa_resumen"></span> <span
-												id="fono_empresa_resumen"></span>
+											<strong>Empresa:</strong><br> 
+											<span id="empresa_actual_resumen"></span><br> 
+											<span id="cargo_resumen"></span> 
+											<span id="direccion_empresa_resumen"></span> 
+											<span id="fono_empresa_resumen"></span>
 										</address>
 
 										<address>
-											<strong>Financiamiento:</strong><br> <span
-												id="financiamiento_resumen"></span>
+											<strong>Financiamiento:</strong><br> 
+											<span id="financiamiento_resumen"></span>
 										</address>
 
 										<address>
-											<strong>Grados Académicos:</strong><br> <span
-												id="grado_resumen"></span><br> <span
-												id="institucion_resumen"></span><br> <span
-												id="pais_grado_resumen"></span><br> <span
-												id="fecha_ob_resumen"></span><br> <br>
+											<strong>Grados Académicos:</strong><br> 
+											<span id="grado_resumen"></span><br> 
+											<span id="institucion_resumen"></span><br> 
+											<span id="pais_grado_resumen"></span><br> 
+											<span id="fecha_ob_resumen"></span><br> <br>
 											<div id="grados"></div>
 										</address>
 									</div>
 								</div>
-
-
 							</div>
-
-
 						</div>
 
 						<div class="tab-pane" id="tab8">
@@ -673,21 +668,16 @@
 
 								<pre>Para completar su postulación al curso	de Magíster en TI del Departamente de Ciencias de la Computación de la Universidad de Chile 
 debe aceptar los términos y condiciones relacionadas a la entrega de información privada.</pre>
-								<label class="checkbox"> <input id="checkbox"
-									name="checkbox" type="checkbox" required=""> Acepto los
-									términos y condiciones
+								<label class="checkbox"> 
+									<input id="checkbox" name="checkbox" type="checkbox" required /> 
+									Acepto los términos y condiciones
 								</label>
 
 								<div style="text-align: center;">
 								<input type="submit" value="Enviar Formulario", id="submit_button" class="btn btn-primary btn-large center">
 								</div>
-
 							</div>
-
-
 						</div>
-
-
 					</div>
 				</div>
 			</form>
@@ -698,14 +688,10 @@ debe aceptar los términos y condiciones relacionadas a la entrega de informaci�
 	<!-- Scripts -->
 	<script src="../js/jquery.js"></script>
 	<script src="../js/jquery.validate.js"></script>
-	<script src="../js/bootstrap.js" type="text/javascript"></script>
-	<script src="../js/bootstrap-datepicker.js" type="text/javascript"></script>
-	<script src="../js/locales/bootstrap-datepicker.es.js"
-		type="text/javascript"></script>
-	<script src="../js/bootstrap-tooltip.js" type="text/javascript"></script>
-	<script src="../js/jquery.bootstrap.wizard.min.js"
-		type="text/javascript"></script>
-	<script src="../js/form.js" type="text/javascript"></script>
+	<script src="../js/bootstrap.js"></script>
+	<script src="../js/bootstrap-tooltip.js"></script>
+	<script src="../js/jquery.bootstrap.wizard.min.js"></script>
+	<script src="../js/form.js"></script>
 
 </body>
 </html>

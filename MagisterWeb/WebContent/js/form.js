@@ -1,5 +1,13 @@
 $(document).ready(function() {
 
+	//previene que se envie el formulario cuando se presiona la tecla enter.
+	$(window).keydown(function(event){
+		if(event.keyCode == 13) {
+			event.preventDefault();
+			return false;
+	    }
+	});
+		
 	$.validator.addMethod("validName", function(value, element) { 
 		var exp1 = new RegExp("[\\wáéíóúÁÉÍÓÚÑñ]+[\\s[\\wáéíóúÁÉÍÓÚÑñ]+]*");
 		var exec1 = exp1.exec(value);
@@ -118,7 +126,7 @@ $(document).ready(function() {
 					validName: "Por favor ingrese un(os) apellido(s) válido(s)",
 				},
 				telefono_p:{
-					validPhone: "Ingrese un telefono válido",
+					validPhone: "Ingrese un teléfono válido",
 				},
 				celular_p:{
 					validPhoneOpt: "Ingrese un celular válido", 
@@ -262,42 +270,36 @@ $(document).ready(function() {
 			validFile: true
 		});
 		
-		$('.datepicker').datepicker({
-			format: "dd/mm/yyyy",
-			weekStart: 1,
-		    language: "es",
-		    orientation: "bottom auto",
-		    autoclose: true,
-		    todayHighlight: true
-		});
 		i++;
 	});
-
-
-
+	
 	$('#rootwizard').bootstrapWizard({
 		'tabClass': 'nav nav-pills',
 		'nextSelector': '.button-next', 
 		'previousSelector': '.button-previous',
 		'onNext': function(tab, navigation, index) {
-			var $valid = $("#postulacionForm").valid();
-			if(!$valid) {
+			var valid = $("#postulacionForm").valid();
+			if(!valid) {
 				$validator.focusInvalid();
 				return false;
 			}
-
+			// pinta el numero de verde para indicar que esa etapa esta completa
+			tab.children().children().attr("class", "label label-success");
 		},
 		'onTabClick': function(tab, navigation, index) {
-			return false;
+			return true;
+		},
+		'onTabChange': function(tab, navigation, index) {
+			return true;
 		},
 		'onTabShow' : function(tab, navigation, index) {
+			
 			var $total = navigation.find('li').length;
 			var $current = index + 1;
 			var $percent = ($current / $total) * 100;
 			$('#rootwizard').find('.bar').css({
 				width : $percent + '%'
 			});
-
 		}
 	});	
 	
@@ -324,10 +326,7 @@ $(document).ready(function() {
 		}
 	});	
 
-
-
 	$("#tipoDoc").change(function(){
-
 
 		if($(this).val() == "rut"){
 			$("#pasaporte-div").slideUp();
@@ -360,13 +359,13 @@ $(document).ready(function() {
 
 	});
 
+	// para cuando se carga la ventana con datos ya ingresados (ej. edición).
 	if ($("#tipoDoc option:selected").text()==='RUT') {
 		$("#rut-div").show();
 		$("#rut-resumen-div").show();		
 		$("#pasaporte-div").hide();
 		$("#pasaporte-resumen-div").hide();
-	} else if ($("#tipoDoc option:selected").text()==='Pasaporte') {	
-		console.log("sadasd");
+	} else if ($("#tipoDoc option:selected").text()==='Pasaporte') {			
 		$("#pasaporte-div").show();
 		$("#pasaporte-resumen-div").show();
 		$("#rut-div").hide();
@@ -476,16 +475,6 @@ $(document).ready(function() {
 		var value = $(this).val();
 		$("#financiamiento_resumen").text(value);
 	}).mouseup();
-
-	$('.datepicker').datepicker({
-		format: "dd/mm/yyyy",
-		weekStart: 1,
-		startView: 1,
-	    language: "es",
-	    orientation: "bottom auto",
-	    autoclose: true,
-	    todayHighlight: true
-	});
 		
 	$("#grado").change(function(){
 		var value = $(this).val();
