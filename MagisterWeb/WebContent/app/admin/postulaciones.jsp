@@ -89,44 +89,46 @@
 				<div class="block">
 					<div class="navbar navbar-inner block-header">
 						<ul class="nav">
-							<li class="active"><a href="#revision" data-toggle="tab">Revisión
-									<c:choose>
-										<c:when test='${user.rol.equals("Asistente")}'>
-											<span
-												${postulacionesRevision.size()>0 ? 'class="badge badge-warning"' : 'class="badge badge-success"'}>${postulacionesRevision.size()}</span>
-										</c:when>
-										<c:otherwise>
-											<span class="badge badge-info">${postulacionesRevision.size()}</span>
-										</c:otherwise>
-									</c:choose>
-							</a></li>
-							<li><a href="#validacion" data-toggle="tab">Validación <c:choose>
-										<c:when test='${user.rol.equals("Jefe del PEC")}'>
-											<span
-												${postulacionesValidacion.size()>0 ? 'class="badge badge-warning"' : 'class="badge badge-success"'}>${postulacionesValidacion.size()}</span>
-										</c:when>
-										<c:otherwise>
-											<span class="badge badge-info">${postulacionesValidacion.size()}</span>
-										</c:otherwise>
-									</c:choose>
-							</a></li>
-							<li><a href="#consideracion" data-toggle="tab">Consideración
-									<c:choose>
-										<c:when test='${user.rol.equals("Coordinador")}'>
-											<span
-												${postulacionesConsideracion.size()>0 ? 'class="badge badge-warning"' : 'class="badge badge-success"'}>${postulacionesConsideracion.size()}</span>
-										</c:when>
-										<c:otherwise>
-											<span class="badge badge-info">${postulacionesConsideracion.size()}</span>
-										</c:otherwise>
-									</c:choose>
-							</a></li>
+							<c:if test='${user.rol ne "COMISIONADO"}'>
+								<li class="active"><a href="#revision" data-toggle="tab">Revisión
+										<c:choose>
+											<c:when test='${user.rol eq "ASISTENTE"}'>
+												<span
+													${postulacionesRevision.size()>0 ? 'class="badge badge-warning"' : 'class="badge badge-success"'}>${postulacionesRevision.size()}</span>
+											</c:when>
+											<c:otherwise>
+												<span class="badge badge-info">${postulacionesRevision.size()}</span>
+											</c:otherwise>
+										</c:choose>
+								</a></li>
+								<li><a href="#validacion" data-toggle="tab">Validación <c:choose>
+											<c:when test='${user.rol eq "JEFE_PEC"}'>
+												<span
+													${postulacionesValidacion.size()>0 ? 'class="badge badge-warning"' : 'class="badge badge-success"'}>${postulacionesValidacion.size()}</span>
+											</c:when>
+											<c:otherwise>
+												<span class="badge badge-info">${postulacionesValidacion.size()}</span>
+											</c:otherwise>
+										</c:choose>
+								</a></li>
+								<li><a href="#consideracion" data-toggle="tab">Consideración
+										<c:choose>
+											<c:when test='${user.rol eq "COORDINADOR"}'>
+												<span
+													${postulacionesConsideracion.size()>0 ? 'class="badge badge-warning"' : 'class="badge badge-success"'}>${postulacionesConsideracion.size()}</span>
+											</c:when>
+											<c:otherwise>
+												<span class="badge badge-info">${postulacionesConsideracion.size()}</span>
+											</c:otherwise>
+										</c:choose>
+								</a></li>
+							</c:if>
 							<li><a href="#evaluacion" data-toggle="tab">Evaluación <c:choose>
-										<c:when test='${user.rol.equals("Comisionado")}'>
+										<c:when test='${user.rol eq "COMISIONADO"}'>
 											<span
 												${nPendientes>0 ? 'class="badge badge-warning"' : 'class="badge badge-success"'}>${nPendientes}/${postulacionesEvaluacion.size()}</span>
 										</c:when>
-										<c:when test='${user.rol.equals("Coordinador")}'>
+										<c:when test='${user.rol eq "COORDINADOR"}'>
 											<span
 												${nPendientesVoto>0 ? 'class="badge badge-warning"' : 'class="badge badge-success"'}>${nPendientesVoto}/${postulacionesEvaluacion.size()}</span>
 										</c:when>
@@ -136,7 +138,7 @@
 									</c:choose>
 							</a></li>
 							<li><a href="#decision" data-toggle="tab">Decisión <c:choose>
-										<c:when test='${user.rol.equals("Coordinador")}'>
+										<c:when test='${user.rol eq "COORDINADOR"}'>
 											<span
 												${postulacionesDecision.size()>0 ? 'class="badge badge-warning"' : 'class="badge badge-success"'}>${postulacionesDecision.size()}</span>
 										</c:when>
@@ -147,7 +149,7 @@
 							</a></li>
 							<li><a href="#espera_notificacion" data-toggle="tab">Espera
 									<c:choose>
-										<c:when test='${user.rol.equals("Asistente")}'>
+										<c:when test='${user.rol eq "ASISTENTE"}'>
 											<span
 												${postulacionesEspera.size()>0 ? 'class="badge badge-warning"' : 'class="badge badge-success"'}>${postulacionesEspera.size()}</span>
 										</c:when>
@@ -166,190 +168,189 @@
 
 
 						<div class="tab-content">
-							<!-- block -->
-							<div class="tab-pane active" id="revision">
-								<table cellpadding="0" cellspacing="0" border="0"
-									class="table table-striped table-hover table-bordered"
-									id="revisionTable"
-									style="background-color: rgb(255, 255, 255);">
-									<thead>
-										<tr>
-											<th>Identificación</th>
-											<th>Fecha de Inicio</th>
-											<th>Nombre de Postulante</th>
-											<th>Acciones</th>
-										</tr>
-									</thead>
-									<tbody>
-										<c:forEach var="postulacionPostulante"
-											items="${postulacionesRevision}">
-											<c:set var="postulacion"
-												value="${postulacionPostulante.postulacion}"></c:set>
-											<c:set var="postulante"
-												value="${postulacionPostulante.postulante}"></c:set>
-
+							<c:if test='${user.rol ne "COMISIONADO"}'>
+								<!-- block -->
+								<div class="tab-pane active" id="revision">
+									<table cellpadding="0" cellspacing="0" border="0"
+										class="table table-striped table-hover table-bordered"
+										id="revisionTable"
+										style="background-color: rgb(255, 255, 255);">
+										<thead>
 											<tr>
-												<td>${postulante.identificacion.identificacion}</td>
-												<td><fmt:formatDate type="date" pattern="dd/MM/yyyy"
-														value="${postulacion.fechaIngreso }" /></td>
-												<td><a
-													href="postulante?id=${postulacion.idPostulante }"
-													class="fancy" data-fancybox-type="iframe">${postulacion.nombrePostulante
-														}</a></td>
-												<td style="text-align: center;">
-
-													<div id="acciones" class="btn-group">
-														<a href="historial?idPostulacion=${postulacion.id}"
-															class="btn fancy" data-fancybox-type="iframe"
-															data-placement="bottom" data-toggle="tooltip"
-															data-original-title="Historial Particular"> <i
-															class="icon-time"></i>
-														</a> <a
-															href="${root}/app/admin/edit?id=${postulacion.id }"
-															class="btn" data-placement="bottom" data-toggle="tooltip"
-															data-original-title="Editar Postulación"> <i
-															class="icon-edit"></i>
-														</a> <a
-															href="postulaciones?action=revisar&id=${postulacion.id}&revision=true"
-															class="btn btn-primary fancyPostulacion"
-															data-fancybox-type="iframe" data-placement="bottom"
-															data-toggle="tooltip"
-															data-original-title="Ver Postulación"> <i
-															class="icon-eye-open icon-white"></i>
-														</a>
-													</div>
-
-												</td>
+												<th>Identificación</th>
+												<th>Fecha de Inicio</th>
+												<th>Nombre de Postulante</th>
+												<th>Acciones</th>
 											</tr>
-										</c:forEach>
-									</tbody>
-								</table>
-							</div>
-							<!-- /block -->
-
-							<!-- block -->
-							<div class="tab-pane" id="validacion">
-								<table cellpadding="0" cellspacing="0" border="0"
-									class="table table-striped table-hover table-bordered"
-									id="validacionTable">
-									<thead>
-										<tr>
-											<th>Identificación</th>
-											<th>Fecha de Inicio</th>
-											<th>Nombre de Postulante</th>
-											<th>Acciones</th>
-										</tr>
-									</thead>
-									<tbody>
-										<c:forEach var="postulacionPostulante"
-											items="${postulacionesValidacion}">
-											<c:set var="postulacion"
-												value="${postulacionPostulante.postulacion}"></c:set>
-											<c:set var="postulante"
-												value="${postulacionPostulante.postulante}"></c:set>
-
+										</thead>
+										<tbody>
+											<c:forEach var="postulacionPostulante"
+												items="${postulacionesRevision}">
+												<c:set var="postulacion"
+													value="${postulacionPostulante.postulacion}"></c:set>
+												<c:set var="postulante"
+													value="${postulacionPostulante.postulante}"></c:set>
+	
+												<tr>
+													<td>${postulante.identificacion.identificacion}</td>
+													<td><fmt:formatDate type="date" pattern="dd/MM/yyyy"
+															value="${postulacion.fechaIngreso }" /></td>
+													<td><a
+														href="postulante?id=${postulacion.idPostulante }"
+														class="fancy" data-fancybox-type="iframe">${postulacion.nombrePostulante
+															}</a></td>
+													<td style="text-align: center;">
+	
+														<div id="acciones" class="btn-group">
+															<a href="historial?idPostulacion=${postulacion.id}"
+																class="btn fancy" data-fancybox-type="iframe"
+																data-placement="bottom" data-toggle="tooltip"
+																data-original-title="Historial Particular"> <i
+																class="icon-time"></i>
+															</a> <a
+																href="${root}/app/admin/edit?id=${postulacion.id }"
+																class="btn" data-placement="bottom" data-toggle="tooltip"
+																data-original-title="Editar Postulación"> <i
+																class="icon-edit"></i>
+															</a> <a
+																href="postulaciones?action=revisar&id=${postulacion.id}&revision=true"
+																class="btn btn-primary fancyPostulacion"
+																data-fancybox-type="iframe" data-placement="bottom"
+																data-toggle="tooltip"
+																data-original-title="Ver Postulación"> <i
+																class="icon-eye-open icon-white"></i>
+															</a>
+														</div>
+	
+													</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+								<!-- /block -->
+	
+								<!-- block -->
+								<div class="tab-pane" id="validacion">
+									<table cellpadding="0" cellspacing="0" border="0"
+										class="table table-striped table-hover table-bordered"
+										id="validacionTable">
+										<thead>
 											<tr>
-												<td>${postulante.identificacion.identificacion }</td>
-												<td><fmt:formatDate type="date" pattern="dd/MM/yyyy"
-														value="${postulacion.fechaIngreso }" /></td>
-												<td><a
-													href="postulante?id=${postulacion.idPostulante }"
-													class="fancy" data-fancybox-type="iframe">${postulacion.nombrePostulante
-														}</a></td>
-												<td style="text-align: center;">
-
-													<div id="acciones" class="btn-group">
-														<a href="historial?idPostulacion=${postulacion.id}"
-															class="btn fancy" data-fancybox-type="iframe"
-															data-placement="bottom" data-toggle="tooltip"
-															data-original-title="Historial Particular"> <i
-															class="icon-time"></i>
-														</a> <a
-															href="${root}/app/admin/edit?id=${postulacion.id }"
-															class="btn" data-placement="bottom" data-toggle="tooltip"
-															data-original-title="Editar Postulación"> <i
-															class="icon-edit"></i>
-														</a> <a
-															href="postulaciones?action=revisar&id=${postulacion.id}&validacion=true"
-															class="btn btn-primary fancyPostulacion"
-															data-fancybox-type="iframe" data-placement="bottom"
-															data-toggle="tooltip"
-															data-original-title="Ver Postulación"> <i
-															class="icon-eye-open icon-white"></i>
-														</a>
-													</div>
-
-												</td>
+												<th>Identificación</th>
+												<th>Fecha de Inicio</th>
+												<th>Nombre de Postulante</th>
+												<th>Acciones</th>
 											</tr>
-
-
-
-										</c:forEach>
-									</tbody>
-								</table>
-							</div>
-							<!-- /block -->
-
-							<!-- block -->
-							<div class="tab-pane" id="consideracion">
-								<table cellpadding="0" cellspacing="0" border="0"
-									class="table table-striped table-hover table-bordered"
-									id="consideracionTable">
-									<thead>
-										<tr>
-											<th>Identificación</th>
-											<th>Fecha de Inicio</th>
-											<th>Nombre de Postulante</th>
-											<th>Acciones</th>
-										</tr>
-									</thead>
-									<tbody>
-										<c:forEach var="postulacionPostulante"
-											items="${postulacionesConsideracion}">
-											<c:set var="postulacion"
-												value="${postulacionPostulante.postulacion}"></c:set>
-											<c:set var="postulante"
-												value="${postulacionPostulante.postulante}"></c:set>
-
+										</thead>
+										<tbody>
+											<c:forEach var="postulacionPostulante"
+												items="${postulacionesValidacion}">
+												<c:set var="postulacion"
+													value="${postulacionPostulante.postulacion}"></c:set>
+												<c:set var="postulante"
+													value="${postulacionPostulante.postulante}"></c:set>
+	
+												<tr>
+													<td>${postulante.identificacion.identificacion }</td>
+													<td><fmt:formatDate type="date" pattern="dd/MM/yyyy"
+															value="${postulacion.fechaIngreso }" /></td>
+													<td><a
+														href="postulante?id=${postulacion.idPostulante }"
+														class="fancy" data-fancybox-type="iframe">${postulacion.nombrePostulante
+															}</a></td>
+													<td style="text-align: center;">
+	
+														<div id="acciones" class="btn-group">
+															<a href="historial?idPostulacion=${postulacion.id}"
+																class="btn fancy" data-fancybox-type="iframe"
+																data-placement="bottom" data-toggle="tooltip"
+																data-original-title="Historial Particular"> <i
+																class="icon-time"></i>
+															</a> <a
+																href="${root}/app/admin/edit?id=${postulacion.id }"
+																class="btn" data-placement="bottom" data-toggle="tooltip"
+																data-original-title="Editar Postulación"> <i
+																class="icon-edit"></i>
+															</a> <a
+																href="postulaciones?action=revisar&id=${postulacion.id}&validacion=true"
+																class="btn btn-primary fancyPostulacion"
+																data-fancybox-type="iframe" data-placement="bottom"
+																data-toggle="tooltip"
+																data-original-title="Ver Postulación"> <i
+																class="icon-eye-open icon-white"></i>
+															</a>
+														</div>
+	
+													</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+								<!-- /block -->							
+							
+								<!-- block -->
+								<div class="tab-pane" id="consideracion">
+									<table cellpadding="0" cellspacing="0" border="0"
+										class="table table-striped table-hover table-bordered"
+										id="consideracionTable">
+										<thead>
 											<tr>
-												<td>${postulante.identificacion.identificacion }</td>
-												<td><fmt:formatDate type="date" pattern="dd/MM/yyyy"
-														value="${postulacion.fechaIngreso }" /></td>
-												<td><a
-													href="postulante?id=${postulacion.idPostulante }"
-													class="fancy" data-fancybox-type="iframe">${postulacion.nombrePostulante
-														}</a></td>
-												<td style="text-align: center;">
-
-													<div id="acciones" class="btn-group">
-														<a href="historial?idPostulacion=${postulacion.id}"
-															class="btn fancy" data-fancybox-type="iframe"
-															data-placement="bottom" data-toggle="tooltip"
-															data-original-title="Historial Particular"> <i
-															class="icon-time"></i>
-														</a> <a
-															href="${root}/app/admin/edit?id=${postulacion.id }"
-															class="btn" data-placement="bottom" data-toggle="tooltip"
-															data-original-title="Editar Postulación"> <i
-															class="icon-edit"></i>
-														</a> <a
-															href="postulaciones?action=revisar&id=${postulacion.id}&consideracion=true"
-															class="btn btn-primary fancyPostulacion"
-															data-fancybox-type="iframe" data-placement="bottom"
-															data-toggle="tooltip"
-															data-original-title="Ver Postulación"> <i
-															class="icon-eye-open icon-white"></i>
-														</a>
-													</div>
-
-												</td>
+												<th>Identificación</th>
+												<th>Fecha de Inicio</th>
+												<th>Nombre de Postulante</th>
+												<th>Acciones</th>
 											</tr>
-										</c:forEach>
-									</tbody>
-								</table>
-							</div>
-							<!-- /block -->
-
+										</thead>
+										<tbody>
+											<c:forEach var="postulacionPostulante"
+												items="${postulacionesConsideracion}">
+												<c:set var="postulacion"
+													value="${postulacionPostulante.postulacion}"></c:set>
+												<c:set var="postulante"
+													value="${postulacionPostulante.postulante}"></c:set>
+	
+												<tr>
+													<td>${postulante.identificacion.identificacion }</td>
+													<td><fmt:formatDate type="date" pattern="dd/MM/yyyy"
+															value="${postulacion.fechaIngreso }" /></td>
+													<td><a
+														href="postulante?id=${postulacion.idPostulante }"
+														class="fancy" data-fancybox-type="iframe">${postulacion.nombrePostulante
+															}</a></td>
+													<td style="text-align: center;">
+	
+														<div id="acciones" class="btn-group">
+															<a href="historial?idPostulacion=${postulacion.id}"
+																class="btn fancy" data-fancybox-type="iframe"
+																data-placement="bottom" data-toggle="tooltip"
+																data-original-title="Historial Particular"> <i
+																class="icon-time"></i>
+															</a> <a
+																href="${root}/app/admin/edit?id=${postulacion.id }"
+																class="btn" data-placement="bottom" data-toggle="tooltip"
+																data-original-title="Editar Postulación"> <i
+																class="icon-edit"></i>
+															</a> <a
+																href="postulaciones?action=revisar&id=${postulacion.id}&consideracion=true"
+																class="btn btn-primary fancyPostulacion"
+																data-fancybox-type="iframe" data-placement="bottom"
+																data-toggle="tooltip"
+																data-original-title="Ver Postulación"> <i
+																class="icon-eye-open icon-white"></i>
+															</a>
+														</div>
+	
+													</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+								<!-- /block -->
+							</c:if>
+							
 							<!-- block -->
 							<div class="tab-pane" id="evaluacion">
 								<table cellpadding="0" cellspacing="0" border="0"
@@ -399,12 +400,15 @@
 															data-placement="bottom" data-toggle="tooltip"
 															data-original-title="Historial Particular"> <i
 															class="icon-time"></i>
-														</a> <a
-															href="${root}/app/admin/edit?id=${postulacion.id }"
-															class="btn" data-placement="bottom" data-toggle="tooltip"
-															data-original-title="Editar Postulación"> <i
-															class="icon-edit"></i>
-														</a> <a
+														</a> 
+														<c:if test='${user.rol ne "COMISIONADO"}'>
+															<a href="${root}/app/admin/edit?id=${postulacion.id }"
+																class="btn" data-placement="bottom" data-toggle="tooltip"
+																data-original-title="Editar Postulación"> <i
+																class="icon-edit"></i>
+															</a> 
+														</c:if>
+														<a
 															href="postulaciones?action=revisar&id=${postulacion.id}&evaluacion=true"
 															class="btn btn-primary fancyPostulacion"
 															data-fancybox-type="iframe" data-placement="bottom"
@@ -461,12 +465,15 @@
 															data-placement="bottom" data-toggle="tooltip"
 															data-original-title="Historial Particular"> <i
 															class="icon-time"></i>
-														</a> <a
-															href="${root}/app/admin/edit?id=${postulacion.id }"
-															class="btn" data-placement="bottom" data-toggle="tooltip"
-															data-original-title="Editar Postulación"> <i
-															class="icon-edit"></i>
-														</a> <a
+														</a> 
+														<c:if test='${user.rol ne "COMISIONADO"}'>
+															<a href="${root}/app/admin/edit?id=${postulacion.id }"
+																class="btn" data-placement="bottom" data-toggle="tooltip"
+																data-original-title="Editar Postulación"> <i
+																class="icon-edit"></i>
+															</a> 
+														</c:if>
+														<a
 															href="postulaciones?action=revisar&id=${postulacion.id}&decision=true"
 															class="btn btn-primary fancyPostulacion"
 															data-fancybox-type="iframe" data-placement="bottom"
@@ -527,12 +534,15 @@
 															data-placement="bottom" data-toggle="tooltip"
 															data-original-title="Historial Particular"> <i
 															class="icon-time"></i>
-														</a> <a
-															href="${root}/app/admin/edit?id=${postulacion.id }"
-															class="btn" data-placement="bottom" data-toggle="tooltip"
-															data-original-title="Editar Postulación"> <i
-															class="icon-edit"></i>
-														</a> <a
+														</a> 
+														<c:if test='${user.rol ne "COMISIONADO"}'>
+															<a href="${root}/app/admin/edit?id=${postulacion.id }"
+																class="btn" data-placement="bottom" data-toggle="tooltip"
+																data-original-title="Editar Postulación"> <i
+																class="icon-edit"></i>
+															</a> 
+														</c:if>
+														<a
 															href="postulaciones?action=revisar&id=${postulacion.id}&espera_notificacion=true"
 															class="btn btn-primary fancyPostulacion"
 															data-fancybox-type="iframe" data-placement="bottom"
@@ -593,12 +603,15 @@
 															data-placement="bottom" data-toggle="tooltip"
 															data-original-title="Historial Particular"> <i
 															class="icon-time"></i>
-														</a> <a
-															href="${root}/app/admin/edit?id=${postulacion.id }"
-															class="btn" data-placement="bottom" data-toggle="tooltip"
-															data-original-title="Editar Postulación"> <i
-															class="icon-edit"></i>
-														</a> <a
+														</a> 
+														<c:if test='${user.rol ne "COMISIONADO"}'>
+															<a href="${root}/app/admin/edit?id=${postulacion.id }"
+																class="btn" data-placement="bottom" data-toggle="tooltip"
+																data-original-title="Editar Postulación"> <i
+																class="icon-edit"></i>
+															</a> 
+														</c:if>
+														<a
 															href="postulaciones?action=revisar&id=${postulacion.id}&resuelta=true"
 															class="btn btn-primary fancyPostulacion"
 															data-fancybox-type="iframe" data-placement="bottom"
