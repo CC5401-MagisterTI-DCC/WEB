@@ -36,19 +36,17 @@
 		<h1>
 			Tracking de Postulación <small>${track}</small>
 		</h1>
-		<strong>Progreso de proceso de postulación:</strong> <span
-			class="pull-right">${validacion ? '25%' : evaluacion ? '60%' :
-			'100%'}</span>
+		<strong>Progreso de proceso de postulación:</strong> 
+		<span class="pull-right">${validacion ? '25%' : evaluacion ? '60%':'100%'}</span>
 		<div class="progress progress-striped active">
-			<div class="bar"
-				style="width: ${validacion ? '25%' : evaluacion ? '60%' : '100%'};"></div>
+			<div class="bar" style="width: ${validacion ? '25%' : evaluacion ? '60%' : '100%'};"></div>
 		</div>
 
-
-
+		<div class="row-fluid">
 		<ul class="thumbnails">
-
-			<li class="span4">
+			<c:choose>
+			<c:when test="${not empty validacion}">
+			<li class="span4 offset4">
 				<div class="thumbnail valid-thumb">
 					<img src="${root}/img/business-success.jpg" style="height: 180px;"
 						alt="ALT NAME">
@@ -76,7 +74,9 @@
 					</div>
 				</div>
 			</li>
-			<li class="span4">
+			</c:when>
+			<c:when test="${not empty evaluacion}">
+			<li class="span4 offset4">
 				<div class="thumbnail progress-thumb">
 					<img src="${root}/img/report_icon.gif" style="height: 180px;"
 						alt="ALT NAME">
@@ -100,7 +100,9 @@
 					</div>
 				</div>
 			</li>
-			<li class="span4">
+			</c:when>
+			<c:when test="${not empty resuelta}">
+			<li class="span4 offset4">
 				<div class="thumbnail">
 					<c:choose>
 						<c:when test="${resuelta}">
@@ -156,8 +158,10 @@
 
 				</div>
 			</li>
-
+			</c:when>
+			</c:choose>
 		</ul>
+		</div>
 		<div style="text-align: center;">
 			<h3>Acciones</h3>
 
@@ -165,9 +169,8 @@
 				class="icon-home icon-white"></i> Ir Al Inicio
 			</a>
 			<c:if test="${!resuelta}">
-				<a href="track/delete?track=${track}"
-					class="fancyDelete btn btn-danger btn-large"
-					data-fancybox-type="iframe"> <i class="icon-remove icon-white"></i>
+				<a href="track/delete?track=${track}" class="fancyDelete btn btn-danger btn-large" data-fancybox-type="iframe"> 
+					<i class="icon-remove icon-white"></i>
 					Eliminar postulación
 				</a>
 			</c:if>
@@ -177,10 +180,8 @@
 
 	<jsp:include page="../../footer.jsp"></jsp:include>
 	<script src="${root}/js/jquery.js"></script>
-	<script type="text/javascript"
-		src="${root}/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
-	<script type="text/javascript"
-		src="${root}/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+	<script src="${root}/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+	<script src="${root}/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 	<script src="${root}/js/delete.js"></script>
 	<script src="${root}/js/bootstrap.js"></script>
 
