@@ -24,7 +24,7 @@ import cl.uchile.dcc.cc5401.model.dto.HistorialDTO;
 import cl.uchile.dcc.cc5401.model.dto.UserDTO;
 
 @WebServlet("/app/admin/docExtra")
-@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 10, maxRequestSize = 1024 * 1024 * 10 * 10)
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 2, maxRequestSize = 1024 * 1024 * 2 * 10)
 public class DocumentoExtraController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

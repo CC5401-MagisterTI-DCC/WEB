@@ -28,7 +28,7 @@ import cl.uchile.dcc.cc5401.model.dto.PostulacionDTO;
 import cl.uchile.dcc.cc5401.util.Validacion;
 
 @WebFilter("/app/form")
-@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 10, maxRequestSize = 1024 * 1024 * 10 * 10)
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 2, maxRequestSize = 1024 * 1024 * 2 * 10)
 public class ValidationFilter implements Filter {
 
 	private static final String ERROR_PAGE = "/error.jsp";

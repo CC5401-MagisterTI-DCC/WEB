@@ -56,7 +56,7 @@ import cl.uchile.dcc.cc5401.util.TipoFinanciamiento;
  * Servlet implementation class FormController
  */
 @WebServlet("/app/form")
-@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 10, maxRequestSize = 1024 * 1024 * 10 * 10)
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 2, maxRequestSize = 1024 * 1024 * 2 * 10)
 public class FormController extends HttpServlet {
 
 	private static MailHelperFactory mailHelperFactory = new MailHelperFactoryImpl();
