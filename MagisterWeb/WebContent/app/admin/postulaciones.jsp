@@ -89,7 +89,15 @@
 				<div class="block">
 					<div class="navbar navbar-inner block-header">
 						<ul class="nav">
-							<li class="active"><a href="#revision" data-toggle="tab">Revisión
+							<c:choose>
+								<c:when test='${user.getRol().getId() == 4 || user.getRol().getId() == 1}'>
+								<li class="active">
+								</c:when>
+								<c:otherwise>
+								<li>
+								</c:otherwise>
+							</c:choose>
+							<a href="#revision" data-toggle="tab">Revisión
 									<c:choose>
 										<c:when test='${user.rol.equals("Asistente")}'>
 											<span
@@ -100,7 +108,15 @@
 										</c:otherwise>
 									</c:choose>
 							</a></li>
-							<li><a href="#validacion" data-toggle="tab">Validación <c:choose>
+							<c:choose>
+								<c:when test='${user.getRol().getId() == 5}'>
+								<li class="active">
+								</c:when>
+								<c:otherwise>
+								<li>
+								</c:otherwise>
+							</c:choose>
+							<a href="#validacion" data-toggle="tab">Validación <c:choose>
 										<c:when test='${user.rol.equals("Jefe del PEC")}'>
 											<span
 												${postulacionesValidacion.size()>0 ? 'class="badge badge-warning"' : 'class="badge badge-success"'}>${postulacionesValidacion.size()}</span>
@@ -110,7 +126,15 @@
 										</c:otherwise>
 									</c:choose>
 							</a></li>
-							<li><a href="#consideracion" data-toggle="tab">Consideración
+							<c:choose>
+								<c:when test='${user.getRol().getId() == 2}'>
+								<li class="active">
+								</c:when>
+								<c:otherwise>
+								<li>
+								</c:otherwise>
+							</c:choose>
+							<a href="#consideracion" data-toggle="tab">Consideración
 									<c:choose>
 										<c:when test='${user.rol.equals("Coordinador")}'>
 											<span
@@ -121,7 +145,15 @@
 										</c:otherwise>
 									</c:choose>
 							</a></li>
-							<li><a href="#evaluacion" data-toggle="tab">Evaluación <c:choose>
+							<c:choose>
+								<c:when test='${user.getRol().getId() == 3}'>
+								<li class="active">
+								</c:when>
+								<c:otherwise>
+								<li>
+								</c:otherwise>
+							</c:choose>
+							<a href="#evaluacion" data-toggle="tab">Evaluación <c:choose>
 										<c:when test='${user.rol.equals("Comisionado")}'>
 											<span
 												${nPendientes>0 ? 'class="badge badge-warning"' : 'class="badge badge-success"'}>${nPendientes}/${postulacionesEvaluacion.size()}</span>
@@ -167,7 +199,14 @@
 
 						<div class="tab-content">
 							<!-- block -->
-							<div class="tab-pane active" id="revision">
+							<c:choose>
+								<c:when test='${user.getRol().getId() == 4 || user.getRol().getId() == 1}'>
+								<div class="tab-pane active" id="revision">
+								</c:when>
+								<c:otherwise>
+								<div class="tab-pane" id="revision">
+								</c:otherwise>
+							</c:choose>
 								<table cellpadding="0" cellspacing="0" border="0"
 									class="table table-striped table-hover table-bordered"
 									id="revisionTable"
@@ -228,7 +267,14 @@
 							<!-- /block -->
 
 							<!-- block -->
-							<div class="tab-pane" id="validacion">
+							<c:choose>
+								<c:when test='${user.getRol().getId() == 5}'>
+								<div class="tab-pane active" id="validacion">
+								</c:when>
+								<c:otherwise>
+								<div class="tab-pane" id="validacion">
+								</c:otherwise>
+							</c:choose>
 								<table cellpadding="0" cellspacing="0" border="0"
 									class="table table-striped table-hover table-bordered"
 									id="validacionTable">
@@ -291,7 +337,14 @@
 							<!-- /block -->
 
 							<!-- block -->
-							<div class="tab-pane" id="consideracion">
+							<c:choose>
+								<c:when test='${user.getRol().getId() == 2}'>
+								<div class="tab-pane active" id="consideracion">
+								</c:when>
+								<c:otherwise>
+								<div class="tab-pane" id="consideracion">
+								</c:otherwise>
+							</c:choose>
 								<table cellpadding="0" cellspacing="0" border="0"
 									class="table table-striped table-hover table-bordered"
 									id="consideracionTable">
@@ -351,7 +404,14 @@
 							<!-- /block -->
 
 							<!-- block -->
-							<div class="tab-pane" id="evaluacion">
+							<c:choose>
+								<c:when test='${user.getRol().getId() == 3}'>
+								<div class="tab-pane active" id="evaluacion">
+								</c:when>
+								<c:otherwise>
+								<div class="tab-pane" id="evaluacion">
+								</c:otherwise>
+							</c:choose>
 								<table cellpadding="0" cellspacing="0" border="0"
 									class="table table-striped table-hover table-bordered"
 									id="evaluacionTable">
