@@ -29,7 +29,7 @@
 </c:if>
 <c:if test='${user.hasPermisos("DECIDIR")}'>
 	<hr>
-
+	<h3>Tomar decisión</h3>
 	<p>
 		<span class="label label-warning">Nota:</span>&nbsp;Al utilizar esta
 		opción se saltará el criterio de la comisión. Esto quedará registrado.

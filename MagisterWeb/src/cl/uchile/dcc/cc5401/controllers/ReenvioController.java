@@ -32,7 +32,7 @@ import cl.uchile.dcc.cc5401.util.InputHelper;
 import cl.uchile.dcc.cc5401.util.RolUsuario;
 
 @WebServlet("/app/reenvio")
-@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 10, maxRequestSize = 1024 * 1024 * 10 * 10)
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 2, maxRequestSize = 1024 * 1024 * 2 * 10)
 public class ReenvioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

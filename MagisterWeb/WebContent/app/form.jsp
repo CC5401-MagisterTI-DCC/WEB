@@ -305,7 +305,7 @@
 									<div class="controls">
 										<span class="label label-warning"><i
 											class="icon-info-sign icon-white"></i> Nota:</span>&nbsp;Sólo se
-										permiten archivos en formato PDF.
+										permiten archivos en formato PDF. Máximo 2MB por archivo.
 									</div>
 								</div>
 
@@ -514,7 +514,7 @@
 									<div class="controls">
 										<span class="label label-warning"><i
 											class="icon-info-sign icon-white"></i> Nota:</span>&nbsp;Sólo se
-										permiten archivos en formato PDF.
+										permiten archivos en formato PDF. Máximo 2MB por archivo.
 									</div>
 								</div>
 
