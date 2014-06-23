@@ -309,7 +309,7 @@
 							
 							<!-- block -->
 							<c:choose>
-								<c:when test='${user.rol == "COMISIONADO"}'>
+								<c:when test='${user.rol eq "COMISIONADO"}'>
 									<div class="tab-pane active" id="evaluacion">
 								</c:when>
 								<c:otherwise>
