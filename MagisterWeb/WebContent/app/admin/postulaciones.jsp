@@ -90,7 +90,7 @@
 									</c:choose>
 								</a></li>
 							</c:if>
-							<li><a href="#evaluacion" data-toggle="tab">Evaluación 
+							<li ${user.rol eq "COMISIONADO" ? 'class="active"':''}><a href="#evaluacion" data-toggle="tab">Evaluación 
 								<c:choose>
 									<c:when test='${user.rol eq "COMISIONADO"}'>
 										<span ${nPendientes>0 ? 'class="badge badge-warning"' : 'class="badge badge-success"'}>${nPendientes}/${postulacionesEvaluacion.size()}</span>
