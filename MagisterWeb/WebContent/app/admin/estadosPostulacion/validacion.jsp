@@ -45,7 +45,7 @@
 		incorrectamente enviados
 	</p>
 	<!-- TODO: Rellenar los hidden con js -->
-	<form action="rechazo" method="get">
+	<form action="rechazo" method="get" onsubmit="return (function(){if($('#id_documentos1').val()===''){alert('Debe seleccionar al menos un documento para rechazarlo.'); return false;} else return confirm('Al realizar esta acción se le notificará vía email al postulante. Además la postulación será envíada de vuelta a Revisión,\n ¿Desea continuar?')})()">
 
 		<input type="hidden" name="id_documentos2" id="id_documentos2"
 			value=""> <input type="hidden" name="id_postulacion"
@@ -55,7 +55,7 @@
 			placeholder="Ingrese la razón del rechazo de documentos" required></textarea>
 		<br>
 
-		<button class="btn btn-large btn-danger" onclick="submit();">
+		<button class="btn btn-large btn-danger">
 			<i class="icon-remove-sign icon-white"></i> Rechazar Documentos
 		</button>
 	</form>
