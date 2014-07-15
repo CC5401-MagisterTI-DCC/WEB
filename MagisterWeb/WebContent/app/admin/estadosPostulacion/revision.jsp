@@ -1,6 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script>
+function verificar_sin_rechazados(){
+	var msg = "No se puede pasar a la siguiente etapa con documentos rechazados.";
+	if($("#collapseOne").find('*[data-documento-rechazado="1"]').length != 0){
+		alert(msg);
+		$('#collapseOne').collapse('show');
+		$('html, body').animate({
+	        scrollTop: $("#collapseOne").offset().top
+	    }, 500);
+		return false;
+	}
+	if($("#collapseThree").find('*[data-documento-rechazado="1"]').length != 0){
+		alert(msg);
+		$('#collapseThree').collapse('show');
+		$('html, body').animate({
+	        scrollTop: $("#collapseThree").offset().top
+	    }, 500);
+		return false;
+	}
+	return true;
+}
+</script>
 <c:if test='${user.hasPermisos("SUBIR_DOC")}'>
 	<form action="docExtra" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="id_postulacion" id="id_postulacion"
@@ -21,10 +43,13 @@
 	<hr>
 </c:if>
 <c:if test='${user.hasPermisos("REVISAR")}'>
-	<a href="estado?action=revision&id=${postulacion.id}"
-		class="btn btn-large btn-success" onclick="return confirm('¿Está seguro de su decisión?');"> <i
-		class="icon-ok-sign icon-white"></i> Validar Documentos
-	</a>
+	<form action="estado" method="get" onsubmit="return verificar_sin_rechazados() && confirm('¿Está seguro de su decisión?');">
+		<input type="hidden" name="action" value="revision">
+		<input type="hidden" name="id" value="${postulacion.id}">
+		<button class="btn btn-large btn-success">
+			<i class="icon-ok-sign icon-white"></i> Validar Documentos
+		</button>		
+	</form>
 </c:if>
 <c:if test='${user.hasPermisos("RECHAZAR_DOC")}'>
 	<hr>

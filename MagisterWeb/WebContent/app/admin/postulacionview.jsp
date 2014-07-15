@@ -47,25 +47,25 @@ body {
 									value="${postulacion.idCV}" ${not empty mostrarCheck ? '':'hidden'}><a
 									href="documento?id=${postulacion.idCV}"><i
 										class="icon-file"></i> Currículum Vitae </a>
-									${CV.comentario!=null&&CV.comentario.equalsIgnoreCase("rechazado") ? '<span class="label label-important"><i class="icon-info-sign icon-white"></i> Rechazado</span>' :''}
+									${CV.comentario!=null&&CV.comentario.equalsIgnoreCase("rechazado") ? '<span class="label label-important" data-documento-rechazado="1"><i class="icon-info-sign icon-white"></i> Rechazado</span>' :''}
 									${CV.comentario!=null&&CV.comentario.equalsIgnoreCase("nuevo") ? '<span class="label label-info"><i class="icon-info-sign icon-white"></i> Nuevo</span>'  :''}
 								</label> <label class="checkbox"> <input type="checkbox"
 									value="${postulacion.idCartaPresentacion}" ${not empty mostrarCheck ? '':'hidden'}><a
 									href="documento?id=${postulacion.idCartaPresentacion}"><i
 										class="icon-file"></i> Carta de Presentación </a>
-									${CartaPresentacion.comentario!=null&&CartaPresentacion.comentario.equalsIgnoreCase("rechazado") ? '<span class="label label-important"><i class="icon-info-sign icon-white"></i> Rechazado</span>' :''}
+									${CartaPresentacion.comentario!=null&&CartaPresentacion.comentario.equalsIgnoreCase("rechazado") ? '<span class="label label-important" data-documento-rechazado="1"><i class="icon-info-sign icon-white"></i> Rechazado</span>' :''}
 									${CartaPresentacion.comentario!=null&&CartaPresentacion.comentario.equalsIgnoreCase("nuevo") ? '<span class="label label-info"><i class="icon-info-sign icon-white"></i> Nuevo</span>'  :''}
 								</label> <label class="checkbox"> <input type="checkbox"
 									value="${postulacion.idCarta1}" ${not empty mostrarCheck ? '':'hidden'}><a
 									href="documento?id=${postulacion.idCarta1}"><i
 										class="icon-file"></i> Carta de Recomendación 1 </a>
-									${Carta1.comentario!=null&&Carta1.comentario.equalsIgnoreCase("rechazado") ? '<span class="label label-important"><i class="icon-info-sign icon-white"></i> Rechazado</span>' :''}
+									${Carta1.comentario!=null&&Carta1.comentario.equalsIgnoreCase("rechazado") ? '<span class="label label-important" data-documento-rechazado="1"><i class="icon-info-sign icon-white"></i> Rechazado</span>' :''}
 									${Carta1.comentario!=null&&Carta1.comentario.equalsIgnoreCase("nuevo") ? '<span class="label label-info"><i class="icon-info-sign icon-white"></i> Nuevo</span>'  :''}
 								</label> <label class="checkbox"> <input type="checkbox"
 									value="${postulacion.idCarta2}" ${not empty mostrarCheck ? '':'hidden'}><a
 									href="documento?id=${postulacion.idCarta2}"><i
 										class="icon-file"></i> Carta de Recomendación 2 </a>
-									${Carta2.comentario!=null&&Carta2.comentario.equalsIgnoreCase("rechazado") ? '<span class="label label-important"><i class="icon-info-sign icon-white"></i> Rechazado</span>' :''}
+									${Carta2.comentario!=null&&Carta2.comentario.equalsIgnoreCase("rechazado") ? '<span class="label label-important" data-documento-rechazado="1"><i class="icon-info-sign icon-white"></i> Rechazado</span>' :''}
 									${Carta2.comentario!=null&&Carta2.comentario.equalsIgnoreCase("nuevo") ? '<span class="label label-info"><i class="icon-info-sign icon-white"></i> Nuevo</span>'  :''}
 								</label>
 							</div>
@@ -149,13 +149,13 @@ body {
 											value="${grado.idCertificadoNotas}" ${not empty mostrarCheck ? '':'hidden'}><a
 											href="documento?id=${grado.idCertificadoNotas}"><i
 												class="icon-file"></i> Certificado de Notas </a>
-											${docGrados.get(status.index*2).comentario!=null&&docGrados.get(status.index*2).comentario.equalsIgnoreCase("rechazado") ? '<span class="label label-important"><i class="icon-info-sign icon-white"></i> Rechazado</span>' :''}
+											${docGrados.get(status.index*2).comentario!=null&&docGrados.get(status.index*2).comentario.equalsIgnoreCase("rechazado") ? '<span class="label label-important" data-documento-rechazado="1"><i class="icon-info-sign icon-white"></i> Rechazado</span>' :''}
 											${docGrados.get(status.index*2).comentario!=null&&docGrados.get(status.index*2).comentario.equalsIgnoreCase("nuevo") ? '<span class="label label-info"><i class="icon-info-sign icon-white"></i> Nuevo</span>'  :''}
 										</label> <label class="checkbox"> <input type="checkbox"
 											value="${grado.idCertificadoTitulo}" ${not empty mostrarCheck ? '':'hidden'}><a
 											href="documento?id=${grado.idCertificadoTitulo}"><i
 												class="icon-file"></i> Certificado de Título </a>
-											${docGrados.get(status.index*2+1).comentario!=null&&docGrados.get(status.index*2+1).comentario.equalsIgnoreCase("rechazado") ? '<span class="label label-important"><i class="icon-info-sign icon-white"></i> Rechazado</span>' :''}
+											${docGrados.get(status.index*2+1).comentario!=null&&docGrados.get(status.index*2+1).comentario.equalsIgnoreCase("rechazado") ? '<span class="label label-important" data-documento-rechazado="1"><i class="icon-info-sign icon-white"></i> Rechazado</span>' :''}
 											${docGrados.get(status.index*2+1).comentario!=null&&docGrados.get(status.index*2+1).comentario.equalsIgnoreCase("nuevo") ? '<span class="label label-info"><i class="icon-info-sign icon-white"></i> Nuevo</span>'  :''}
 										</label>
 									</address>
