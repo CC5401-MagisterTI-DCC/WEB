@@ -24,7 +24,14 @@ body {
 <script src="${root}/js/admin/postulacionview.js"></script>
 <script src="${root}/js/bootstrap-datepicker.js"></script>
 <script src="${root}/js/locales/bootstrap-datepicker.es.js"></script>
-
+<script>
+$(document).ready(function(){
+	$(".collapse").collapse({
+		toggle: false,
+		parent: $("#accordion1")
+	});
+});
+</script>
 </head>
 <body>
 
