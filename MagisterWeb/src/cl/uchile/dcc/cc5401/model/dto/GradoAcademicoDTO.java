@@ -1,14 +1,12 @@
 package cl.uchile.dcc.cc5401.model.dto;
 
-import java.util.Date;
-
 public class GradoAcademicoDTO {
 
 	private int id;
 	private int idPostulante;
 	private String nombre;
 	private String institucion;
-	private Date fechaObtencion;
+	private int anoObtencion;
 	private PaisDTO pais;
 	private int idCertificadoNotas;
 	private int idCertificadoTitulo;
@@ -18,13 +16,13 @@ public class GradoAcademicoDTO {
 	}
 	
 	public GradoAcademicoDTO(int id, String nombre, String institucion,
-			Date fechaObtencion, PaisDTO pais, int idCertificadoNotas,
+			int anoObtencion, PaisDTO pais, int idCertificadoNotas,
 			int idCertificadoTitulo) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.institucion = institucion;
-		this.fechaObtencion = fechaObtencion;
+		this.anoObtencion = anoObtencion;
 		this.pais = pais;
 		this.idCertificadoNotas = idCertificadoNotas;
 		this.idCertificadoTitulo = idCertificadoTitulo;
@@ -58,12 +56,12 @@ public class GradoAcademicoDTO {
 		this.institucion = institucion;
 	}
 
-	public Date getFechaObtencion() {
-		return fechaObtencion;
+	public int getAnoObtencion() {
+		return anoObtencion;
 	}
 
-	public void setFechaObtencion(Date fechaObtencion) {
-		this.fechaObtencion = fechaObtencion;
+	public void setAnoObtencion(int anoObtencion) {
+		this.anoObtencion = anoObtencion;
 	}
 
 	public PaisDTO getPais() {

@@ -28,12 +28,12 @@ public class GradoAcademicoDAOImpl implements GradoAcademicoDAO {
 	
 	private static final String SQL_INSERT =
 			"INSERT INTO grado_academico ("
-					+ " id_postulante, nombre, institucion, fecha_obtencion, id_pais, id_certificado_notas, id_certificado_titulo"
+					+ " id_postulante, nombre, institucion, ano_obtencion, id_pais, id_certificado_notas, id_certificado_titulo"
 					+ " ) VALUES (?,?,?,?,?,?,?)";
 	
 	private static final String SQL_UPDATE =
 			"UPDATE grado_academico SET"
-					+ " id_postulante = ?, nombre = ?, institucion = ?, fecha_obtencion = ?, id_pais = ?, id_certificado_notas = ?, id_certificado_titulo = ?"
+					+ " id_postulante = ?, nombre = ?, institucion = ?, ano_obtencion = ?, id_pais = ?, id_certificado_notas = ?, id_certificado_titulo = ?"
 					+ " WHERE id=?";
 	
 	private static final String SQL_SELECT_ID =
@@ -58,7 +58,7 @@ public class GradoAcademicoDAOImpl implements GradoAcademicoDAO {
 			gradoAcademicoDTO.setNombre(rs.getString("nombre"));
 			gradoAcademicoDTO.setIdPostulante(rs.getInt("id_postulante"));
 			gradoAcademicoDTO.setInstitucion(rs.getString("institucion"));
-			gradoAcademicoDTO.setFechaObtencion(rs.getDate("fecha_obtencion"));
+			gradoAcademicoDTO.setAnoObtencion(rs.getInt("ano_obtencion"));
 			gradoAcademicoDTO.setPais(new PaisDTO(rs.getInt(9),rs.getString(10)));
 			gradoAcademicoDTO.setIdCertificadoNotas(rs.getInt("id_certificado_notas"));
 			gradoAcademicoDTO.setIdCertificadoTitulo(rs.getInt("id_certificado_titulo"));
@@ -78,7 +78,7 @@ public class GradoAcademicoDAOImpl implements GradoAcademicoDAO {
 			ptmt.setInt(1, gradoAcademico.getIdPostulante());
 			ptmt.setString(2, gradoAcademico.getNombre());
 			ptmt.setString(3, gradoAcademico.getInstitucion());
-			ptmt.setDate(4, new Date(gradoAcademico.getFechaObtencion().getTime()));
+			ptmt.setInt(4, gradoAcademico.getAnoObtencion());
 			ptmt.setInt(5, gradoAcademico.getPais().getId());
 			ptmt.setInt(6, gradoAcademico.getIdCertificadoNotas());
 			ptmt.setInt(7, gradoAcademico.getIdCertificadoTitulo());
@@ -120,7 +120,7 @@ public class GradoAcademicoDAOImpl implements GradoAcademicoDAO {
 			ptmt.setInt(1, gradoAcademico.getIdPostulante());
 			ptmt.setString(2, gradoAcademico.getNombre());
 			ptmt.setString(3, gradoAcademico.getInstitucion());
-			ptmt.setDate(4, new Date(gradoAcademico.getFechaObtencion().getTime()));
+			ptmt.setInt(4, gradoAcademico.getAnoObtencion());
 			ptmt.setInt(5, gradoAcademico.getPais().getId());
 			ptmt.setInt(6, gradoAcademico.getIdCertificadoNotas());
 			ptmt.setInt(7, gradoAcademico.getIdCertificadoTitulo());

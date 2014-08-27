@@ -266,11 +266,11 @@
 	
 								<!-- Text input-->
 								<div class="control-group">
-									<label class="control-label" for="fecha_ob">Fecha de
+									<label class="control-label" for="ano_ob">A&ntilde;o de
 										Obtención:</label>
 									<div class="controls">
-										<input id="fecha_nac" name="fecha_ob" class="datepicker"
-											type="text" value="${sdf.format(grado.fechaObtencion) }"
+										<input id="ano_ob" name="ano_ob"
+											type="text" value="${grado.anoObtencion}"
 											required="">
 									</div>
 								</div>

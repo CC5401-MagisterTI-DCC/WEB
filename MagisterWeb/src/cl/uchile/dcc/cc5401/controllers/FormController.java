@@ -207,23 +207,23 @@ public class FormController extends HttpServlet {
 			// grados academicos
 			String grado = request.getParameter("grado");
 			String institucion = request.getParameter("institucion");
-			String fechaObtencion = request.getParameter("fecha_ob");
+			int anoObtencion = Integer.parseInt(request.getParameter("ano_ob"));
 			String paisGrado = request.getParameter("pais_grado");
 			int j = 10;
 
 			GradoAcademicoDTO[] gradosAcademicos = new GradoAcademicoDTO[j];
 
 			gradosAcademicos[0] = new GradoAcademicoDTO(0, grado, institucion,
-					sdf.parse(fechaObtencion), paisDAO.get(Integer
+					anoObtencion, paisDAO.get(Integer
 							.parseInt(paisGrado)), 0, 0);
 			for (int i = 1; i < j; i++) {
 				if (request.getParameterMap().containsKey("grado" + i)) {
 					grado = request.getParameter("grado" + i);
 					institucion = request.getParameter("institucion" + i);
-					fechaObtencion = request.getParameter("fecha_ob" + i);
+					anoObtencion = Integer.parseInt(request.getParameter("ano_ob" + i));
 					paisGrado = request.getParameter("pais_grado" + i);
 					gradosAcademicos[i] = new GradoAcademicoDTO(0, grado,
-							institucion, sdf.parse(fechaObtencion),
+							institucion, anoObtencion,
 							paisDAO.get(Integer.parseInt(paisGrado)), 0, 0);
 				}
 			}

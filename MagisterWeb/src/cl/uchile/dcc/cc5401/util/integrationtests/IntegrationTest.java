@@ -88,7 +88,7 @@ public abstract class IntegrationTest {
 	public void newPostulante(String nombres, String apellidos, String tipoDoc, String idDoc,
 			String idNacionalidad, boolean isMasculino, boolean isFemenino,String fechaNacimiento,
 			String email, String telefono, String direccion, String grado, String institucion,
-			String fechaObtencion, String idPaisGrado, String docPath) throws IOException{
+			String anoObtencion, String idPaisGrado, String docPath) throws IOException{
 		
 		final WebClient webClientPostulante = new WebClient();
 		
@@ -127,8 +127,8 @@ public abstract class IntegrationTest {
 	    grad.setText(grado);
 	    HtmlTextArea inst = (HtmlTextArea) pagePostulante.getElementById("institucion");
 	    inst.setText(institucion);
-	    HtmlTextInput fechaob = (HtmlTextInput) pagePostulante.getElementById("fecha_ob");
-	    fechaob.setText(fechaObtencion);
+	    HtmlTextInput anoob = (HtmlTextInput) pagePostulante.getElementById("ano_ob");
+	    anoob.setText(anoObtencion);
 	    HtmlSelect paisgrado = (HtmlSelect) pagePostulante.getElementById("pais_grado");
 	    paisgrado.setSelectedAttribute(idPaisGrado, true);
 	    

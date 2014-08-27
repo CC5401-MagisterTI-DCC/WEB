@@ -278,7 +278,7 @@ public class EditController extends HttpServlet {
 			String[] idGrado = request.getParameterValues("idGrado");
 			String[] grado = request.getParameterValues("grado");
 			String[] institucion = request.getParameterValues("institucion");
-			String[] fechaObtencion = request.getParameterValues("fecha_ob");
+			String[] anoObtencion = request.getParameterValues("ano_ob");
 			String[] paisGrado = request.getParameterValues("pais_grado");
 			GradoAcademicoDTO[] gradosAcademicos = new GradoAcademicoDTO[grado.length];
 			GradoAcademicoDTO gradoAcademico;
@@ -342,7 +342,7 @@ public class EditController extends HttpServlet {
 				gradosAcademicos[i].setNombre(grado[i]);
 				gradosAcademicos[i].setInstitucion(institucion[i]);
 				gradosAcademicos[i].setPais(paisDAO.get(Integer.parseInt(paisGrado[i])));
-				gradosAcademicos[i].setFechaObtencion(sdf.parse(fechaObtencion[i]));
+				gradosAcademicos[i].setAnoObtencion(Integer.parseInt(anoObtencion[i]));
 
 				gradoAcademicoDAO.actualizar(gradosAcademicos[i]);
 			}

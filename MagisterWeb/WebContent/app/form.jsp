@@ -339,13 +339,13 @@
 	
 										<!-- Text input-->
 										<div class="control-group">
-											<label class="control-label" for="fecha_ob">Fecha de
+											<label class="control-label" for="ano_ob">A&ntilde;o de
 												Obtención<a href="#" data-toggle="tooltip"
 												data-placement="right" title="(*) = Obligatorio"
 												style="color: rgb(185, 74, 72);">*</a>:
 											</label>
 											<div class="controls">
-												<input id="fecha_ob" name="fecha_ob" type="text" placeholder="dd/mm/aaaa" required>	
+												<input id="ano_ob" name="ano_ob" type="text" placeholder="Ej: 2000" required>	
 											</div>
 										</div>
 	
@@ -655,7 +655,7 @@
 											<span id="grado_resumen"></span><br> 
 											<span id="institucion_resumen"></span><br> 
 											<span id="pais_grado_resumen"></span><br> 
-											<span id="fecha_ob_resumen"></span><br> <br>
+											<span id="ano_ob_resumen"></span><br> <br>
 											<div id="grados"></div>
 										</address>
 									</div>

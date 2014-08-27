@@ -146,8 +146,8 @@ body {
 									varStatus="status">
 									<address>
 										<strong>${grado.nombre}:</strong><br> Institución:
-										${grado.institucion } , ${grado.pais.nombre }<br> Fecha
-										de obtención: ${grado.fechaObtencion }<br> <label
+										${grado.institucion } , ${grado.pais.nombre }<br> A&ntilde;o
+										de obtención: ${grado.anoObtencion }<br> <label
 											class="checkbox"> <input type="checkbox"
 											value="${grado.idCertificadoNotas}"><a
 											href="documento?id=${grado.idCertificadoNotas}"><i

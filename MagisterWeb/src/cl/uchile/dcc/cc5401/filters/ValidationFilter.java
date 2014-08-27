@@ -151,14 +151,14 @@ public class ValidationFilter implements Filter {
 				// grados academicos
 				String grado = request.getParameter("grado");
 				String institucion = request.getParameter("institucion");
-				String fechaObtencion = request.getParameter("fecha_ob");
+				String anoObtencion = request.getParameter("ano_ob");
 				String paisGrado = request.getParameter("pais_grado");
 
 				if (grado == null || grado.trim().equals(""))
 					throw new Exception("Error en grado");
 				if (institucion == null || institucion.trim().equals(""))
 					throw new Exception("Error en institucion");
-				sdf.parse(fechaObtencion);
+				Integer.parseInt(anoObtencion);
 				if (paisDAO.get(Integer.parseInt(paisGrado)) == null)
 					throw new Exception("Error en país de la institucion ");
 
@@ -168,14 +168,14 @@ public class ValidationFilter implements Filter {
 					if (request.getParameterMap().containsKey("grado" + i)) {
 						grado = request.getParameter("grado" + i);
 						institucion = request.getParameter("institucion" + i);
-						fechaObtencion = request.getParameter("fecha_ob" + i);
+						anoObtencion = request.getParameter("ano_ob" + i);
 						paisGrado = request.getParameter("pais_grado" + i);
 						if (grado == null || grado.trim().equals(""))
 							throw new Exception("Error en grado " + i);
 						if (institucion == null
 								|| institucion.trim().equals(""))
 							throw new Exception("Error en institucion " + i);
-						sdf.parse(fechaObtencion);
+						Integer.parseInt(anoObtencion);
 						if (paisDAO.get(Integer.parseInt(paisGrado)) == null)
 							throw new Exception(
 									"Error en país de la institucion " + i);

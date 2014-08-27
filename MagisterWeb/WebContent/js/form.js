@@ -163,7 +163,7 @@ $(document).ready(function() {
 		var resumen = $("<div id=\"grado" + i + "\">");
 		var gradoResumen = $("<span id=\"grado" + i + "_resumen\"></span><br>");
 		var institucionResumen = $("<span id=\"institucion" + i + "_resumen\"></span><br>");
-		var fechaResumen = $("<span id=\"fecha_ob" + i + "_resumen\"></span><br>");  
+		var fechaResumen = $("<span id=\"ano_ob" + i + "_resumen\"></span><br>");  
 		var paisResumen = $("<span id=\"pais_grado" + i + "_resumen\"></span><br><br></div>");
 		resumen.append(gradoResumen);
 		resumen.append(institucionResumen);
@@ -173,23 +173,26 @@ $(document).ready(function() {
 		$("#grados").append(resumen);
 		
 		var fieldWrapper = $("<div class=\"fieldwrapper well well-small\" style=\"background: #dfdfdf\" id=\"field" + i + "\"/>");
-		var gradoArea = $('<!-- Textarea --><div class="control-group">	<label class="control-label">Grado Académico:</label><div class="controls">');
+		var gradoArea = $('<!-- Textarea --><div class="control-group">	<label class="control-label">Grado Académico:</label></div>');
+		var gradoDiv = $('<div class="controls"></div>');
 		var grado = $('<textarea id="grado' + j + '" name="grado' + j +'" class="" placeholder="Ingrese su grado académico" required=""></textarea>');
 		grado.change(function(){
 			var value = $(this).val();
 			$("#grado" + j + "_resumen").text(value);
 		});
-		var institucionArea = $('</div></div><!-- Textarea --><div class="control-group"><label class="control-label">Institución:</label><div class="controls">');
-		var institucion = $('<textarea id="institucion' + j + '" name="institucion' + j + '" class=" " placeholder="Ingrese la institución de la cual obtuvo el grado académico"	required=""></textarea></div></div>');
+		var institucionArea = $('<!-- Textarea --><div class="control-group"><label class="control-label">Institución:</label></div>');
+		var institucionDiv = $('<div class="controls"></div>');
+		var institucion = $('<textarea id="institucion' + j + '" name="institucion' + j + '" class=" " placeholder="Ingrese la institución de la cual obtuvo el grado académico"	required=""></textarea>');
 		institucion.change(function(){
 			var value = $(this).val();
 			$("#institucion" + j + "_resumen").text(value);
 		});
-		var fechaArea = $('<!-- Text input--><div class="control-group"><label class="control-label">Fecha de Obtención:</label><div class="controls">');
-		var fecha = $('<input id="fecha_ob' + j + '" name="fecha_ob' + j + '" class="datepicker" type="text" required=""></div></div>');
+		var fechaArea = $('<!-- Text input--><div class="control-group"><label class="control-label">A&ntilde;o de Obtención:</label></div>');
+		var fechaDiv = $('<div class="controls"></div>');
+		var fecha = $('<input id="ano_ob' + j + '" name="ano_ob' + j + '" type="text" placeholder="Ej: 2000" required="">')
 		fecha.change(function(){
 			var value = $(this).val();
-			$("#fecha_ob" + j + "_resumen").text(value);
+			$("#ano_ob" + j + "_resumen").text(value);
 		});
 		var paisCT =$('<!-- Select Basic --><div class="control-group"></div>');
 		var paisLabel = $('<label class="control-label">Pais de la Institución:</label>');
@@ -224,16 +227,34 @@ $(document).ready(function() {
 			}
 		});
 
+		grado.change(function(){
+			var value = $(this).val();
+			$("#grado"+ j +"_resumen").text(value);
+		});
+		
+		institucion.change(function(){
+			var value = $(this).val();
+			$("#institucion" + j + "_resumen").text(value);
+		});
+		
+		fecha.change(function(){
+			var value = $(this).val();
+			$("#ano_ob" + j + "_resumen").text(value);
+		});
+		
 		paisSelect.change(function(){
 			var value = $(this).find(':selected').text();
 			$("#pais_grado" + j + "_resumen").text(value);
 		});
-		
-		gradoArea.append(grado);
-		fieldWrapper.append(gradoArea);	
-		institucionArea.append(institucion);
+
+		gradoDiv.append(grado);
+		gradoArea.append(gradoDiv);
+		fieldWrapper.append(gradoArea);
+		institucionDiv.append(institucion);
+		institucionArea.append(institucionDiv);
 		fieldWrapper.append(institucionArea);
-		fechaArea.append(fecha);
+		fechaDiv.append(fecha)
+		fechaArea.append(fechaDiv);
 		fieldWrapper.append(fechaArea);
 		paisCdiv.append(paisSelect);
 		paisCT.append(paisLabel);
@@ -243,7 +264,7 @@ $(document).ready(function() {
 		fieldWrapper.append(cNotas);
 		fieldWrapper.append(removeButton);
 		$("#addEstudio").append(fieldWrapper);
-
+		
 		$("#grado" + j).rules("add",{
 			required: true
 		});
@@ -252,7 +273,7 @@ $(document).ready(function() {
 			required: true
 		});
 		
-		$("#fecha_ob" + j).rules("add",{
+		$("#ano_ob" + j).rules("add",{
 			required: true
 		});
 		
@@ -486,15 +507,17 @@ $(document).ready(function() {
 		$("#institucion_resumen").text(value);
 	});
 	
-	$("#fecha_ob").change(function(){
+	$("#ano_ob").change(function(){
 		var value = $(this).val();
-		$("#fecha_ob_resumen").text(value);
+		$("#ano_ob_resumen").text(value);
 	});
 	
 	$("#pais_grado").change(function(){
 		var value = $(this).find(':selected').text();
 		$("#pais_grado_resumen").text(value);
 	});
+	
+	$("#pais_grado_resumen").text($("#pais_grado").find(':selected').text());
 
 	$('#tab1').tooltip({
 		selector: "a[data-toggle=tooltip]"
