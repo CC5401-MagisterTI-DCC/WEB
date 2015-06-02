@@ -1,6 +1,7 @@
 package cl.uchile.dcc.cc5401.filters;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -73,8 +74,12 @@ public class ValidationFilter implements Filter {
 
 				String nacionalidad = request.getParameter("nacionalidad")
 						.trim();
-				if (paisDAO.get(Integer.parseInt(nacionalidad)) == null)
+				try{
+					if (paisDAO.get(Integer.parseInt(nacionalidad)) == null)
+						throw new Exception("Error en nacionalidad");
+				} catch(NumberFormatException e){
 					throw new Exception("Error en nacionalidad");
+				}
 
 				String genero = request.getParameter("genero").trim();
 				if (genero == null
@@ -104,8 +109,12 @@ public class ValidationFilter implements Filter {
 					throw new Exception("Error en telefono");
 
 				String residencia = request.getParameter("residencia").trim();
+				try {
 				if (paisDAO.get(Integer.parseInt(residencia)) == null)
 					throw new Exception("Error en país de residencia");
+				} catch(NumberFormatException e){
+					throw new Exception("Error en país de residencia");
+				}
 
 				String direccionResidencia = request.getParameter("direccion")
 						.trim();
@@ -134,8 +143,12 @@ public class ValidationFilter implements Filter {
 					identificacion.setEsRut(false);
 					identificacion.setIdentificacion(request
 							.getParameter("pasaporte"));
-					identificacion.setPais(paisDAO.get(Integer.parseInt(request
-							.getParameter("nacionalidadPasaporte"))));
+					try {
+						identificacion.setPais(paisDAO.get(Integer.parseInt(request
+								.getParameter("nacionalidadPasaporte"))));
+					} catch (NumberFormatException e){
+						throw new Exception("Error en nacionalidad de pasaporte.");
+					}
 				}
 				// TODO: ESPECIFICAR CASOS EN QUE UN POSTULANTE PUEDE VOLVER A
 				// POSTULAR
@@ -158,9 +171,17 @@ public class ValidationFilter implements Filter {
 					throw new Exception("Error en grado");
 				if (institucion == null || institucion.trim().equals(""))
 					throw new Exception("Error en institucion");
-				Integer.parseInt(anoObtencion);
-				if (paisDAO.get(Integer.parseInt(paisGrado)) == null)
-					throw new Exception("Error en país de la institucion ");
+				try {
+					Integer.parseInt(anoObtencion);
+				} catch (NumberFormatException e){
+					throw new Exception("Error en el año de obtención");
+				}
+				try {
+					if (paisDAO.get(Integer.parseInt(paisGrado)) == null)
+						throw new Exception("Error en país de la institucion ");
+				} catch (NumberFormatException e){
+					throw new Exception("Error en país de la institución");
+				}
 
 				int j = 1;
 
@@ -175,10 +196,19 @@ public class ValidationFilter implements Filter {
 						if (institucion == null
 								|| institucion.trim().equals(""))
 							throw new Exception("Error en institucion " + i);
-						Integer.parseInt(anoObtencion);
-						if (paisDAO.get(Integer.parseInt(paisGrado)) == null)
+						try {
+							Integer.parseInt(anoObtencion);
+						} catch (NumberFormatException e){
+							throw new Exception("Error en año de obtención " + i);
+						}
+						try {
+							if (paisDAO.get(Integer.parseInt(paisGrado)) == null)
+								throw new Exception(
+										"Error en país de la institucion " + i);
+						} catch (NumberFormatException e){
 							throw new Exception(
 									"Error en país de la institucion " + i);
+						}
 						j++;
 					}
 				}
@@ -228,7 +258,7 @@ public class ValidationFilter implements Filter {
 					throw new Exception("Error en Carta Recomendación 2");
 			} catch (Exception e) {
 				e.printStackTrace();
-				response.sendRedirect(request.getContextPath() + ERROR_PAGE);
+				response.sendRedirect(request.getContextPath() + ERROR_PAGE + "?msg=" + URLEncoder.encode(e.getMessage(), "UTF-8"));
 				return;
 			}
 			chain.doFilter(req, res);

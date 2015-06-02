@@ -40,9 +40,13 @@
 				500</b> El evento ha sido notificado a nuestro equipo técnico el cual se
 			encuentra trabajando en el problema.
 		</p>
-		<p ${param.type==null ? '' : 'hidden' }>¡Se ha producido un error
+		<p ${param.type==null && param.msg==null ? '' : 'hidden' }>¡Se ha producido un error
 			inesperado! El evento ha sido notificado a nuestro equipo técnico el
 			cual se encuentra trabajando en el problema.</p>
+
+		<p ${param.type==null && param.msg!=null ? '' : 'hidden' }>Se ha producido el
+		siguiente error al procesar la solicitud: <br>
+		<%= new String(request.getParameter("msg").getBytes("iso-8859-1"), "UTF-8") %></p>
 
 
 		<p>
