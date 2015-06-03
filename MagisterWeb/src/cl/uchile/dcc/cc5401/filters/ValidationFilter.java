@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Enumeration;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -29,7 +30,7 @@ import cl.uchile.dcc.cc5401.model.dto.PostulacionDTO;
 import cl.uchile.dcc.cc5401.util.Validacion;
 
 @WebFilter("/app/form")
-@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 4, maxRequestSize = 1024 * 1024 * 4 * 10)
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 10, maxRequestSize = 1024 * 1024 * 6 * 10)
 public class ValidationFilter implements Filter {
 
 	private static final String ERROR_PAGE = "/error.jsp";
@@ -62,6 +63,12 @@ public class ValidationFilter implements Filter {
 		if (request.getMethod().equalsIgnoreCase("POST")) {
 			// TODO: validar formulario
 			try {
+				try{
+					//va tirar excepcion si se supera tamaño maximo de archivo
+					request.getParts();
+				} catch(Exception e){
+					throw new Exception("Se superó el tamaño máximo de los archivos.");
+				}
 				String nombre = request.getParameter("nombre").trim();
 				if (nombre == null || nombre.equals("")
 						|| !Validacion.validateName(nombre))
@@ -258,7 +265,12 @@ public class ValidationFilter implements Filter {
 					throw new Exception("Error en Carta Recomendación 2");
 			} catch (Exception e) {
 				e.printStackTrace();
-				response.sendRedirect(request.getContextPath() + ERROR_PAGE + "?msg=" + URLEncoder.encode(e.getMessage(), "UTF-8"));
+				//System.err.println(e.getMessage());
+				if(e.getMessage() != null){
+					response.sendRedirect(request.getContextPath() + ERROR_PAGE + "?msg=" + URLEncoder.encode(e.getMessage(), "UTF-8"));					
+				} else {
+					response.sendRedirect(request.getContextPath() + ERROR_PAGE);
+				}
 				return;
 			}
 			chain.doFilter(req, res);

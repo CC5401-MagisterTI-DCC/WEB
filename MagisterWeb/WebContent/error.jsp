@@ -46,7 +46,7 @@
 
 		<p ${param.type==null && param.msg!=null ? '' : 'hidden' }>Se ha producido el
 		siguiente error al procesar la solicitud: <br>
-		<%= request.getParameter("msg") == null ? "" : new String(request.getParameter("msg").getBytes("iso-8859-1"), "UTF-8") %></p>
+		<%= request.getParameter("msg") == null ? "" : request.getParameter("msg") %></p>
 
 
 		<p>

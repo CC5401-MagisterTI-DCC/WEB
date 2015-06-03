@@ -305,7 +305,7 @@
 									<div class="controls">
 										<span class="label label-warning"><i
 											class="icon-info-sign icon-white"></i> Nota:</span>&nbsp;Sólo se
-										permiten archivos en formato PDF. Máximo 4MB por archivo.
+										permiten archivos en formato PDF. Máximo 10MB por archivo, 60MB en total.
 									</div>
 								</div>
 
@@ -495,7 +495,7 @@
 										<div class="controls">
 											<textarea id="comentario_beca" name="comentario_beca"
 												class=""
-												placeholder="Ingrese a que beca corresponde. Ej:CONICIT, etc"></textarea>
+												placeholder="Ingrese a que beca corresponde. Ej:CONICYT, etc"></textarea>
 										</div>
 									</div>
 
@@ -514,7 +514,7 @@
 									<div class="controls">
 										<span class="label label-warning"><i
 											class="icon-info-sign icon-white"></i> Nota:</span>&nbsp;Sólo se
-										permiten archivos en formato PDF. Máximo 4MB por archivo.
+										permiten archivos en formato PDF. Máximo 10MB por archivo, 60MB en total.
 									</div>
 								</div>
 
