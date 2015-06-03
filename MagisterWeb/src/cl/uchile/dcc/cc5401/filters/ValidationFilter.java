@@ -81,11 +81,11 @@ public class ValidationFilter implements Filter {
 					throw new Exception("Error en nacionalidad");
 				}
 
-				String genero = request.getParameter("genero").trim();
-				if (genero == null
-						|| genero.equals("")
-						|| (!genero.equalsIgnoreCase("Masculino") && !genero
-								.equalsIgnoreCase("Femenino")))
+				String genero = request.getParameter("genero");
+				if(genero==null)
+					genero = "";
+				if (!genero.equalsIgnoreCase("Masculino") && !genero
+								.equalsIgnoreCase("Femenino"))
 					throw new Exception("Error en el genero");
 
 				String fechaNacimiento = request.getParameter("fecha_nac")
