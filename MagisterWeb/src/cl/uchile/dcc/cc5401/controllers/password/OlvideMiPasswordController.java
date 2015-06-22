@@ -119,10 +119,6 @@ public class OlvideMiPasswordController extends HttpServlet {
 					e.printStackTrace();
 					System.out.println("Ocurrió un error al enviar mail a "
 							+ email);
-					// removeme
-					System.out.println("SUBJECT>> " + passwordResetSubject);
-					System.out.println("BODY>> " + passwordResetBodyP);
-					// removeme end
 				}
 				request.setAttribute("exito", true);
 				view.forward(request, response);
