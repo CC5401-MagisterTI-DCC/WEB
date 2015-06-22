@@ -757,6 +757,19 @@ CREATE TABLE IF NOT EXISTS `votacion` (
   KEY `id_postulacion_2` (`id_postulacion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cambio_password`
+--
+
+CREATE TABLE IF NOT EXISTS `cambio_password` (
+  `usuario` int(11) NOT NULL,
+  `codigo` varchar(26) NOT NULL,
+  `fechahora` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  KEY `usuario_codigo` (`usuario`,`codigo`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Constraints for dumped tables
 --
@@ -856,6 +869,12 @@ ALTER TABLE `votacion`
   ADD CONSTRAINT `votacion_postulacion` FOREIGN KEY (`id_postulacion`) REFERENCES `postulacion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `votacion_tipo_voto` FOREIGN KEY (`id_tipo_voto`) REFERENCES `tipo_voto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `votacion_usuario` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `cambio_password`
+--
+ALTER TABLE `cambio_password`
+  ADD CONSTRAINT `cambio_password_ibfk_1` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
