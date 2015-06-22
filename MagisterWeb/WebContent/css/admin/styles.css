@@ -36,16 +36,44 @@ body {
 	box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
 }
 
+#login .big-form {
+	max-width: 500px;
+}
+
+#login .medium-form {
+	max-width: 400px;
+}
+
 #login .form-signin .form-signin-heading,#login .form-signin .checkbox {
 	margin-bottom: 10px;
 }
 
-#login .form-signin input[type="text"],#login .form-signin input[type="password"]
+#login .form-signin .input-prepend {
+	margin-bottom: 0px;
+}
+
+#login .form-signin .input-prepend .add-on {
+	float: left;
+}
+
+
+#login .form-signin .input-prepend input[type="text"] {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+#login .form-signin input[type="text"],#login .form-signin input[type="password"], #login .form-signin input[type="email"], #login .form-signin .add-on
 	{
 	font-size: 16px;
 	height: auto;
 	margin-bottom: 15px;
 	padding: 7px 9px;
+}
+
+.olvide-mi-password {
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: -10px;
 }
 
 /** 2 level sub menu **/

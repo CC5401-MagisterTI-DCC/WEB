@@ -99,6 +99,36 @@ Programa de Educación Continua
       <param-name>quartz:start-on-load</param-name>
       <param-value>true</param-value>
   </context-param>
+  <context-param>
+    <param-name>paginaNuevaPassword</param-name>
+    <param-value>http://inscripcion-mti.dcc.uchile.cl/mti/app/nuevaPassword</param-value>
+  </context-param>  
+  <context-param>
+  	<param-name>passwordResetSubject</param-name>
+  	<param-value>Solicitud para reestablecer contraseña</param-value>
+  </context-param>
+    <context-param>
+  	<param-name>passwordResetBody</param-name>
+  	<param-value>Estimado (a) @usuario:
+
+Alguien desde la dirección IP de @ip ha solicitado reestablecer
+la contraseña de esta cuenta. Si no ha sido ud. simplemente ignore
+este correo. Si ha sido ud. por favor ingrese al siguiente enlace:
+
+@paginaNuevaPassword?usuario=@usuario&amp;codigo=@codigo
+
+(si el enlace no es clickeable, copiar y pegar la dirección en la 
+barra del navegador)
+
+Por motivos de seguridad el enlace envíado tiene una validez de 12 horas
+a contar desde el momento en que se envío este email.
+
+Atentamente,
+PEC.
+
+PD: Este es un correo generado automáticamente. No lo conteste. 
+  	</param-value>
+  </context-param>
   <listener>
     <listener-class>org.quartz.ee.servlet.QuartzInitializerListener</listener-class>
   </listener>

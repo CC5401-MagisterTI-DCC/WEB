@@ -41,6 +41,11 @@
 			<input type="password" name="password" id="password"
 				class="input-block-level" placeholder="Contraseña" required>
 			<input class="btn btn-large btn-block btn-primary" type="submit" id="submit_button" value="Ingresar">
+			<div class="olvide-mi-password">
+				<a href="${root}/app/olvideMiPassword">Olvidé mi contraseña</a>
+			</div>
+			
+			
 		</form>
 
 	</div>

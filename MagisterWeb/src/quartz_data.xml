@@ -69,8 +69,21 @@ Magister T.I.
 				<name>MailScheduler</name>
 				<job-name>MailScheduler</job-name>
 				<cron-expression>0 0 8 ? * MON,THU *</cron-expression>
+			</cron>			
+		</trigger>
+
+		<job>
+			<name>CambioPasswordScheduler</name>
+			<job-class>cl.uchile.dcc.cc5401.scheduling.CambioPasswordScheduler</job-class>
+		</job>
+		<trigger>
+			<cron>
+				<name>CambioPasswordScheduler</name>
+				<job-name>CambioPasswordScheduler</job-name>
+				<cron-expression>0 0 3 1/1 * ? *</cron-expression>
 			</cron>
 		</trigger>
+		
 	</schedule>
 
 </job-scheduling-data>
