@@ -1,0 +1,6 @@
+.classpath
+.proyect
+.idea
+build/
+/MagisterWeb/bin
+*.iml
